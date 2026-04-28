@@ -67,10 +67,15 @@ export const react: OxlintConfig = {
     'jsx-a11y/no-noninteractive-tabindex': 'warn',
     'jsx-a11y/no-static-element-interactions': 'warn',
 
-    'react-perf/jsx-no-new-object-as-prop': 'warn',
-    'react-perf/jsx-no-new-array-as-prop': 'warn',
-    'react-perf/jsx-no-new-function-as-prop': 'warn',
-    'react-perf/jsx-no-jsx-as-prop': 'warn',
+    // React 17+ JSX transform makes `import React` unnecessary.
+    'react/react-in-jsx-scope': 'off',
+
+    // React Compiler (or manual `useMemo`/`useCallback`) handles these
+    // referential-equality concerns better than lint warnings.
+    'react-perf/jsx-no-new-object-as-prop': 'off',
+    'react-perf/jsx-no-new-array-as-prop': 'off',
+    'react-perf/jsx-no-new-function-as-prop': 'off',
+    'react-perf/jsx-no-jsx-as-prop': 'off',
 
     // Component / JSX style preferences.
     // Note: oxlint does not yet port `react/function-component-definition`
