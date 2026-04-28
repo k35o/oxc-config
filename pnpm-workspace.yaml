@@ -2,7 +2,7 @@ blockExoticSubdeps: true
 
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - '@k35o/*'
+  - '@k8o/*'
 
 strictDepBuilds: true
 

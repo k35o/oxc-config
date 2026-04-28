@@ -1,4 +1,4 @@
-# `@k35o/oxc-config`
+# `@k8o/oxc-config`
 
 Shareable [oxlint](https://oxc.rs/docs/guide/usage/linter) + [oxfmt](https://github.com/oxc-project/oxfmt) configurations for TypeScript / React / Next.js / Backend / Tailwind / Test projects.
 
@@ -11,7 +11,7 @@ Strict by default. Composable via oxlint's native `extends`.
 Vite+ bundles oxlint, oxfmt, and `oxlint-tsgolint`, so you only need to add this config (and the optional Tailwind plugin):
 
 ```bash
-pnpm add -D vite-plus @k35o/oxc-config
+pnpm add -D vite-plus @k8o/oxc-config
 # Optional: only when you use the `tailwind` lint config
 pnpm add -D oxlint-tailwindcss @oxlint/plugins
 ```
@@ -21,7 +21,7 @@ pnpm add -D oxlint-tailwindcss @oxlint/plugins
 ### With standalone oxlint / oxfmt
 
 ```bash
-pnpm add -D oxlint @k35o/oxc-config
+pnpm add -D oxlint @k8o/oxc-config
 # Add only what you actually use:
 pnpm add -D oxfmt                # if you use the `fmt` preset
 pnpm add -D oxlint-tailwindcss   # if you use the `tailwind` lint config
@@ -37,7 +37,7 @@ pnpm add -D oxlint-tsgolint      # for type-aware rules (typescript / react / ne
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite-plus';
-import { fmt, nextjs, tailwind, test } from '@k35o/oxc-config';
+import { fmt, nextjs, tailwind, test } from '@k8o/oxc-config';
 
 export default defineConfig({
   fmt,
@@ -89,7 +89,7 @@ Notes for Vite+ users:
 ```ts
 // oxlint.config.ts
 import { defineConfig } from 'oxlint';
-import { nextjs, tailwind, test } from '@k35o/oxc-config';
+import { nextjs, tailwind, test } from '@k8o/oxc-config';
 
 export default defineConfig({
   extends: [nextjs, tailwind],
@@ -124,16 +124,16 @@ tailwind (compose with react / nextjs via extends)
 fmt      (oxfmt preset, independent of lint layers)
 ```
 
-| Entry                         | Use for                                         |
-| ----------------------------- | ----------------------------------------------- |
-| `@k35o/oxc-config/base`       | Lowest common denominator (no TS, no React)     |
-| `@k35o/oxc-config/typescript` | Pure TypeScript libraries / CLIs                |
-| `@k35o/oxc-config/react`      | Any React app or library                        |
-| `@k35o/oxc-config/nextjs`     | Next.js App Router                              |
-| `@k35o/oxc-config/backend`    | Node, Cloudflare Workers, Hono                  |
-| `@k35o/oxc-config/test`       | Vitest test files (use in `overrides`)          |
-| `@k35o/oxc-config/tailwind`   | Tailwind CSS v4 (composes with React / Next.js) |
-| `@k35o/oxc-config/fmt`        | oxfmt preset (single quotes, sort imports, …)   |
+| Entry                        | Use for                                         |
+| ---------------------------- | ----------------------------------------------- |
+| `@k8o/oxc-config/base`       | Lowest common denominator (no TS, no React)     |
+| `@k8o/oxc-config/typescript` | Pure TypeScript libraries / CLIs                |
+| `@k8o/oxc-config/react`      | Any React app or library                        |
+| `@k8o/oxc-config/nextjs`     | Next.js App Router                              |
+| `@k8o/oxc-config/backend`    | Node, Cloudflare Workers, Hono                  |
+| `@k8o/oxc-config/test`       | Vitest test files (use in `overrides`)          |
+| `@k8o/oxc-config/tailwind`   | Tailwind CSS v4 (composes with React / Next.js) |
+| `@k8o/oxc-config/fmt`        | oxfmt preset (single quotes, sort imports, …)   |
 
 ## Design principles
 

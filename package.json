@@ -1,5 +1,5 @@
 {
-  "name": "@k35o/oxc-config",
+  "name": "@k8o/oxc-config",
   "version": "0.1.0",
   "description": "Shareable oxlint + oxfmt configurations for TypeScript / React / Next.js / Backend / Tailwind / Test projects.",
   "keywords": [
