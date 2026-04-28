@@ -10,44 +10,6 @@ import { react } from './react.js';
 export const nextjs: OxlintConfig = {
   extends: [react],
   plugins: [...NEXTJS_PLUGINS],
-  overrides: [
-    {
-      // Next.js framework files may export framework-specific named values
-      // that the base `only-export-components` rule would otherwise flag.
-      files: [
-        '**/app/**/{page,layout,loading,error,global-error,not-found,template,default,route}.{js,jsx,ts,tsx}',
-        '**/pages/**/*.{js,jsx,ts,tsx}',
-        '**/middleware.{js,ts}',
-      ],
-      rules: {
-        'react/only-export-components': [
-          'error',
-          {
-            allowConstantExport: true,
-            allowExportNames: [
-              'config',
-              'dynamic',
-              'dynamicParams',
-              'experimental_ppr',
-              'fetchCache',
-              'generateMetadata',
-              'generateStaticParams',
-              'generateViewport',
-              'getServerSideProps',
-              'getStaticPaths',
-              'getStaticProps',
-              'maxDuration',
-              'metadata',
-              'preferredRegion',
-              'revalidate',
-              'runtime',
-              'viewport',
-            ],
-          },
-        ],
-      },
-    },
-  ],
   rules: {
     'nextjs/no-html-link-for-pages': 'error',
     'nextjs/no-sync-scripts': 'error',
