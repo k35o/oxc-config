@@ -34,7 +34,9 @@ export const base: OxlintConfig = {
     'import/no-self-import': 'error',
     'import/no-duplicates': 'error',
     'import/no-mutable-exports': 'error',
-    'import/no-default-export': 'error',
+    // Storybook stories, Next.js pages, and many tooling configs require
+    // default exports — leave it off in the shared base.
+    'import/no-default-export': 'off',
 
     'promise/no-nesting': 'warn',
     'promise/no-promise-in-callback': 'warn',

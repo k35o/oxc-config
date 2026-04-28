@@ -12,16 +12,14 @@ export const nextjs: OxlintConfig = {
   plugins: [...NEXTJS_PLUGINS],
   overrides: [
     {
-      // Next.js framework files require default exports and may export
-      // framework-specific named values that the base `only-export-components`
-      // rule would otherwise flag.
+      // Next.js framework files may export framework-specific named values
+      // that the base `only-export-components` rule would otherwise flag.
       files: [
         '**/app/**/{page,layout,loading,error,global-error,not-found,template,default,route}.{js,jsx,ts,tsx}',
         '**/pages/**/*.{js,jsx,ts,tsx}',
         '**/middleware.{js,ts}',
       ],
       rules: {
-        'import/no-default-export': 'off',
         'react/only-export-components': [
           'error',
           {
