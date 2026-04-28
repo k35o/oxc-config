@@ -71,5 +71,21 @@ export const react: OxlintConfig = {
     'react-perf/jsx-no-new-array-as-prop': 'warn',
     'react-perf/jsx-no-new-function-as-prop': 'warn',
     'react-perf/jsx-no-jsx-as-prop': 'warn',
+
+    // Component / JSX style preferences.
+    // Note: oxlint does not yet port `react/function-component-definition`
+    // (arrow vs declaration), so consistency is left to oxfmt + reviewers.
+    'react/jsx-boolean-value': ['error', 'never'],
+    'react/jsx-curly-brace-presence': [
+      'error',
+      { props: 'never', children: 'never' },
+    ],
+
+    // Cherry-picked from `restriction` category.
+    'react/button-has-type': 'error',
+    // Vite/Next.js Fast Refresh requires component files to export only
+    // components. `allowConstantExport` permits sibling constants like
+    // `export const COLORS = [...]` which Fast Refresh handles fine.
+    'react/only-export-components': ['error', { allowConstantExport: true }],
   },
 };

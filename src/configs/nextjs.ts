@@ -10,6 +10,46 @@ import { react } from './react.js';
 export const nextjs: OxlintConfig = {
   extends: [react],
   plugins: [...NEXTJS_PLUGINS],
+  overrides: [
+    {
+      // Next.js framework files require default exports and may export
+      // framework-specific named values that the base `only-export-components`
+      // rule would otherwise flag.
+      files: [
+        '**/app/**/{page,layout,loading,error,global-error,not-found,template,default,route}.{js,jsx,ts,tsx}',
+        '**/pages/**/*.{js,jsx,ts,tsx}',
+        '**/middleware.{js,ts}',
+      ],
+      rules: {
+        'import/no-default-export': 'off',
+        'react/only-export-components': [
+          'error',
+          {
+            allowConstantExport: true,
+            allowExportNames: [
+              'config',
+              'dynamic',
+              'dynamicParams',
+              'experimental_ppr',
+              'fetchCache',
+              'generateMetadata',
+              'generateStaticParams',
+              'generateViewport',
+              'getServerSideProps',
+              'getStaticPaths',
+              'getStaticProps',
+              'maxDuration',
+              'metadata',
+              'preferredRegion',
+              'revalidate',
+              'runtime',
+              'viewport',
+            ],
+          },
+        ],
+      },
+    },
+  ],
   rules: {
     'nextjs/no-html-link-for-pages': 'error',
     'nextjs/no-sync-scripts': 'error',
@@ -32,5 +72,17 @@ export const nextjs: OxlintConfig = {
     'nextjs/no-styled-jsx-in-document': 'warn',
     'nextjs/no-before-interactive-script-outside-document': 'warn',
     'nextjs/no-assign-module-variable': 'error',
+
+    // Allow Next.js dynamic-segment filenames (`[id].tsx`, `[...slug].tsx`,
+    // `[[...slug]].tsx`) to bypass kebab-case enforcement. Route-group and
+    // parallel-route folders (`(group)`, `@modal`) are directories and are
+    // not checked by `filename-case`.
+    'unicorn/filename-case': [
+      'error',
+      {
+        case: 'kebabCase',
+        ignore: ['^\\[.+\\]', '^\\[\\[.+\\]\\]'],
+      },
+    ],
   },
 };

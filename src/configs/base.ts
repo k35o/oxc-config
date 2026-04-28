@@ -13,10 +13,10 @@ export const base: OxlintConfig = {
   categories: {
     correctness: 'error',
     suspicious: 'error',
-    perf: 'warn',
-    pedantic: 'off',
+    perf: 'error',
+    pedantic: 'error',
+    nursery: 'error',
     style: 'off',
-    nursery: 'off',
     restriction: 'off',
   },
   rules: {
@@ -34,7 +34,7 @@ export const base: OxlintConfig = {
     'import/no-self-import': 'error',
     'import/no-duplicates': 'error',
     'import/no-mutable-exports': 'error',
-    'import/no-default-export': 'warn',
+    'import/no-default-export': 'error',
 
     'promise/no-nesting': 'warn',
     'promise/no-promise-in-callback': 'warn',
@@ -54,5 +54,31 @@ export const base: OxlintConfig = {
     'unicorn/prefer-string-starts-ends-with': 'error',
     'unicorn/throw-new-error': 'error',
     'unicorn/no-useless-undefined': 'off',
+
+    // Enforce kebab-case filenames. Next.js dynamic / route-group files
+    // (`[id].tsx`, `(group)/page.tsx`) need overrides on the consumer.
+    'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+
+    // Cherry-picked from `restriction` category.
+    'unicorn/prefer-modern-math-apis': 'error',
+    'unicorn/prefer-number-properties': 'error',
+
+    // Cherry-picked from `style` category.
+    'unicorn/numeric-separators-style': 'error',
+    'no-implicit-coercion': 'error',
+    // Enforce destructuring for objects only — arrays are often clearer
+    // accessed by index (e.g. `arr[0]`).
+    'prefer-destructuring': ['error', { array: false, object: true }],
+    'arrow-body-style': ['error', 'as-needed'],
+
+    // Project-specific size limits — leave to the consumer.
+    'max-lines': 'off',
+    'max-lines-per-function': 'off',
+    'max-depth': 'off',
+    'max-classes-per-file': 'off',
+    'max-nested-callbacks': 'off',
+
+    // TODO / FIXME comments are an industry-standard tool, not a smell.
+    'no-warning-comments': 'off',
   },
 };

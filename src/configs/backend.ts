@@ -13,7 +13,10 @@ export const backend: OxlintConfig = {
   rules: {
     'no-console': 'off',
 
-    'unicorn/no-process-exit': 'off',
+    // Backend entry files (Workers `export default { fetch }`, Hono apps,
+    // Next.js API route handlers, etc.) require default exports.
+    'import/no-default-export': 'off',
+
     'node/no-exports-assign': 'error',
     'node/no-new-require': 'error',
     'node/no-path-concat': 'error',
