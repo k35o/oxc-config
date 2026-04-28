@@ -1,0 +1,50 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>k35o/renovate-config"],
+  "mise": {
+    "enabled": true,
+    "managerFilePatterns": ["/^mise\\.toml$/"]
+  },
+  "prConcurrentLimit": 10,
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "oxlint",
+        "oxfmt",
+        "oxlint-tailwindcss",
+        "oxlint-tsgolint",
+        "@oxlint/plugins"
+      ],
+      "groupName": "oxc dependencies",
+      "labels": ["oxc-update"]
+    },
+    {
+      "matchPackageNames": ["/^vitest$/", "/@vitest/"],
+      "groupName": "vitest dependencies"
+    },
+    {
+      "matchPackageNames": ["/^@changesets/"],
+      "groupName": "changesets dependencies"
+    },
+    {
+      "matchPackageNames": ["tsdown"],
+      "groupName": "tsdown dependencies"
+    },
+    {
+      "matchPackageNames": ["/^pnpm$/"],
+      "groupName": "pnpm dependencies"
+    },
+    {
+      "matchPackageNames": ["/^node$/"],
+      "groupName": "node dependencies"
+    },
+    {
+      "matchPackageNames": ["changesets/action"],
+      "enabled": false
+    },
+    {
+      "matchDepTypes": ["peerDependencies"],
+      "enabled": false
+    }
+  ]
+}
