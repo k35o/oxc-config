@@ -37,6 +37,11 @@ export const base: OxlintConfig = {
     // Storybook stories, Next.js pages, and many tooling configs require
     // default exports — leave it off in the shared base.
     'import/no-default-export': 'off',
+    // Stylesheets and font files are imported for their side effects.
+    'import/no-unassigned-import': [
+      'error',
+      { allow: ['**/*.css', '**/*.scss', '**/*.sass', '**/*.less'] },
+    ],
 
     'promise/no-nesting': 'warn',
     'promise/no-promise-in-callback': 'warn',
