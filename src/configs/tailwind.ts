@@ -10,7 +10,9 @@ import type { OxlintConfig } from 'oxlint';
 export const tailwind: OxlintConfig = {
   jsPlugins: ['oxlint-tailwindcss'],
   rules: {
-    'tailwindcss/no-unknown-classes': 'error',
+    // `no-unknown-classes` was flaky in real-world projects (resolved
+    // class names did not always match what Tailwind v4 produces).
+    'tailwindcss/no-unknown-classes': 'off',
     'tailwindcss/no-duplicate-classes': 'error',
     'tailwindcss/no-conflicting-classes': 'error',
     'tailwindcss/no-deprecated-classes': 'error',
@@ -19,7 +21,9 @@ export const tailwind: OxlintConfig = {
     'tailwindcss/no-contradicting-variants': 'warn',
 
     'tailwindcss/enforce-canonical': 'warn',
-    'tailwindcss/enforce-sort-order': 'warn',
+    // oxfmt's `sortTailwindcss: true` already canonically orders classes;
+    // running this rule on top would just duplicate the work.
+    'tailwindcss/enforce-sort-order': 'off',
     'tailwindcss/enforce-shorthand': 'warn',
     'tailwindcss/enforce-consistent-important-position': 'warn',
     'tailwindcss/enforce-negative-arbitrary-values': 'warn',
