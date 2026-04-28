@@ -57,6 +57,12 @@ export const typescript: OxlintConfig = {
     // itself does not recommend it). Consumers can opt in if they want.
     'typescript/prefer-readonly-parameter-types': 'off',
 
+    // CSS custom properties (`as CSSProperties`), JSON.parse results, and
+    // synthetic event refinements all hit `no-unsafe-type-assertion` even
+    // though they are the idiomatic way to express those values in TS.
+    // The other unsafe-* rules still catch most real `any` leaks.
+    'typescript/no-unsafe-type-assertion': 'off',
+
     // Cherry-picked from `restriction` category.
     'oxc/no-const-enum': 'error',
     'typescript/no-non-null-asserted-nullish-coalescing': 'error',
