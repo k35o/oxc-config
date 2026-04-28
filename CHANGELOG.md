@@ -1,5 +1,15 @@
 # @k8o/oxc-config
 
+## 0.1.2
+
+### Patch Changes
+
+- [#5](https://github.com/k35o/oxc-config/pull/5) [`784893a`](https://github.com/k35o/oxc-config/commit/784893a286890e7a21199a8778eaf5de4147ad72) Thanks [@k35o](https://github.com/k35o)! - Adopt three real-world overrides as defaults so consumers do not have to repeat them:
+
+  - `react/only-export-components`: off (compound components like `export const Foo = { Root, Item } as const` are common). The `nextjs.ts` override that re-enabled it for framework files is removed as no longer relevant.
+  - `typescript/no-unsafe-type-assertion`: off (CSS custom properties, `JSON.parse` results, and synthetic event refinements legitimately need `as`).
+  - `import/no-unassigned-import`: allow `**/*.{css,scss,sass,less}` so stylesheet side-effect imports do not fire.
+
 ## 0.1.1
 
 ### Patch Changes
