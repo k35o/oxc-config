@@ -32,11 +32,12 @@ jobs:
       - name: Install latest npm
         run: npm install -g npm@latest
 
+      # npm OIDC trusted publishing: requires the package to be linked to
+      # this repo + workflow under npmjs.com → Package settings → Publishing
+      # access. No NPM_TOKEN needed; provenance is signed automatically.
       - name: Create release Pull Request or publish to NPM
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
         with:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
