@@ -12,7 +12,15 @@ const repoRoot = resolve(here, '..');
 // `oxlint` package itself to drive the CLI.
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
-const fixtures = ['base', 'typescript', 'react', 'nextjs', 'backend', 'test', 'tailwind'] as const;
+const fixtures = [
+  'base',
+  'typescript',
+  'react',
+  'nextjs',
+  'backend',
+  'test',
+  'tailwind',
+] as const;
 
 describe('print-config snapshots', () => {
   for (const name of fixtures) {
@@ -24,8 +32,8 @@ describe('print-config snapshots', () => {
         // NODE_PATH, which makes the standalone oxlint binary resolve
         // vite-plus's config loader and reject our oxlint.config.ts.
         const cleanEnv = {
-          PATH: process.env['PATH'] ?? '',
-          HOME: process.env['HOME'] ?? '',
+          PATH: process.env.PATH ?? '',
+          HOME: process.env.HOME ?? '',
         };
         output = execFileSync(
           process.execPath,
@@ -38,9 +46,20 @@ describe('print-config snapshots', () => {
           },
         );
       } catch (err) {
-        const e = err as { stdout?: string; stderr?: string };
+        // execFileSync with encoding: 'utf8' attaches stderr/stdout strings
+        // to the thrown error, but the exception is typed as `unknown`.
+        const isObj = typeof err === 'object' && err !== null;
+        const stderr =
+          isObj && 'stderr' in err && typeof err.stderr === 'string'
+            ? err.stderr
+            : '';
+        const stdout =
+          isObj && 'stdout' in err && typeof err.stdout === 'string'
+            ? err.stdout
+            : '';
         throw new Error(
-          `oxlint --print-config failed for "${name}":\nstderr:\n${e.stderr ?? ''}\nstdout:\n${e.stdout ?? ''}`,
+          `oxlint --print-config failed for "${name}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
+          { cause: err },
         );
       }
       const config: unknown = JSON.parse(output);

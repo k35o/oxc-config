@@ -9,11 +9,22 @@
  *   here as a separate entry.
  */
 
-export const BASE_PLUGINS = ['eslint', 'oxc', 'unicorn', 'import', 'promise'] as const;
+export const BASE_PLUGINS = [
+  'eslint',
+  'oxc',
+  'unicorn',
+  'import',
+  'promise',
+] as const;
 
 export const TS_PLUGINS = [...BASE_PLUGINS, 'typescript'] as const;
 
-export const REACT_PLUGINS = [...TS_PLUGINS, 'react', 'jsx-a11y', 'react-perf'] as const;
+export const REACT_PLUGINS = [
+  ...TS_PLUGINS,
+  'react',
+  'jsx-a11y',
+  'react-perf',
+] as const;
 
 export const NEXTJS_PLUGINS = [...REACT_PLUGINS, 'nextjs'] as const;
 
