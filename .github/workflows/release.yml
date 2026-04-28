@@ -16,28 +16,28 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        with:
+          client-id: ${{ secrets.K35O_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.K35O_BOT_PRIVATE_KEY }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
-          persist-credentials: false
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Install
         uses: ./.github/composite-actions/install
 
-      - name: Build
-        run: pnpm build
-
       - name: Install latest npm
         run: npm install -g npm@latest
 
-      # npm OIDC trusted publishing: requires the package to be linked to
-      # this repo + workflow under npmjs.com → Package settings → Publishing
-      # access. No NPM_TOKEN needed; provenance is signed automatically.
       - name: Create release Pull Request or publish to NPM
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
         with:
           publish: pnpm release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
