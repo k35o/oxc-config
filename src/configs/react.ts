@@ -88,9 +88,9 @@ export const react: OxlintConfig = {
 
     // Cherry-picked from `restriction` category.
     'react/button-has-type': 'error',
-    // Vite/Next.js Fast Refresh requires component files to export only
-    // components. `allowConstantExport` permits sibling constants like
-    // `export const COLORS = [...]` which Fast Refresh handles fine.
-    'react/only-export-components': ['error', { allowConstantExport: true }],
+    // Compound components (`export const Foo = { Root, Item } as const`)
+    // are common enough that enforcing only-component exports causes more
+    // friction than the marginal Fast Refresh benefit is worth.
+    'react/only-export-components': 'off',
   },
 };
