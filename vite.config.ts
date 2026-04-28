@@ -1,30 +1,24 @@
 import { defineConfig } from 'vite-plus';
 
-// Dogfood the published presets. Built artifacts are required first
-// (`pnpm build`) — CI runs build before lint, and local dev should too.
-import { fmt } from './dist/configs/fmt.mjs';
-import { typescript } from './dist/configs/typescript.mjs';
-
+// Inline a minimal fmt / lint config here. The full presets live under
+// `src/configs/` but vp's lint/fmt config loader does not transform TS
+// imports, so we cannot reference them from this file. Importing from
+// `dist/` would create a chicken-and-egg in CI (vp pack loads this
+// config before producing dist).
 export default defineConfig({
   fmt: {
-    ...fmt,
+    singleQuote: true,
+    trailingComma: 'all',
+    printWidth: 80,
+    sortImports: true,
+    sortPackageJson: true,
     ignorePatterns: ['CHANGELOG.md'],
   },
   lint: {
-    extends: [typescript],
     ignorePatterns: ['CHANGELOG.md'],
     options: {
       typeAware: true,
     },
-    overrides: [
-      {
-        // Config files require default exports.
-        files: ['vite.config.ts', 'tests/fixtures/**/oxlint.config.ts'],
-        rules: {
-          'import/no-default-export': 'off',
-        },
-      },
-    ],
   },
   pack: {
     entry: ['src/**/*.ts'],
