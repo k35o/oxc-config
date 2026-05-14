@@ -47,6 +47,7 @@ jobs:
 
   changeset:
     name: Changeset
+    if: github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
