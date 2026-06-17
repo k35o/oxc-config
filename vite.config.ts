@@ -12,10 +12,10 @@ export default defineConfig({
     printWidth: 80,
     sortImports: true,
     sortPackageJson: true,
-    ignorePatterns: ['CHANGELOG.md'],
+    ignorePatterns: ['CHANGELOG.md', 'previews/**'],
   },
   lint: {
-    ignorePatterns: ['CHANGELOG.md'],
+    ignorePatterns: ['CHANGELOG.md', 'previews/**'],
     options: {
       typeAware: true,
     },

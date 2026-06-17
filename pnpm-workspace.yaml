@@ -3,6 +3,7 @@ blockExoticSubdeps: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@k8o/*'
+  - 'vite-plus-inspector'
 
 strictDepBuilds: true
 
