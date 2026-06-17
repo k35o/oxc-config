@@ -9,6 +9,10 @@ strictDepBuilds: true
 
 allowBuilds:
   esbuild: false
+  # wranglerの依存。画像最適化用だが pages deploy では不要
+  sharp: false
+  # wranglerの依存。pages deployはAPIアップロードのみでworkerd実行は不要
+  workerd: false
 
 verifyDepsBeforeRun: install
 
