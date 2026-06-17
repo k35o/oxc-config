@@ -12,10 +12,18 @@ export default defineConfig({
     printWidth: 80,
     sortImports: true,
     sortPackageJson: true,
-    ignorePatterns: ['CHANGELOG.md'],
+    ignorePatterns: ['CHANGELOG.md', 'previews/**'],
   },
   lint: {
-    ignorePatterns: ['CHANGELOG.md'],
+    // scripts/** と .github/scripts/** は tsconfig 外の tooling 用 .mjs。
+    // typeAware lint は project に含まれないファイルで失敗するため除外する。
+    ignorePatterns: [
+      'CHANGELOG.md',
+      'previews/**',
+      'dist-preview/**',
+      'scripts/**',
+      '.github/scripts/**',
+    ],
     options: {
       typeAware: true,
     },

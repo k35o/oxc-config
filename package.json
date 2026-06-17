@@ -100,6 +100,15 @@
     "check": "vp check",
     "check:write": "vp check --fix",
     "typecheck": "tsc --noEmit",
+    "preview": "vp-inspect previews/nextjs",
+    "preview:base": "vp-inspect previews/base",
+    "preview:typescript": "vp-inspect previews/typescript",
+    "preview:react": "vp-inspect previews/react",
+    "preview:nextjs": "vp-inspect previews/nextjs",
+    "preview:backend": "vp-inspect previews/backend",
+    "preview:test": "vp-inspect previews/test",
+    "preview:tailwind": "vp-inspect previews/tailwind",
+    "preview:build": "node scripts/build-previews.mjs",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
@@ -114,7 +123,9 @@
     "oxlint": "1.66.0",
     "oxlint-tailwindcss": "0.8.0",
     "typescript": "6.0.3",
-    "vite-plus": "0.1.22"
+    "vite-plus": "0.1.22",
+    "vite-plus-inspector": "0.1.0",
+    "wrangler": "4.98.0"
   },
   "peerDependencies": {
     "oxfmt": ">=0.43.0",

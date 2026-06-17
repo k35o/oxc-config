@@ -1,0 +1,66 @@
+name: Preview
+
+on:
+  pull_request:
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Preset previews
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install
+        uses: ./.github/composite-actions/install
+
+      - name: Build preset previews
+        # 各プリセットの effective ルールを自己完結HTMLに書き出す（dist-preview/）。
+        # npx/pnpx は使わず、ローカルの vp-inspect / vp バイナリだけを実行する。
+        run: pnpm preview:build
+
+      - name: Publish previews to Cloudflare Pages
+        id: pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 31074c2d041f3ceb8a5bb3fc51dd3bfa
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # トークン未登録の間はスキップし、コメントはフォールバック表示になる
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo 'CLOUDFLARE_API_TOKEN が未登録のためPagesへの公開をスキップ'
+            exit 0
+          fi
+          pnpm exec wrangler pages project create oxc-config-preview --production-branch=main 2>/dev/null || true
+          pnpm exec wrangler pages deploy dist-preview --project-name=oxc-config-preview --branch="pr-$PR_NUMBER" --commit-dirty=true
+          echo "url=https://pr-$PR_NUMBER.oxc-config-preview.pages.dev" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview links on PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PREVIEW_URL: ${{ steps.pages.outputs.url }}
+        run: |
+          node .github/scripts/preview-comment.mjs > comment.md
+          marker='<!-- oxc-config-preview -->'
+          comment_id=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
+          # sticky comment: 既存があれば編集（PATCH）し、無ければ新規投稿する。
+          # push のたびに新規コメントが増えるのを防ぐ。
+          if [ -n "$comment_id" ]; then
+            gh api --method PATCH "repos/$REPO/issues/comments/$comment_id" -F body=@comment.md > /dev/null
+          else
+            gh api "repos/$REPO/issues/$PR_NUMBER/comments" -F body=@comment.md > /dev/null
+          fi

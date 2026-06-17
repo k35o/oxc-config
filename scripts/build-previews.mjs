@@ -1,0 +1,204 @@
+// 各プリセットの effective ルールを vite-plus-inspector で静的HTMLに書き出し、
+// それらをまとめる index.html を生成する。生成物は dist-preview/ に出力し、
+// Cloudflare Pages へそのままアップロードできる自己完結HTMLになる。
+//
+// セキュリティ: npx/pnpx は使わず、ローカルにインストールされた vp-inspect /
+// vp のバイナリ（node_modules/.bin）だけを実行する。
+import { spawnSync } from 'node:child_process';
+import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { delimiter, resolve } from 'node:path';
+
+const root = resolve(import.meta.dirname, '..');
+const previewsDir = resolve(root, 'previews');
+const outDir = resolve(root, 'dist-preview');
+const binDir = resolve(root, 'node_modules', '.bin');
+
+// node_modules/.bin を PATH 先頭に積み、vp-inspect と（その内部で呼ばれる）vp を
+// pnpm script 経由でなくても解決できるようにする。
+const env = {
+  ...process.env,
+  PATH: `${binDir}${delimiter}${process.env['PATH'] ?? ''}`,
+};
+
+// 各プリセットの一言説明。previews/ に増減があっても下のループは
+// ディレクトリ走査で追従する（説明が無いものは名前だけ表示）。
+const descriptions = {
+  base: 'すべての JS/TS プロジェクト向けの基本ルール',
+  typescript: 'base + TypeScript 向けルール',
+  react: 'typescript + React / Hooks / a11y',
+  nextjs: 'react + Next.js の規約',
+  backend: 'Node / サーバーコード向けの TypeScript ルール',
+  test: 'テストファイル向けの緩和',
+  tailwind: 'Tailwind CSS のクラス順序・検証',
+};
+
+const presets = readdirSync(previewsDir, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
+
+if (presets.length === 0) {
+  process.stderr.write(
+    'build-previews: previews/ にプリセットが見つかりません\n',
+  );
+  process.exit(1);
+}
+
+rmSync(outDir, { recursive: true, force: true });
+mkdirSync(outDir, { recursive: true });
+
+for (const preset of presets) {
+  const previewDir = resolve(previewsDir, preset);
+  const outFile = resolve(outDir, `${preset}.html`);
+  process.stdout.write(`\n▶ building preview: ${preset}\n`);
+  const result = spawnSync(
+    'vp-inspect',
+    [previewDir, '--output', outFile, '--no-open', '--no-watch'],
+    { cwd: root, env, stdio: 'inherit' },
+  );
+  if (result.status !== 0) {
+    process.stderr.write(
+      `build-previews: vp-inspect が失敗しました (preset=${preset}, status=${String(result.status)})\n`,
+    );
+    process.exit(result.status ?? 1);
+  }
+}
+
+writeFileSync(
+  resolve(outDir, 'index.html'),
+  renderIndex(presets, descriptions),
+);
+process.stdout.write(
+  `\n✓ wrote ${String(presets.length)} preview(s) + index.html to dist-preview/\n`,
+);
+
+/**
+ * @param {string[]} names
+ * @param {Record<string, string>} desc
+ * @returns {string}
+ */
+function renderIndex(names, desc) {
+  const cards = names
+    .map((name) => {
+      const label = esc(name);
+      const detail = esc(desc[name] ?? '');
+      return `      <a class="card" href="./${label}.html">
+        <span class="card-name">${label}</span>
+        <span class="card-desc">${detail}</span>
+      </a>`;
+    })
+    .join('\n');
+
+  return `<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@k8o/oxc-config — preset previews</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: oklch(99% 0.005 250);
+        --surface: oklch(100% 0 0);
+        --border: oklch(90% 0.01 250);
+        --fg: oklch(25% 0.02 250);
+        --muted: oklch(50% 0.02 250);
+        --accent: oklch(55% 0.18 250);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--fg);
+        font-family:
+          ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 1.6rem;
+      }
+      .lead {
+        margin: 0 0 32px;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 16px 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition:
+          border-color 0.15s,
+          transform 0.15s;
+      }
+      .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+      .card-name {
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
+      .card-desc {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      footer {
+        margin-top: 40px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      a.repo {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>@k8o/oxc-config</h1>
+      <p class="lead">
+        各 lint プリセットの effective ルールをブラウズできます。プリセットを選んでください。
+      </p>
+      <div class="grid">
+${cards}
+      </div>
+      <footer>
+        Generated by
+        <a class="repo" href="https://github.com/k35o/oxc-config">k35o/oxc-config</a>
+        with vite-plus-inspector.
+      </footer>
+    </main>
+  </body>
+</html>
+`;
+}
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+function esc(value) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
