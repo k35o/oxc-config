@@ -118,14 +118,14 @@
     "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
     "@oxlint/plugins": "1.66.0",
-    "@types/node": "24.12.4",
+    "@types/node": "24.13.1",
     "oxfmt": "0.51.0",
     "oxlint": "1.66.0",
     "oxlint-tailwindcss": "0.8.0",
     "typescript": "6.0.3",
     "vite-plus": "0.1.24",
     "vite-plus-inspector": "0.1.0",
-    "wrangler": "4.98.0"
+    "wrangler": "4.99.0"
   },
   "peerDependencies": {
     "oxfmt": ">=0.43.0",
