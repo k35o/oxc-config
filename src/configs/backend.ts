@@ -19,11 +19,9 @@ export const backend: OxlintConfig = {
     'node/no-process-env': 'warn',
     'node/handle-callback-err': 'error',
 
-    'typescript/no-floating-promises': 'error',
-    'typescript/no-misused-promises': 'error',
-
+    // Unhandled rejections crash a long-running server, so tighten base's warn
+    // to error for the callback/promise-mixing rules.
     'promise/no-callback-in-promise': 'error',
     'promise/no-promise-in-callback': 'error',
-    'promise/no-return-in-finally': 'error',
   },
 };
