@@ -8,38 +8,16 @@ import { typescript } from './typescript.js';
  * Consumer should set `settings.react.version` to match their installed React.
  *
  * Note: `react-hooks` rules live under the `react/` namespace in oxlint
- * (the plugin is bundled into `react`).
+ * (the plugin is bundled into `react`). Only deltas from the categories are
+ * listed; the many `react/*` and `jsx-a11y/*` correctness rules that the
+ * categories already enable are not repeated.
  */
 export const react: OxlintConfig = {
   extends: [typescript],
   plugins: [...REACT_PLUGINS],
   rules: {
-    'react/rules-of-hooks': 'error',
-    'react/exhaustive-deps': 'error',
-
-    'react/jsx-key': ['error', { checkFragmentShorthand: true }],
-    'react/jsx-no-target-blank': 'error',
-    'react/jsx-no-duplicate-props': 'error',
-    'react/jsx-no-undef': 'error',
-    'react/no-children-prop': 'error',
-    'react/no-danger': 'warn',
-    'react/no-danger-with-children': 'error',
-    'react/no-direct-mutation-state': 'error',
-    'react/no-find-dom-node': 'error',
-    'react/no-is-mounted': 'error',
-    'react/no-render-return-value': 'error',
-    'react/no-string-refs': 'error',
-    'react/no-unescaped-entities': 'error',
-    'react/no-unknown-property': 'error',
-    'react/require-render-return': 'error',
-    'react/self-closing-comp': 'error',
-    'react/void-dom-elements-no-children': 'error',
-    'react/no-array-index-key': 'warn',
-    'react/style-prop-object': 'error',
-    'react/iframe-missing-sandbox': 'error',
-    'react/jsx-no-comment-textnodes': 'error',
-    'react/jsx-no-constructed-context-values': 'warn',
-
+    // `jsx-a11y/*` rules are not in an on-by-default category, so each one is
+    // enabled explicitly here.
     'jsx-a11y/alt-text': 'error',
     'jsx-a11y/anchor-has-content': 'error',
     'jsx-a11y/anchor-is-valid': 'error',
@@ -67,15 +45,17 @@ export const react: OxlintConfig = {
     'jsx-a11y/no-noninteractive-tabindex': 'warn',
     'jsx-a11y/no-static-element-interactions': 'warn',
 
+    // `react/*` rules the categories leave off (or that we downgrade).
+    'react/no-danger': 'warn',
+    'react/no-unknown-property': 'error',
+    'react/self-closing-comp': 'error',
+    'react/no-array-index-key': 'warn',
+    'react/jsx-no-constructed-context-values': 'warn',
+    // Cherry-picked out of nursery (base turns the category off).
+    'react/require-render-return': 'error',
+
     // React 17+ JSX transform makes `import React` unnecessary.
     'react/react-in-jsx-scope': 'off',
-
-    // React Compiler (or manual `useMemo`/`useCallback`) handles these
-    // referential-equality concerns better than lint warnings.
-    'react-perf/jsx-no-new-object-as-prop': 'off',
-    'react-perf/jsx-no-new-array-as-prop': 'off',
-    'react-perf/jsx-no-new-function-as-prop': 'off',
-    'react-perf/jsx-no-jsx-as-prop': 'off',
 
     // Component / JSX style preferences.
     // Note: oxlint does not yet port `react/function-component-definition`
@@ -85,12 +65,22 @@ export const react: OxlintConfig = {
       'error',
       { props: 'never', children: 'never' },
     ],
+    // PascalCase component names — the JSX counterpart to base's kebab-case
+    // filename rule; not something oxfmt normalizes.
+    'react/jsx-pascal-case': 'error',
+    // `[value, setValue]` naming symmetry for useState.
+    'react/hook-use-state': 'error',
+    // Prefer `<>` over `<React.Fragment>` where no key/props are needed.
+    'react/jsx-fragments': 'error',
+    // Function components only; class error boundaries stay allowed via the
+    // rule's default `allowErrorBoundary`.
+    'react/prefer-function-component': 'error',
 
     // Cherry-picked from `restriction` category.
     'react/button-has-type': 'error',
     // Compound components (`export const Foo = { Root, Item } as const`)
     // are common enough that enforcing only-component exports causes more
-    // friction than the marginal Fast Refresh benefit is worth.
-    'react/only-export-components': 'off',
+    // friction than the marginal Fast Refresh benefit is worth, so
+    // `react/only-export-components` stays at its category default (off).
   },
 };

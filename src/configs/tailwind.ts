@@ -6,13 +6,17 @@ import type { OxlintConfig } from 'oxlint';
  * Compose this on top of `react`, `nextjs`, etc. by listing both in `extends`.
  * In monorepos, set `settings.tailwindcss.entryPoint` on the consumer side
  * for explicit resolution; auto-detection works for single-package setups.
+ *
+ * Every rule the plugin ships (23 as of oxlint-tailwindcss 1.3) carries an
+ * explicit decision below.
  */
 export const tailwind: OxlintConfig = {
   jsPlugins: ['oxlint-tailwindcss'],
   rules: {
-    // `no-unknown-classes` was flaky in real-world projects (resolved
-    // class names did not always match what Tailwind v4 produces).
-    'tailwindcss/no-unknown-classes': 'off',
+    // The class-resolution flakiness that had this off was fixed upstream in
+    // 1.3.1/1.3.2 (hence the >=1.3.2 peer floor); warn catches typo'd classes
+    // without failing CI while the fix beds in.
+    'tailwindcss/no-unknown-classes': 'warn',
     'tailwindcss/no-duplicate-classes': 'error',
     'tailwindcss/no-conflicting-classes': 'error',
     'tailwindcss/no-deprecated-classes': 'error',
@@ -30,6 +34,7 @@ export const tailwind: OxlintConfig = {
     'tailwindcss/enforce-consistent-variable-syntax': 'warn',
     'tailwindcss/consistent-variant-order': 'warn',
     'tailwindcss/no-hardcoded-colors': 'warn',
+    'tailwindcss/prefer-theme-tokens': 'warn',
     'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
 
     'tailwindcss/enforce-logical': 'off',

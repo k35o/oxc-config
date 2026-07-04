@@ -25,5 +25,11 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["src/**/*", "tests/**/*", "vite.config.ts"]
+  "include": ["src/**/*", "tests/**/*", "vite.config.ts"],
+  "exclude": [
+    "dist",
+    "tests/fixtures/**/sample.ts",
+    "tests/fixtures/**/sample.tsx",
+    "tests/fixtures/**/*.e2e.ts"
+  ]
 }

@@ -12,6 +12,9 @@ const repoRoot = resolve(here, '..');
 // `oxlint` package itself to drive the CLI.
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
+// Only layers whose rules are native oxlint plugins are snapshot-tested here.
+// jsPlugin layers (tailwind, regexp, playwright) are covered by js-plugins.test
+// because `--print-config` drops their rules (oxc#22117).
 const fixtures = [
   'base',
   'typescript',
@@ -19,7 +22,6 @@ const fixtures = [
   'nextjs',
   'backend',
   'test',
-  'tailwind',
 ] as const;
 
 describe('print-config snapshots', () => {
