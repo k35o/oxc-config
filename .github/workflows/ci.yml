@@ -26,6 +26,9 @@ jobs:
       - name: Run check (fmt + lint + typecheck)
         run: pnpm check
 
+      - name: Validate published package (exports / types)
+        run: pnpm check:package
+
   tests:
     name: Tests
     runs-on: ubuntu-latest
@@ -47,7 +50,13 @@ jobs:
 
   changeset:
     name: Changeset
-    if: github.actor != 'renovate[bot]' && github.head_ref != 'changeset-release/main'
+    # Renovate PRs are normally exempt, but oxc bumps (labeled `oxc-update`)
+    # change the effective rule set, so they must carry a changeset documenting
+    # the new/changed rules.
+    if: >-
+      github.head_ref != 'changeset-release/main' &&
+      (github.actor != 'renovate[bot]' ||
+       contains(github.event.pull_request.labels.*.name, 'oxc-update'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

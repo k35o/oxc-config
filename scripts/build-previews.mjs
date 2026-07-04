@@ -30,6 +30,7 @@ const descriptions = {
   backend: 'Node / サーバーコード向けの TypeScript ルール',
   test: 'テストファイル向けの緩和',
   tailwind: 'Tailwind CSS のクラス順序・検証',
+  regexp: '正規表現の安全性・ReDoS 検出（eslint-plugin-regexp）',
 };
 
 const presets = readdirSync(previewsDir, { withFileTypes: true })

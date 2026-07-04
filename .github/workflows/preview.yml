@@ -2,6 +2,9 @@ name: Preview
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 concurrency:
   group: preview-${{ github.ref }}
@@ -35,6 +38,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 31074c2d041f3ceb8a5bb3fc51dd3bfa
+          IS_MAIN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # トークン未登録の間はスキップし、コメントはフォールバック表示になる
@@ -43,10 +47,17 @@ jobs:
             exit 0
           fi
           pnpm exec wrangler pages project create oxc-config-preview --production-branch=main 2>/dev/null || true
-          pnpm exec wrangler pages deploy dist-preview --project-name=oxc-config-preview --branch="pr-$PR_NUMBER" --commit-dirty=true
-          echo "url=https://pr-$PR_NUMBER.oxc-config-preview.pages.dev" >> "$GITHUB_OUTPUT"
+          if [ "$IS_MAIN" = 'true' ]; then
+            # main への push は production ブランチへ公開し、常設 URL を更新する。
+            pnpm exec wrangler pages deploy dist-preview --project-name=oxc-config-preview --branch=main --commit-dirty=true
+            echo "url=https://oxc-config-preview.pages.dev" >> "$GITHUB_OUTPUT"
+          else
+            pnpm exec wrangler pages deploy dist-preview --project-name=oxc-config-preview --branch="pr-$PR_NUMBER" --commit-dirty=true
+            echo "url=https://pr-$PR_NUMBER.oxc-config-preview.pages.dev" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Comment preview links on PR
+        if: github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
