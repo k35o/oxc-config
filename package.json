@@ -127,7 +127,7 @@
     "@changesets/cli": "2.31.0",
     "@oxlint/plugins": "1.72.0",
     "@types/node": "24.13.2",
-    "eslint-plugin-playwright": "2.10.4",
+    "eslint-plugin-playwright": "2.10.5",
     "eslint-plugin-regexp": "3.1.1",
     "eslint-plugin-storybook": "10.4.6",
     "oxfmt": "0.57.0",
