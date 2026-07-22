@@ -40,4 +40,3 @@ jobs:
         with:
           build: pnpm build && pnpm check && pnpm test
           github-token: ${{ steps.generate-token.outputs.token }}
-          auto-merge: true
