@@ -12,13 +12,16 @@ export default defineConfig({
     printWidth: 80,
     sortImports: true,
     sortPackageJson: true,
-    ignorePatterns: ['CHANGELOG.md', 'previews/**'],
+    // .changeset/（ledger.yaml 等）は pnpm が生成・所有するファイルなので、
+    // こちらの整形規則を当てない
+    ignorePatterns: ['CHANGELOG.md', '.changeset', 'previews/**'],
   },
   lint: {
     // scripts/** と .github/scripts/** は tsconfig 外の tooling 用 .mjs。
     // typeAware lint は project に含まれないファイルで失敗するため除外する。
     ignorePatterns: [
       'CHANGELOG.md',
+      '.changeset',
       'previews/**',
       'dist-preview/**',
       'scripts/**',
