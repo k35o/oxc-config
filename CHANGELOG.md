@@ -1,5 +1,13 @@
 # @k8o/oxc-config
 
+## 0.2.1
+
+### Patch Changes
+
+- oxlint 1.73 adds `unicorn/no-confusing-array-with` to the `suspicious` category, so every preset that enables `suspicious` at error (all of them) now denies this rule. Snapshots updated to match the new effective config.
+
+- Switch release automation from changesets/action to [pnpm-release-action](https://github.com/k35o/pnpm-release-action) (pnpm built-in release management). No runtime changes.
+
 ## 0.2.0
 
 ### Minor Changes
