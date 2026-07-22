@@ -23,10 +23,6 @@
       "groupName": "vitest dependencies"
     },
     {
-      "matchPackageNames": ["/^@changesets/"],
-      "groupName": "changesets dependencies"
-    },
-    {
       "matchPackageNames": ["tsdown"],
       "groupName": "tsdown dependencies"
     },
@@ -37,10 +33,6 @@
     {
       "matchPackageNames": ["/^node$/"],
       "groupName": "node dependencies"
-    },
-    {
-      "matchPackageNames": ["changesets/action"],
-      "enabled": false
     },
     {
       "matchDepTypes": ["peerDependencies"],

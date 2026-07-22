@@ -48,13 +48,13 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-  changeset:
-    name: Changeset
-    # Renovate PRs are normally exempt, but oxc bumps (labeled `oxc-update`)
-    # change the effective rule set, so they must carry a changeset documenting
-    # the new/changed rules.
+  change-intent:
+    name: Change intent
+    # Renovate PRs and the release PR carry no change intent by design, but
+    # oxc bumps (labeled `oxc-update`) change the effective rule set, so they
+    # must carry an intent documenting the new/changed rules.
     if: >-
-      github.head_ref != 'changeset-release/main' &&
+      github.head_ref != 'pnpm-release/main' &&
       (github.actor != 'renovate[bot]' ||
        contains(github.event.pull_request.labels.*.name, 'oxc-update'))
     runs-on: ubuntu-latest
@@ -66,8 +66,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Install
-        uses: ./.github/composite-actions/install
-
-      - name: Verify a changeset is present
-        run: pnpm exec changeset status --since=origin/main
+      - name: Verify a change intent is present
+        run: |
+          git diff --name-only "origin/${GITHUB_BASE_REF}"...HEAD \
+            | grep -E '^\.changeset/[^/]+\.md$' \
+            | grep -v '^\.changeset/README\.md$'

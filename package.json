@@ -116,15 +116,10 @@
     "preview:tailwind": "vp-inspect previews/tailwind",
     "preview:regexp": "vp-inspect previews/regexp",
     "preview:build": "node scripts/build-previews.mjs",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "release": "pnpm build && pnpm check && pnpm test && changeset publish",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@changesets/changelog-github": "0.7.0",
-    "@changesets/cli": "2.31.0",
     "@oxlint/plugins": "1.73.0",
     "@types/node": "24.13.3",
     "eslint-plugin-playwright": "2.10.5",
@@ -174,5 +169,5 @@
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
-  "packageManager": "pnpm@11.11.0"
+  "packageManager": "pnpm@11.15.1"
 }

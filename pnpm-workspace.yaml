@@ -4,10 +4,6 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@k8o/*'
   - 'vite-plus-inspector'
-  # Renovate security update: vite-plus@0.1.24
-  - vite-plus@0.1.24
-  # Renovate security update: pnpm@11.8.0
-  - pnpm@11.8.0
 
 strictDepBuilds: true
 
@@ -22,3 +18,7 @@ verifyDepsBeforeRun: install
 
 saveExact: true
 autoInstallPeers: false
+
+versioning:
+  changelog:
+    storage: repository
