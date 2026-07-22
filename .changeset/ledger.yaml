@@ -1,0 +1,5 @@
+"@k8o/oxc-config@0.2.1":
+  dir: ""
+  intents:
+    - oxlint-1-73-preset
+    - switch-release-automation
