@@ -132,7 +132,7 @@
     "typescript": "6.0.3",
     "vite-plus": "0.2.5",
     "vite-plus-inspector": "0.1.0",
-    "wrangler": "4.111.0"
+    "wrangler": "4.112.0"
   },
   "peerDependencies": {
     "eslint-plugin-playwright": ">=2.0.0",
