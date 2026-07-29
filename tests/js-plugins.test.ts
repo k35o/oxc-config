@@ -12,8 +12,8 @@ const repoRoot = resolve(here, '..');
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
 // `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
-// to guard the tailwind / regexp / playwright layers is to actually lint a file
-// that violates them and assert the diagnostic shows up.
+// to guard the tailwind / regexp / html-nest / playwright layers is to actually
+// lint a file that violates them and assert the diagnostic shows up.
 function lint(fixture: string, file: string): string {
   const cwd = resolve(here, 'fixtures', fixture);
   const cleanEnv = {
@@ -50,6 +50,11 @@ describe('jsPlugin layers fire on real violations', () => {
     const out = lint('regexp', 'sample.ts');
     expect(out).toContain('regexp(no-dupe-characters-character-class)');
     expect(out).toContain('regexp(no-empty-alternative)');
+  });
+
+  test('html-nest: valid-html-nesting', () => {
+    const out = lint('html-nest', 'sample.tsx');
+    expect(out).toContain('html-nest(valid-html-nesting)');
   });
 
   test('playwright: no-focused-test', () => {

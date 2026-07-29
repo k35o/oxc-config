@@ -71,6 +71,10 @@
       "types": "./dist/configs/regexp.d.mts",
       "default": "./dist/configs/regexp.mjs"
     },
+    "./html-nest": {
+      "types": "./dist/configs/html-nest.d.mts",
+      "default": "./dist/configs/html-nest.mjs"
+    },
     "./storybook": {
       "types": "./dist/configs/storybook.d.mts",
       "default": "./dist/configs/storybook.mjs"
@@ -90,6 +94,7 @@
     "./backend.oxlintrc.json": "./dist/backend.oxlintrc.json",
     "./tailwind.oxlintrc.json": "./dist/tailwind.oxlintrc.json",
     "./regexp.oxlintrc.json": "./dist/regexp.oxlintrc.json",
+    "./html-nest.oxlintrc.json": "./dist/html-nest.oxlintrc.json",
     "./fmt.oxfmtrc.json": "./dist/fmt.oxfmtrc.json",
     "./package.json": "./package.json"
   },
@@ -115,11 +120,13 @@
     "preview:test": "vp-inspect previews/test",
     "preview:tailwind": "vp-inspect previews/tailwind",
     "preview:regexp": "vp-inspect previews/regexp",
+    "preview:html-nest": "vp-inspect previews/html-nest",
     "preview:build": "node scripts/build-previews.mjs",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
+    "@k8o/html-nest": "0.2.0",
     "@oxlint/plugins": "1.75.0",
     "@types/node": "24.13.3",
     "eslint-plugin-playwright": "2.10.5",
@@ -135,6 +142,7 @@
     "wrangler": "4.113.0"
   },
   "peerDependencies": {
+    "@k8o/html-nest": ">=0.2.0",
     "eslint-plugin-playwright": ">=2.0.0",
     "eslint-plugin-regexp": ">=3.0.0",
     "eslint-plugin-storybook": ">=10.0.0",
@@ -144,6 +152,9 @@
     "oxlint-tsgolint": ">=0.23.0"
   },
   "peerDependenciesMeta": {
+    "@k8o/html-nest": {
+      "optional": true
+    },
     "eslint-plugin-playwright": {
       "optional": true
     },
@@ -167,7 +178,7 @@
     }
   },
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": ">=24.13.0"
   },
   "packageManager": "pnpm@11.15.1"
 }

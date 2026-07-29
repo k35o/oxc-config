@@ -31,6 +31,7 @@ const descriptions = {
   test: 'テストファイル向けの緩和',
   tailwind: 'Tailwind CSS のクラス順序・検証',
   regexp: '正規表現の安全性・ReDoS 検出（eslint-plugin-regexp）',
+  'html-nest': 'JSX の HTML ネスト検証（@k8o/html-nest）',
 };
 
 const presets = readdirSync(previewsDir, { withFileTypes: true })
