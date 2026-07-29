@@ -2,7 +2,8 @@
 
 The `nextjs` layer extends `react` → `typescript` → `base`, so it covers the
 whole stack. Compose `tailwind` on top if you use Tailwind CSS v4, and apply the
-`test` layer on your test globs.
+`test` layer on your test globs. `htmlNest` is also worth composing here —
+invalid HTML nesting is exactly what makes Next.js hydration errors cryptic.
 
 ## Vite+
 

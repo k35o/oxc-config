@@ -21,12 +21,15 @@ const lintGraph = {
   backend: 'typescript',
   tailwind: null,
   regexp: null,
+  'html-nest': null,
 };
 
 async function load(name) {
   const url = pathToFileURL(resolve(distDir, 'configs', `${name}.mjs`)).href;
   const mod = await import(url);
-  return mod[name];
+  // Export names are the camelCase form of the kebab-case layer/file name.
+  const exportName = name.replaceAll(/-(\w)/gu, (_, c) => c.toUpperCase());
+  return mod[exportName];
 }
 
 for (const [layer, parent] of Object.entries(lintGraph)) {

@@ -13,8 +13,8 @@ const repoRoot = resolve(here, '..');
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
 // Only layers whose rules are native oxlint plugins are snapshot-tested here.
-// jsPlugin layers (tailwind, regexp, playwright) are covered by js-plugins.test
-// because `--print-config` drops their rules (oxc#22117).
+// jsPlugin layers (tailwind, regexp, html-nest, playwright) are covered by
+// js-plugins.test because `--print-config` drops their rules (oxc#22117).
 const fixtures = [
   'base',
   'typescript',
