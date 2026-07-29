@@ -138,7 +138,7 @@
     "publint": "0.3.21",
     "typescript": "6.0.3",
     "vite-plus": "0.2.5",
-    "vite-plus-inspector": "0.1.0",
+    "vite-plus-inspector": "0.1.1",
     "wrangler": "4.113.0"
   },
   "peerDependencies": {
