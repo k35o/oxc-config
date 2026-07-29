@@ -36,7 +36,7 @@ pnpm add -D eslint-plugin-storybook storybook # the `storybook` layer
 
 > Requires **oxlint ≥ 1.71**. The config enables rules that only exist in recent
 > oxlint, and oxlint fails to build a config that references an unknown rule, so
-> older versions are not supported. Node ≥ 20.19 (or ≥ 22.12).
+> older versions are not supported. Node ≥ 24.13.
 
 ## Quick start
 
