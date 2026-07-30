@@ -139,7 +139,7 @@
     "typescript": "6.0.3",
     "vite-plus": "0.2.6",
     "vite-plus-inspector": "0.1.1",
-    "wrangler": "4.113.0"
+    "wrangler": "4.114.0"
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
