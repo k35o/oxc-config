@@ -3,3 +3,7 @@
   intents:
     - oxlint-1-73-preset
     - switch-release-automation
+"@k8o/oxc-config@0.3.0":
+  dir: ""
+  intents:
+    - html-nest-layer
