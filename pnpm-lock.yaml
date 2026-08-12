@@ -31,22 +31,22 @@ importers:
         version: 10.5.6(supports-color@10.2.2)(typescript@6.0.3)
       oxfmt:
         specifier: 0.62.0
-        version: 0.62.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
+        version: 0.62.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
       oxlint:
         specifier: 1.77.0
-        version: 1.77.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
+        version: 1.77.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
       oxlint-tailwindcss:
         specifier: 1.6.0
         version: 1.6.0
       publint:
-        specifier: 0.3.22
-        version: 0.3.22
+        specifier: 0.3.23
+        version: 0.3.23
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vite-plus:
         specifier: 0.2.7
-        version: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
+        version: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
       vite-plus-inspector:
         specifier: 0.1.1
         version: 0.1.1
@@ -2054,8 +2054,8 @@ packages:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
 
-  publint@0.3.22:
-    resolution: {integrity: sha512-6Z/scsr5CA7APdwyF35EY88CqgDj1textWuY788DVTJYPCWVv/Wn9G6KmLnrVRnStgYcahqN4wCDLZGSbQJ69w==}
+  publint@0.3.23:
+    resolution: {integrity: sha512-5MQipUPcB7MWw84zLUkHrg/H/UBtk3LL+A0GngTTBSsiNJLQurMUaSIRG3edlOrRz4UFe0AOKK9TZdIWviV+jQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3199,7 +3199,7 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.1
 
-  '@voidzero-dev/vite-plus-core@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)':
+  '@voidzero-dev/vite-plus-core@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)':
     dependencies:
       '@oxc-project/runtime': 0.141.0
       '@oxc-project/types': 0.141.0
@@ -3213,7 +3213,7 @@ snapshots:
       esbuild: 0.28.1
       fsevents: 2.3.3
       jiti: 2.7.0
-      publint: 0.3.22
+      publint: 0.3.23
       typescript: 6.0.3
 
   '@voidzero-dev/vite-plus-darwin-arm64@0.2.7':
@@ -3667,7 +3667,7 @@ snapshots:
 
   obug@2.1.4: {}
 
-  oxfmt@0.60.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
+  oxfmt@0.60.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
     dependencies:
       tinypool: 2.1.0
     optionalDependencies:
@@ -3690,9 +3690,9 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.60.0
       '@oxfmt/binding-win32-ia32-msvc': 0.60.0
       '@oxfmt/binding-win32-x64-msvc': 0.60.0
-      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
+      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
 
-  oxfmt@0.62.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
+  oxfmt@0.62.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
     dependencies:
       tinypool: 2.1.0
     optionalDependencies:
@@ -3715,7 +3715,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.62.0
       '@oxfmt/binding-win32-ia32-msvc': 0.62.0
       '@oxfmt/binding-win32-x64-msvc': 0.62.0
-      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
+      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
 
   oxlint-tailwindcss@1.6.0:
     dependencies:
@@ -3731,7 +3731,7 @@ snapshots:
       '@oxlint-tsgolint/win32-arm64': 7.0.2001
       '@oxlint-tsgolint/win32-x64': 7.0.2001
 
-  oxlint@1.75.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
+  oxlint@1.75.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.75.0
       '@oxlint/binding-android-arm64': 1.75.0
@@ -3753,9 +3753,9 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.75.0
       '@oxlint/binding-win32-x64-msvc': 1.75.0
       oxlint-tsgolint: 7.0.2001
-      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
+      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
 
-  oxlint@1.77.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
+  oxlint@1.77.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.77.0
       '@oxlint/binding-android-arm64': 1.77.0
@@ -3777,7 +3777,7 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.77.0
       '@oxlint/binding-win32-x64-msvc': 1.77.0
       oxlint-tsgolint: 7.0.2001
-      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
+      vite-plus: 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))
 
   package-manager-detector@1.8.0: {}
 
@@ -3811,7 +3811,7 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 17.0.2
 
-  publint@0.3.22:
+  publint@0.3.23:
     dependencies:
       '@publint/pack': 0.1.6
       package-manager-detector: 1.8.0
@@ -3990,7 +3990,7 @@ snapshots:
       cac: 7.0.0
       jiti: 2.7.0
 
-  vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)):
+  vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)):
     dependencies:
       '@oxc-project/types': 0.141.0
       '@oxlint/plugins': 1.73.0
@@ -4003,9 +4003,9 @@ snapshots:
       '@vitest/snapshot': 4.1.10
       '@vitest/spy': 4.1.10
       '@vitest/utils': 4.1.10
-      '@voidzero-dev/vite-plus-core': 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)
-      oxfmt: 0.60.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
-      oxlint: 1.75.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
+      '@voidzero-dev/vite-plus-core': 0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)
+      oxfmt: 0.60.0(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
+      oxlint: 1.75.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.7(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.23)(typescript@6.0.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)))
       oxlint-tsgolint: 7.0.2001
       vitest: 4.1.10(@types/node@24.13.3)(@vitest/browser-preview@4.1.10)(esbuild@0.28.1)(jiti@2.7.0)
     optionalDependencies:
