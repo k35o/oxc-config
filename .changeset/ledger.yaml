@@ -7,3 +7,4 @@
   dir: ""
   intents:
     - html-nest-layer
+    - oxlint-1-77-preset
