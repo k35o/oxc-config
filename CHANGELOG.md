@@ -2,6 +2,12 @@
 
 ## 0.3.0
 
+### Patch Changes
+
+- oxlint 1.77 adds `oxc/bad-match-all-arg` to the `correctness` category and `prefer-promise-reject-errors` to the `pedantic` category. Every preset enables both categories at error, so all of them now deny these two rules. Snapshots updated to match the new effective config.
+
+## 0.3.0
+
 ### Minor Changes
 
 - Add the opt-in `html-nest` layer: WHATWG HTML content-model validation for JSX via the `@k8o/html-nest` oxlint plugin (`html-nest/valid-html-nesting`). Compose it with any JSX layer via `extends`; consumers install `@k8o/html-nest` as an optional peer.
