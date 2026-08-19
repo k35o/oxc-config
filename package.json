@@ -137,7 +137,7 @@
     "oxlint-tailwindcss": "1.9.0",
     "publint": "0.3.23",
     "typescript": "7.0.2",
-    "vite-plus": "0.2.8",
+    "vite-plus": "0.2.9",
     "vite-plus-inspector": "0.1.1",
     "wrangler": "4.121.0"
   },
