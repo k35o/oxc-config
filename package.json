@@ -131,7 +131,7 @@
     "@types/node": "24.13.3",
     "eslint-plugin-playwright": "2.11.0",
     "eslint-plugin-regexp": "3.2.0",
-    "eslint-plugin-storybook": "10.5.7",
+    "eslint-plugin-storybook": "10.5.8",
     "oxfmt": "0.63.0",
     "oxlint": "1.78.0",
     "oxlint-tailwindcss": "1.9.0",
