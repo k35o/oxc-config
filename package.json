@@ -130,8 +130,8 @@
     "@oxlint/plugins": "1.81.0",
     "@types/node": "24.13.3",
     "eslint-plugin-playwright": "2.11.0",
-    "eslint-plugin-regexp": "3.2.0",
-    "eslint-plugin-storybook": "10.5.10",
+    "eslint-plugin-regexp": "3.3.0",
+    "eslint-plugin-storybook": "10.6.0",
     "oxfmt": "0.66.0",
     "oxlint": "1.81.0",
     "oxlint-tailwindcss": "1.10.2",
@@ -139,7 +139,7 @@
     "typescript": "7.0.2",
     "vite-plus": "0.3.0",
     "vite-plus-inspector": "0.1.1",
-    "wrangler": "4.128.0"
+    "wrangler": "4.129.0"
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
