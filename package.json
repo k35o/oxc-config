@@ -128,7 +128,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
     "@oxlint/plugins": "1.83.0",
-    "@types/node": "24.13.4",
+    "@types/node": "24.13.6",
     "eslint-plugin-playwright": "2.12.0",
     "eslint-plugin-regexp": "3.3.0",
     "eslint-plugin-storybook": "10.6.0",
@@ -137,9 +137,9 @@
     "oxlint-tailwindcss": "1.12.0",
     "publint": "0.3.24",
     "typescript": "7.0.2",
-    "vite-plus": "0.3.2",
+    "vite-plus": "0.3.3",
     "vite-plus-inspector": "0.1.1",
-    "wrangler": "4.131.2"
+    "wrangler": "4.135.0"
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
