@@ -15,6 +15,12 @@ import type { OxlintConfig } from 'oxlint';
 export const regexp: OxlintConfig = {
   jsPlugins: ['eslint-plugin-regexp'],
   rules: {
+    // The plugin reports these itself under the same names, so the core rules
+    // would report every hit a second time.
+    'no-invalid-regexp': 'off',
+    'no-useless-backreference': 'off',
+    'no-empty-character-class': 'off',
+
     'regexp/confusing-quantifier': 'warn',
     'regexp/control-character-escape': 'error',
     'regexp/match-any': 'error',

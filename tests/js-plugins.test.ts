@@ -1,5 +1,7 @@
+import regexpPlugin from 'eslint-plugin-regexp';
 import { describe, expect, test } from 'vite-plus/test';
 
+import { regexp } from '../dist/configs/regexp.mjs';
 import { storybook } from '../dist/configs/storybook.mjs';
 import { diagnose } from './oxlint.ts';
 
@@ -30,6 +32,23 @@ describe('jsPlugin layers fire on real violations', () => {
     expect(diagnose('playwright', 'nav.e2e.ts')).toEqual([
       '4 playwright(no-focused-test)',
     ]);
+  });
+});
+
+// A plugin update can add rules the layer has never decided on. These fail on
+// the Renovate PR that introduces them instead of drifting silently.
+describe('jsPlugin layers keep up with their plugin', () => {
+  const rulesOf = (rules: object, prefix: string): string[] =>
+    Object.keys(rules)
+      .filter((name) => name.startsWith(`${prefix}/`))
+      .toSorted();
+
+  test('regexp covers the plugin’s recommended rules', () => {
+    const { rules } = regexpPlugin.configs['flat/recommended'];
+
+    expect(rulesOf(regexp.rules ?? {}, 'regexp')).toEqual(
+      rulesOf(rules ?? {}, 'regexp'),
+    );
   });
 });
 
