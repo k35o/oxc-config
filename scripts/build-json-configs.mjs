@@ -20,7 +20,6 @@ const lintGraph = {
   nextjs: 'react',
   backend: 'typescript',
   tailwind: null,
-  regexp: null,
   'html-nest': null,
 };
 

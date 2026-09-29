@@ -5,7 +5,6 @@ export { nextjs } from './configs/nextjs.js';
 export { backend } from './configs/backend.js';
 export { test } from './configs/test.js';
 export { tailwind } from './configs/tailwind.js';
-export { regexp } from './configs/regexp.js';
 export { htmlNest } from './configs/html-nest.js';
 export { fmt } from './configs/fmt.js';
 

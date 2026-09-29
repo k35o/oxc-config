@@ -1,26 +1,17 @@
-import regexpPlugin from 'eslint-plugin-regexp';
 import tailwindPlugin from 'oxlint-tailwindcss';
 import { describe, expect, test } from 'vite-plus/test';
 
-import { regexp } from '../dist/configs/regexp.mjs';
 import { tailwind } from '../dist/configs/tailwind.mjs';
 import { diagnose } from './oxlint.ts';
 
 // `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
-// to guard the tailwind / regexp / html-nest layers is to actually
+// to guard the tailwind / html-nest layers is to actually
 // lint a file that violates them and assert the diagnostic shows up.
 describe('jsPlugin layers fire on real violations', () => {
   test('tailwind: duplicate and conflicting classes', () => {
     expect(diagnose('tailwind', 'sample.tsx')).toEqual([
       '3 tailwindcss(no-duplicate-classes)',
       '4 tailwindcss(no-conflicting-classes)',
-    ]);
-  });
-
-  test('regexp: dupe character class + empty alternative', () => {
-    expect(diagnose('regexp', 'sample.ts')).toEqual([
-      '2 regexp(no-dupe-characters-character-class)',
-      '3 regexp(no-empty-alternative)',
     ]);
   });
 
@@ -45,13 +36,5 @@ describe('jsPlugin layers keep up with their plugin', () => {
       .toSorted();
 
     expect(rulesOf(tailwind.rules ?? {}, 'tailwindcss')).toEqual(shipped);
-  });
-
-  test('regexp covers the plugin’s recommended rules', () => {
-    const { rules } = regexpPlugin.configs['flat/recommended'];
-
-    expect(rulesOf(regexp.rules ?? {}, 'regexp')).toEqual(
-      rulesOf(rules ?? {}, 'regexp'),
-    );
   });
 });

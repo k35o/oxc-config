@@ -16,7 +16,6 @@ Vite+ bundles oxlint, oxfmt, and `oxlint-tsgolint`, so you only need to add this
 pnpm add -D vite-plus @k8o/oxc-config
 # Only when you use the matching lint layer:
 pnpm add -D oxlint-tailwindcss    # tailwind
-pnpm add -D eslint-plugin-regexp  # regexp
 pnpm add -D @k8o/html-nest        # html-nest
 ```
 
@@ -28,7 +27,6 @@ pnpm add -D oxlint @k8o/oxc-config
 pnpm add -D oxfmt                   # if you use the `fmt` preset
 pnpm add -D oxlint-tsgolint         # type-aware rules (typescript / react / nextjs / backend)
 pnpm add -D oxlint-tailwindcss      # the `tailwind` layer
-pnpm add -D eslint-plugin-regexp    # the `regexp` layer
 pnpm add -D @k8o/html-nest          # the `html-nest` layer
 ```
 
@@ -82,7 +80,7 @@ export default defineConfig({
 
 Notes for Vite+ users:
 
-- Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `eslint-plugin-regexp`, …) stay separate installs.
+- Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `@k8o/html-nest`) stay separate installs.
 - Type-aware rules work out of the box (no separate `oxlint-tsgolint` install needed).
 - `vp check` runs format + lint + tsc together — recommended entry for CI.
 
@@ -124,7 +122,7 @@ For oxfmt, drop our `fmt` preset into a JS config, or use the generated JSON (be
 // (dist/fmt.oxfmtrc.json)
 ```
 
-Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `regexp`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The `test` layer is applied via `overrides`, so JSON consumers copy its rule block into an `overrides` entry by hand.
+Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The `test` layer is applied via `overrides`, so JSON consumers copy its rule block into an `overrides` entry by hand.
 
 ## Layers
 
@@ -136,7 +134,6 @@ base ─┬─ typescript ─┬─ react ── nextjs
 
 test       (apply via overrides on test globs)
 tailwind   (compose with react / nextjs via extends)
-regexp     (compose with any layer via extends)
 html-nest  (compose with any JSX layer via extends)
 fmt        (oxfmt preset, independent of lint layers)
 ```
@@ -150,7 +147,6 @@ fmt        (oxfmt preset, independent of lint layers)
 | `@k8o/oxc-config/backend`    | Node, Cloudflare Workers, Hono                                  |
 | `@k8o/oxc-config/test`       | Vitest test files (use in `overrides`)                          |
 | `@k8o/oxc-config/tailwind`   | Tailwind CSS v4 (composes with React / Next.js)                 |
-| `@k8o/oxc-config/regexp`     | Regex safety / ReDoS (composes with any layer)                  |
 | `@k8o/oxc-config/html-nest`  | HTML nesting validity in JSX (composes with `react` / `nextjs`) |
 | `@k8o/oxc-config/fmt`        | oxfmt preset (single quotes, sort imports, …)                   |
 

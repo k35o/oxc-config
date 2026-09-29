@@ -9,7 +9,6 @@ Review every layer against oxlint 1.85: stop reporting the same problem twice, s
 - `base`: `no-negated-condition`, `no-new-wrappers`, `unicorn/no-instanceof-array`, `unicorn/no-hex-escape`, `promise/no-return-wrap` (their `unicorn/*` counterparts stay on).
 - `typescript`: core `require-await`, `no-throw-literal`, `prefer-promise-reject-errors`, `no-implied-eval`, plus `unicorn/prefer-includes`, `unicorn/prefer-array-find`, `unicorn/no-this-assignment`, `unicorn/no-static-only-class` (the type-aware `typescript/*` rules stay on), and the deprecated `typescript/ban-types` / `typescript/prefer-ts-expect-error`.
 - `react`: the React Compiler rules `react/hooks`, `react/memo-dependencies`, `react/exhaustive-effect-dependencies`, `react/static-components`, `react/no-deriving-state-in-effects` (`rules-of-hooks`, `exhaustive-deps`, `no-unstable-nested-components` and `set-state-in-effect` stay on).
-- `regexp`: core `no-invalid-regexp`, `no-useless-backreference`, `no-empty-character-class`.
 
 **Idiomatic code passes.**
 

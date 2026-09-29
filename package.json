@@ -67,10 +67,6 @@
       "types": "./dist/configs/tailwind.d.mts",
       "default": "./dist/configs/tailwind.mjs"
     },
-    "./regexp": {
-      "types": "./dist/configs/regexp.d.mts",
-      "default": "./dist/configs/regexp.mjs"
-    },
     "./html-nest": {
       "types": "./dist/configs/html-nest.d.mts",
       "default": "./dist/configs/html-nest.mjs"
@@ -85,7 +81,6 @@
     "./nextjs.oxlintrc.json": "./dist/nextjs.oxlintrc.json",
     "./backend.oxlintrc.json": "./dist/backend.oxlintrc.json",
     "./tailwind.oxlintrc.json": "./dist/tailwind.oxlintrc.json",
-    "./regexp.oxlintrc.json": "./dist/regexp.oxlintrc.json",
     "./html-nest.oxlintrc.json": "./dist/html-nest.oxlintrc.json",
     "./fmt.oxfmtrc.json": "./dist/fmt.oxfmtrc.json",
     "./package.json": "./package.json"
@@ -111,7 +106,6 @@
     "preview:backend": "vp-inspect previews/backend",
     "preview:test": "vp-inspect previews/test",
     "preview:tailwind": "vp-inspect previews/tailwind",
-    "preview:regexp": "vp-inspect previews/regexp",
     "preview:html-nest": "vp-inspect previews/html-nest",
     "preview:build": "node scripts/build-previews.mjs",
     "prepublishOnly": "pnpm build"
@@ -121,7 +115,6 @@
     "@k8o/html-nest": "0.2.0",
     "@oxlint/plugins": "1.85.0",
     "@types/node": "24.13.4",
-    "eslint-plugin-regexp": "3.3.0",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
     "oxlint-tailwindcss": "1.12.0",
@@ -135,7 +128,6 @@
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
-    "eslint-plugin-regexp": ">=3.0.0",
     "oxfmt": ">=0.70.0",
     "oxlint": ">=1.85.0",
     "oxlint-tailwindcss": ">=1.12.0",
@@ -143,9 +135,6 @@
   },
   "peerDependenciesMeta": {
     "@k8o/html-nest": {
-      "optional": true
-    },
-    "eslint-plugin-regexp": {
       "optional": true
     },
     "oxfmt": {

@@ -27,9 +27,9 @@ export default defineConfig({
 });
 ```
 
-Add `tailwind` to `extends` if the library ships Tailwind styles, `regexp`
-if it does non-trivial string parsing, and `htmlNest` to catch JSX nesting
-the HTML spec forbids (`<div>` inside `<p>`, …) before it breaks hydration.
+Add `tailwind` to `extends` if the library ships Tailwind styles, and `htmlNest`
+to catch JSX nesting the HTML spec forbids (`<div>` inside `<p>`, …) before it
+breaks hydration.
 
 ## Library-specific notes
 

@@ -25,10 +25,6 @@ export default defineConfig({
 });
 ```
 
-Add `regexp` to `extends` if the worker parses untrusted input — a
-super-linear-backtracking regex on a request path is a denial-of-service vector,
-and `regexp/no-super-linear-backtracking` catches it.
-
 ## Env access
 
 `node/no-process-env` is a **warning**, not an error: reading `process.env`
