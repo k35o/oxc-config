@@ -24,6 +24,13 @@ export const test: OxlintConfig = {
     'vitest/no-conditional-in-test': 'warn',
     // Rejects a bare `vi.fn()`; the mock's type rarely matters to the test.
     'vitest/require-mock-type-parameters': 'off',
+    // The rule cannot see types, so it rejects every title that is not a
+    // literal: `test(name, …)` inside a loop, `describe(someFunction, …)`.
+    // TypeScript already checks the argument.
+    'vitest/valid-title': [
+      'error',
+      { ignoreTypeOfTestName: true, ignoreTypeOfDescribeName: true },
+    ],
 
     // Off-category vitest rules we want enforced.
     'vitest/no-identical-title': 'error',
