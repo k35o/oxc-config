@@ -1,65 +1,35 @@
-import { execFileSync } from 'node:child_process';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { describe, expect, test } from 'vite-plus/test';
 
-import { playwright } from '../dist/configs/playwright.mjs';
 import { storybook } from '../dist/configs/storybook.mjs';
-
-const here = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(here, '..');
-const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
+import { diagnose } from './oxlint.ts';
 
 // `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
 // to guard the tailwind / regexp / html-nest / playwright layers is to actually
 // lint a file that violates them and assert the diagnostic shows up.
-function lint(fixture: string, file: string): string {
-  const cwd = resolve(here, 'fixtures', fixture);
-  const cleanEnv = {
-    PATH: process.env.PATH ?? '',
-    HOME: process.env.HOME ?? '',
-  };
-  try {
-    return execFileSync(
-      process.execPath,
-      [oxlintBin, '-c', 'oxlint.config.ts', file],
-      {
-        cwd,
-        encoding: 'utf8',
-        env: cleanEnv,
-        stdio: ['ignore', 'pipe', 'pipe'],
-      },
-    );
-  } catch (err) {
-    // oxlint exits non-zero when it finds errors; the diagnostics are on stdout.
-    const isObj = typeof err === 'object' && err !== null;
-    return isObj && 'stdout' in err && typeof err.stdout === 'string'
-      ? err.stdout
-      : '';
-  }
-}
-
 describe('jsPlugin layers fire on real violations', () => {
   test('tailwind: no-duplicate-classes', () => {
-    const out = lint('tailwind', 'sample.tsx');
-    expect(out).toContain('tailwindcss(no-duplicate-classes)');
+    expect(diagnose('tailwind', 'sample.tsx')).toContain(
+      '2 tailwindcss(no-duplicate-classes)',
+    );
   });
 
   test('regexp: dupe character class + empty alternative', () => {
-    const out = lint('regexp', 'sample.ts');
-    expect(out).toContain('regexp(no-dupe-characters-character-class)');
-    expect(out).toContain('regexp(no-empty-alternative)');
+    expect(diagnose('regexp', 'sample.ts')).toEqual([
+      '2 regexp(no-dupe-characters-character-class)',
+      '3 regexp(no-empty-alternative)',
+    ]);
   });
 
   test('html-nest: valid-html-nesting', () => {
-    const out = lint('html-nest', 'sample.tsx');
-    expect(out).toContain('html-nest(valid-html-nesting)');
+    expect(diagnose('html-nest', 'sample.tsx')).toEqual([
+      '5 html-nest(valid-html-nesting)',
+    ]);
   });
 
   test('playwright: no-focused-test', () => {
-    const out = lint('playwright', 'nav.e2e.ts');
-    expect(out).toContain('playwright(no-focused-test)');
+    expect(diagnose('playwright', 'nav.e2e.ts')).toEqual([
+      '4 playwright(no-focused-test)',
+    ]);
   });
 });
 
@@ -81,10 +51,5 @@ describe('storybook layer shape', () => {
       expect(ok).toBe(true);
     }
     expect(rules['unicorn/no-anonymous-default-export']).toBe('off');
-  });
-
-  test('playwright globs stay disjoint from vitest globs', () => {
-    // A `.e2e.ts` file must not also match `**/*.test.ts` / `**/*.spec.ts`.
-    expect(playwright.jsPlugins).toContain('eslint-plugin-playwright');
   });
 });

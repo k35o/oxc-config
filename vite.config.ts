@@ -14,6 +14,7 @@ export default defineConfig({
   lint: {
     // scripts/** と .github/scripts/** は tsconfig 外の tooling 用 .mjs。
     // typeAware lint は project に含まれないファイルで失敗するため除外する。
+    // tests/fixtures/** はプリセットを検証するための入力で、意図的な違反を含む。
     ignorePatterns: [
       'CHANGELOG.md',
       '.changeset',
@@ -21,6 +22,7 @@ export default defineConfig({
       'dist-preview/**',
       'scripts/**',
       '.github/scripts/**',
+      'tests/fixtures/**',
     ],
     options: {
       typeAware: true,
