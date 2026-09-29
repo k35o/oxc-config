@@ -51,8 +51,8 @@ jobs:
   change-intent:
     name: Change intent
     # Renovate PRs and the release PR carry no change intent by design, but
-    # oxc bumps (labeled `oxc-update`) change the effective rule set, so they
-    # must carry an intent documenting the new/changed rules.
+    # Vite+ and lint-plugin bumps (labeled `oxc-update`) change the effective
+    # rule set, so they must carry an intent documenting the new/changed rules.
     if: >-
       github.head_ref != 'pnpm-release/main' &&
       (github.actor != 'renovate[bot]' ||

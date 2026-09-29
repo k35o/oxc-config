@@ -1,12 +1,12 @@
-import type { OxlintConfig } from 'oxlint';
+import type { OxlintConfig } from 'vite-plus/lint';
 
 import { TS_PLUGINS } from '../_shared.js';
 import { base } from './base.js';
 
 /**
  * TypeScript config for pure TS projects (CLIs, libraries, utilities).
- * Type-aware rules are enabled — consumers must install `oxlint-tsgolint`
- * (bundled by Vite+).
+ * Type-aware rules are enabled; Vite+ bundles the `oxlint-tsgolint` that runs
+ * them.
  *
  * Rules listed here are deltas from the inherited `base` config and the
  * category defaults; rules already at the desired severity are not repeated.

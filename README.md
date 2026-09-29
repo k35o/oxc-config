@@ -1,16 +1,12 @@
 # `@k8o/oxc-config`
 
-Shareable [oxlint](https://oxc.rs/docs/guide/usage/linter) + [oxfmt](https://github.com/oxc-project/oxfmt) configurations for TypeScript / React / Next.js / Backend / Tailwind / Test projects.
+Shareable lint and format presets for [Vite+](https://viteplus.dev/), built on the [oxlint](https://oxc.rs/docs/guide/usage/linter) and [oxfmt](https://github.com/oxc-project/oxfmt) it bundles. For TypeScript / React / Next.js / Backend / Tailwind / Test projects.
 
 Strict by default. Composable via oxlint's native `extends`.
 
 > **Browse the effective rules of every layer:** <https://oxc-config-preview.pages.dev>
 
 ## Install
-
-### With [Vite+](https://viteplus.dev/) (`vite-plus`)
-
-Vite+ bundles oxlint, oxfmt, and `oxlint-tsgolint`, so you only need to add this config (and any JS plugins you use):
 
 ```bash
 pnpm add -D vite-plus @k8o/oxc-config
@@ -19,26 +15,14 @@ pnpm add -D oxlint-tailwindcss    # tailwind
 pnpm add -D @k8o/html-nest        # html-nest
 ```
 
-### With standalone oxlint / oxfmt
-
-```bash
-pnpm add -D oxlint @k8o/oxc-config
-# Add only what you actually use:
-pnpm add -D oxfmt                   # if you use the `fmt` preset
-pnpm add -D oxlint-tsgolint         # type-aware rules (typescript / react / nextjs / backend)
-pnpm add -D oxlint-tailwindcss      # the `tailwind` layer
-pnpm add -D @k8o/html-nest          # the `html-nest` layer
-```
-
-> Requires **oxlint ≥ 1.85** (the version Vite+ 1.0 bundles). oxlint fails to
-> build a config that names an unknown rule — even one set to `off` — so older
-> versions are not supported. Node ≥ 24.13.
+> Requires **Vite+ ≥ 1.0** and Node ≥ 24.13. Vite+ bundles oxlint, oxfmt and
+> `oxlint-tsgolint`; don't install them yourself. oxlint fails to build a config
+> that names an unknown rule — even one set to `off` — so an older Vite+, which
+> bundles an older oxlint, is not supported.
 
 ## Quick start
 
-### With Vite+
-
-`vp lint` reads the `lint:` field of `vite.config.ts`, and `vp fmt` reads `fmt:`. Both accept the same shape as a standalone `oxlint.config.ts` / `.oxfmtrc.json`. Spread our presets in:
+`vp lint` reads the `lint:` field of `vite.config.ts`, and `vp fmt` reads `fmt:`.
 
 ```ts
 // vite.config.ts
@@ -51,16 +35,12 @@ export default defineConfig({
     extends: [nextjs, tailwind],
     options: {
       reportUnusedDisableDirectives: 'error',
-      typeAware: true,
     },
     settings: {
       react: { version: '19.0.0' },
       tailwindcss: { entryPoint: './src/app/globals.css' },
     },
     overrides: [{ files: [...TEST_GLOBS], ...test }],
-  },
-  staged: {
-    '*.{js,ts,cjs,mjs,jsx,tsx,json,jsonc}': 'vp check --fix',
   },
 });
 ```
@@ -78,33 +58,7 @@ export default defineConfig({
 }
 ```
 
-Notes for Vite+ users:
-
-- Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `@k8o/html-nest`) stay separate installs.
-- Type-aware rules work out of the box (no separate `oxlint-tsgolint` install needed).
-- `vp check` runs format + lint + tsc together — recommended entry for CI.
-
-### With standalone oxlint
-
-```ts
-// oxlint.config.ts
-import { defineConfig } from 'oxlint';
-import { nextjs, tailwind, test, TEST_GLOBS } from '@k8o/oxc-config';
-
-export default defineConfig({
-  extends: [nextjs, tailwind],
-  options: {
-    reportUnusedDisableDirectives: 'error',
-  },
-  settings: {
-    react: { version: '19.0.0' },
-    tailwindcss: { entryPoint: './src/app/globals.css' },
-  },
-  overrides: [{ files: [...TEST_GLOBS], ...test }],
-});
-```
-
-For oxfmt, import our `fmt` preset into a JS config.
+`vp check` runs format + lint + tsc together, which makes it the entry point for CI.
 
 ## Layers
 
@@ -173,23 +127,21 @@ export default defineConfig({
 3. **`nursery` is off.** Leaving it at error silently escalates every new upstream nursery rule to an error on each oxlint minor bump. `base` sets `nursery: 'off'` and cherry-picks the handful worth keeping.
 4. **`plugins` is replaced, not merged**, by oxlint. `typescript`, `unicorn` and `oxc` are on by default only while no config sets `plugins`, so each layer lists every plugin it depends on. Prefer `extends: [layer]` over spreading a layer into the root config.
 5. **`options.reportUnusedDisableDirectives` is root-only**. Set it on the consumer's config, not on a shared layer.
-6. **`options.typeAware: true` from `typescript` onwards**. Install `oxlint-tsgolint` (or use Vite+) to actually run those rules.
+6. **`options.typeAware: true` from `typescript` onwards**, and it carries through `extends`. Vite+ bundles the `oxlint-tsgolint` that runs those rules.
 
 ## Type-aware linting
 
 The `typescript` layer and everything above it set `options.typeAware: true`, which turns on [oxlint-tsgolint](https://github.com/oxc-project/tsgolint) (a `typescript-go` / TS7-based type checker). Caveats worth knowing:
 
-- **Standalone oxlint users must install `oxlint-tsgolint`** (it is an optional peer). Vite+ bundles it.
 - It runs a real type check, so it needs a resolvable `tsconfig.json` and is meaningfully slower / more memory-hungry than the syntactic rules.
-- Its version is loosely coupled to oxlint's; when you bump oxlint, bump `oxlint-tsgolint` in lockstep.
 
 ## Versioning
 
 Pre-1.0 (`0.x`): treat any release as potentially breaking.
 
-Because the categories are enabled wholesale, **your effective rule set is also a function of the oxlint version _you_ install**, not just this package's version — upgrading your oxlint can surface new rules regardless of whether this package changed. To keep upgrades deliberate:
+Because the categories are enabled wholesale, **your effective rule set is also a function of the oxlint your Vite+ bundles**, not just this package's version — upgrading Vite+ can surface new rules regardless of whether this package changed. To keep upgrades deliberate:
 
-- Pin `oxlint` / `oxfmt` exactly and bump them on purpose.
+- Pin `vite-plus` exactly and bump it on purpose.
 - New rules this package adds ship as `minor`; rule removals or severity bumps are called out in the changelog.
 
 ## License

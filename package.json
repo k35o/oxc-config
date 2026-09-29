@@ -105,10 +105,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
     "@types/node": "24.13.6",
-    "oxfmt": "0.70.0",
-    "oxlint": "1.85.0",
     "oxlint-tailwindcss": "1.12.0",
-    "oxlint-tsgolint": "7.0.2003",
     "publint": "0.3.24",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
@@ -118,25 +115,14 @@
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
-    "oxfmt": ">=0.70.0",
-    "oxlint": ">=1.85.0",
     "oxlint-tailwindcss": ">=1.12.0",
-    "oxlint-tsgolint": ">=7.0.2003"
+    "vite-plus": ">=1.0.0"
   },
   "peerDependenciesMeta": {
     "@k8o/html-nest": {
       "optional": true
     },
-    "oxfmt": {
-      "optional": true
-    },
-    "oxlint": {
-      "optional": true
-    },
     "oxlint-tailwindcss": {
-      "optional": true
-    },
-    "oxlint-tsgolint": {
       "optional": true
     }
   },

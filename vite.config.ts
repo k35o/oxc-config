@@ -43,9 +43,6 @@ export default defineConfig({
     dts: true,
     outDir: 'dist',
     unbundle: true,
-    deps: {
-      neverBundle: [/^oxlint/, /^oxfmt$/],
-    },
   },
   test: {
     include: ['tests/**/*.test.ts'],
