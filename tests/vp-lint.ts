@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
 const repoRoot = resolve(import.meta.dirname, '..');
-const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
+const vp = resolve(repoRoot, 'node_modules', 'vite-plus', 'bin', 'vp');
 
 type Report = {
   diagnostics: Array<{
@@ -12,17 +12,11 @@ type Report = {
   }>;
 };
 
-export function runOxlint(fixture: string, args: string[]) {
-  return spawnSync(process.execPath, [oxlintBin, ...args], {
+/** Runs `vp lint` in a fixture directory, the way a consumer would. */
+export function runLint(fixture: string, args: string[]) {
+  return spawnSync(process.execPath, [vp, 'lint', ...args], {
     cwd: resolve(repoRoot, 'tests', 'fixtures', fixture),
     encoding: 'utf8',
-    // Use a clean env: vp test injects vite-plus paths into NODE_OPTIONS /
-    // NODE_PATH, which makes the standalone oxlint binary resolve vite-plus's
-    // config loader and reject our oxlint.config.ts.
-    env: {
-      PATH: process.env.PATH ?? '',
-      HOME: process.env.HOME ?? '',
-    },
   });
 }
 
@@ -30,9 +24,9 @@ export function runOxlint(fixture: string, args: string[]) {
 export function diagnose(
   fixture: string,
   file: string,
-  config = 'oxlint.config.ts',
+  config = 'vite.config.ts',
 ): string[] {
-  const { stdout, stderr } = runOxlint(fixture, [
+  const { stdout, stderr } = runLint(fixture, [
     '-c',
     config,
     '-f',
@@ -44,7 +38,7 @@ export function diagnose(
     report = JSON.parse(stdout) as Report;
   } catch (error) {
     throw new Error(
-      `oxlint did not produce a report for "${fixture}/${file}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
+      `vp lint did not produce a report for "${fixture}/${file}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
       { cause: error },
     );
   }

@@ -2,7 +2,7 @@ import tailwindPlugin from 'oxlint-tailwindcss';
 import { describe, expect, test } from 'vite-plus/test';
 
 import { tailwind } from '../dist/configs/tailwind.mjs';
-import { diagnose } from './oxlint.ts';
+import { diagnose } from './vp-lint.ts';
 
 // `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
 // to guard the tailwind / html-nest layers is to actually lint a file that

@@ -1,4 +1,4 @@
-import type { OxlintConfig } from 'oxlint';
+import type { OxlintConfig } from 'vite-plus/lint';
 
 import { REACT_PLUGINS } from '../_shared.js';
 import { typescript } from './typescript.js';

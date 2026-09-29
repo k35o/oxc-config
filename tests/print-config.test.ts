@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vite-plus/test';
 
-import { runOxlint } from './oxlint.ts';
+import { runLint } from './vp-lint.ts';
 
 // Only layers whose rules are native oxlint plugins are snapshot-tested here.
 // jsPlugin layers (tailwind, html-nest) are covered by
@@ -17,14 +17,14 @@ const fixtures = [
 describe('print-config snapshots', () => {
   for (const name of fixtures) {
     test(name, () => {
-      const { status, stdout, stderr } = runOxlint(name, [
+      const { status, stdout, stderr } = runLint(name, [
         '--print-config',
         '-c',
-        'oxlint.config.ts',
+        'vite.config.ts',
       ]);
       expect(
         status,
-        `oxlint --print-config failed for "${name}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
+        `vp lint --print-config failed for "${name}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
       ).toBe(0);
       const config: unknown = JSON.parse(stdout);
       expect(config).toMatchSnapshot();

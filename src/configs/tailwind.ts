@@ -1,4 +1,4 @@
-import type { OxlintConfig } from 'oxlint';
+import type { OxlintConfig } from 'vite-plus/lint';
 
 /**
  * Tailwind CSS v4 config using the `oxlint-tailwindcss` JS plugin.

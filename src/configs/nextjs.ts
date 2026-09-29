@@ -1,4 +1,4 @@
-import type { OxlintConfig } from 'oxlint';
+import type { OxlintConfig } from 'vite-plus/lint';
 
 import { NEXTJS_PLUGINS } from '../_shared.js';
 import { react } from './react.js';

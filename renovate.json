@@ -8,18 +8,13 @@
   "prConcurrentLimit": 10,
   "packageRules": [
     {
-      "matchPackageNames": [
-        "oxlint",
-        "oxfmt",
-        "oxlint-tailwindcss",
-        "oxlint-tsgolint"
-      ],
-      "groupName": "oxc dependencies",
+      "matchPackageNames": ["oxlint-tailwindcss", "@k8o/html-nest"],
       "labels": ["oxc-update"]
     },
     {
       "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
-      "groupName": "vite-plus"
+      "groupName": "vite-plus",
+      "labels": ["oxc-update"]
     },
     {
       "matchPackageNames": ["/^pnpm$/"],

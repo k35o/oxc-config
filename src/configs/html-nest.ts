@@ -1,4 +1,4 @@
-import type { OxlintConfig } from 'oxlint';
+import type { OxlintConfig } from 'vite-plus/lint';
 
 /**
  * WHATWG HTML content-model validation for JSX via the `@k8o/html-nest`
