@@ -112,7 +112,6 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
-    "@oxlint/plugins": "1.85.0",
     "@types/node": "24.13.6",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
