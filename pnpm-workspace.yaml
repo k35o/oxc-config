@@ -4,6 +4,13 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@k8o/*'
   - 'vite-plus-inspector'
+  # pnpm はグロブにバージョンを併記できないため、プラットフォームバイナリは
+  # スコープごと通す。親の exact pin 経由でしか解決されないので、実質の
+  # ゲートはバージョン固定した親が担う。
+  - 'vite-plus@1.0.0'
+  - '@voidzero-dev/*'
+  - 'oxlint-tsgolint@7.0.2003'
+  - '@oxlint-tsgolint/*'
 
 strictDepBuilds: true
 

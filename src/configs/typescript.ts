@@ -30,6 +30,30 @@ export const typescript: OxlintConfig = {
     'import/namespace': 'off',
     'import/default': 'off',
     'import/no-named-as-default-member': 'off',
+    // Declaration merging is legal TS: `const Status = {…} as const` paired
+    // with `type Status` is the enum alternative this preset steers toward.
+    // The compiler already rejects real redeclarations.
+    'no-redeclare': 'off',
+
+    // Each of these has a type-aware `typescript/*` counterpart that stays on
+    // (`require-await`, `only-throw-error`, `prefer-promise-reject-errors`,
+    // `no-implied-eval`, `prefer-includes`, `prefer-find`, `no-this-alias`,
+    // `no-extraneous-class`), so every hit was reported twice. The core
+    // `require-await` additionally rejects `async` functions that return a
+    // promise without awaiting it.
+    'require-await': 'off',
+    'no-throw-literal': 'off',
+    'prefer-promise-reject-errors': 'off',
+    'no-implied-eval': 'off',
+    'unicorn/prefer-includes': 'off',
+    'unicorn/prefer-array-find': 'off',
+    'unicorn/no-this-assignment': 'off',
+    'unicorn/no-static-only-class': 'off',
+    // Deprecated upstream; superseded by `no-wrapper-object-types` /
+    // `no-unsafe-function-type` / `no-empty-object-type` and `ban-ts-comment`,
+    // which report the same code.
+    'typescript/ban-types': 'off',
+    'typescript/prefer-ts-expect-error': 'off',
 
     // Cherry-picked out of nursery (base turns the category off).
     'typescript/prefer-optional-chain': 'error',
@@ -81,6 +105,30 @@ export const typescript: OxlintConfig = {
       'error',
       { ignoreArrowShorthand: true },
     ],
+    // Rejects the same shorthand callbacks (`onClick={() => track('x')}`,
+    // `items.forEach((item) => set.add(item))`) the option above allows.
+    'typescript/strict-void-return': 'off',
+    // Rejects an early `return;` next to a cleanup return in `useEffect`.
+    // tsconfig's `noImplicitReturns` covers the real bug class.
+    'typescript/consistent-return': 'off',
+    // `if (disabled)` on an optional boolean and `if (label)` on an optional
+    // string mean what they say. Nullable numbers stay rejected: that is where
+    // a forgotten `0` hides.
+    'typescript/strict-boolean-expressions': [
+      'error',
+      { allowNullableBoolean: true, allowNullableString: true },
+    ],
+    // A `default` branch is a deliberate catch-all; do not demand every union
+    // member be listed next to it. Switches without one stay exhaustive.
+    'typescript/switch-exhaustiveness-check': [
+      'error',
+      { considerDefaultExhaustiveForUnions: true },
+    ],
+    // oxlint's defaults accept `${maybeUndefined}`, which prints "undefined".
+    'typescript/restrict-template-expressions': [
+      'error',
+      { allowAny: false, allowNullish: false },
+    ],
 
     // Cherry-picked from `restriction` category.
     'oxc/no-const-enum': 'error',
@@ -111,6 +159,11 @@ export const typescript: OxlintConfig = {
     'typescript/unified-signatures': 'error',
     'typescript/prefer-reduce-type-parameter': 'error',
     'typescript/prefer-find': 'error',
+    'typescript/prefer-for-of': 'error',
+    'typescript/prefer-readonly': 'error',
+    'typescript/prefer-return-this-type': 'error',
+    // Respects tsconfig's `noPropertyAccessFromIndexSignature`.
+    'typescript/dot-notation': 'error',
     // `consistent-type-imports` tolerates mixed `import { type A, B }`; pin the
     // top-level form so it does not fight `no-import-type-side-effects`.
     'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],

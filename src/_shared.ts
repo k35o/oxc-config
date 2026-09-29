@@ -1,10 +1,11 @@
 /**
  * Plugin sets used across configs.
  *
- * oxlint always enables `eslint` core rules and force-enables the `typescript`
- * and `oxc` plugins, so those never need listing. `unicorn` is on by default
- * too but we keep it explicit since the base layer leans on it heavily. Every
- * other plugin is opt-in and must be listed by the first layer that needs it.
+ * oxlint always runs the `eslint` core rules. `typescript`, `unicorn` and `oxc`
+ * are on by default too, but only while no config sets `plugins`: spreading a
+ * layer into the root config (or listing `plugins` there) replaces the default
+ * set. Every plugin a layer relies on is therefore listed explicitly — `oxc`
+ * included, or `oxc/*` rules silently stop running for those consumers.
  *
  * Oxlint *replaces* (not merges) the `plugins` array when a config sets it, so
  * each layer repeats the opt-in plugins of its parents.
@@ -13,7 +14,7 @@
  * here as a separate entry.
  */
 
-export const BASE_PLUGINS = ['unicorn', 'import', 'promise'] as const;
+export const BASE_PLUGINS = ['unicorn', 'oxc', 'import', 'promise'] as const;
 
 export const TS_PLUGINS = [...BASE_PLUGINS, 'typescript'] as const;
 
@@ -37,30 +38,4 @@ export const TEST_GLOBS = [
   '**/*.test.tsx',
   '**/*.spec.ts',
   '**/*.spec.tsx',
-] as const;
-
-/**
- * Storybook story-file globs, for the `overrides` entry that applies the
- * `storybook` config. `.storybook/main.*` is a separate concern (see the
- * storybook config docs).
- */
-export const STORYBOOK_GLOBS = [
-  '**/*.stories.ts',
-  '**/*.stories.tsx',
-  '**/*.stories.js',
-  '**/*.stories.jsx',
-  '**/*.story.ts',
-  '**/*.story.tsx',
-] as const;
-
-/**
- * Playwright e2e-spec globs. Kept distinct from `TEST_GLOBS` (`.e2e.*` / an
- * `e2e/` dir) so unit-test and e2e files do not both match — a `.spec.ts`
- * under `e2e/` gets Playwright rules, one next to source gets Vitest rules.
- */
-export const PLAYWRIGHT_GLOBS = [
-  '**/*.e2e.ts',
-  '**/*.e2e.tsx',
-  'e2e/**/*.ts',
-  'e2e/**/*.tsx',
 ] as const;

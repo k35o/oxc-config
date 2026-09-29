@@ -16,7 +16,6 @@ Vite+ bundles oxlint, oxfmt, and `oxlint-tsgolint`, so you only need to add this
 pnpm add -D vite-plus @k8o/oxc-config
 # Only when you use the matching lint layer:
 pnpm add -D oxlint-tailwindcss    # tailwind
-pnpm add -D eslint-plugin-regexp  # regexp
 pnpm add -D @k8o/html-nest        # html-nest
 ```
 
@@ -28,15 +27,12 @@ pnpm add -D oxlint @k8o/oxc-config
 pnpm add -D oxfmt                   # if you use the `fmt` preset
 pnpm add -D oxlint-tsgolint         # type-aware rules (typescript / react / nextjs / backend)
 pnpm add -D oxlint-tailwindcss      # the `tailwind` layer
-pnpm add -D eslint-plugin-regexp    # the `regexp` layer
 pnpm add -D @k8o/html-nest          # the `html-nest` layer
-pnpm add -D eslint-plugin-playwright # the `playwright` layer
-pnpm add -D eslint-plugin-storybook storybook # the `storybook` layer
 ```
 
-> Requires **oxlint ≥ 1.71**. The config enables rules that only exist in recent
-> oxlint, and oxlint fails to build a config that references an unknown rule, so
-> older versions are not supported. Node ≥ 24.13.
+> Requires **oxlint ≥ 1.85** (the version Vite+ 1.0 bundles). oxlint fails to
+> build a config that names an unknown rule — even one set to `off` — so older
+> versions are not supported. Node ≥ 24.13.
 
 ## Quick start
 
@@ -59,6 +55,7 @@ export default defineConfig({
     },
     settings: {
       react: { version: '19.0.0' },
+      tailwindcss: { entryPoint: './src/app/globals.css' },
     },
     overrides: [{ files: [...TEST_GLOBS], ...test }],
   },
@@ -83,10 +80,9 @@ export default defineConfig({
 
 Notes for Vite+ users:
 
-- Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `eslint-plugin-regexp`, …) stay separate installs.
+- Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `@k8o/html-nest`) stay separate installs.
 - Type-aware rules work out of the box (no separate `oxlint-tsgolint` install needed).
 - `vp check` runs format + lint + tsc together — recommended entry for CI.
-- The `vite.config.ts` loader path that `vp lint` uses is plain Node ESM (no TS transform). If you need to compose presets across files, keep it inline or build the consumer first.
 
 ### With standalone oxlint
 
@@ -102,6 +98,7 @@ export default defineConfig({
   },
   settings: {
     react: { version: '19.0.0' },
+    tailwindcss: { entryPoint: './src/app/globals.css' },
   },
   overrides: [{ files: [...TEST_GLOBS], ...test }],
 });
@@ -125,7 +122,7 @@ For oxfmt, drop our `fmt` preset into a JS config, or use the generated JSON (be
 // (dist/fmt.oxfmtrc.json)
 ```
 
-Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `regexp`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The override-style layers (`test`, `storybook`, `playwright`) are applied via `overrides`, so JSON consumers copy their rule blocks into an `overrides` entry by hand.
+Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The `test` layer is applied via `overrides`, so JSON consumers copy its rule block into an `overrides` entry by hand.
 
 ## Layers
 
@@ -137,10 +134,7 @@ base ─┬─ typescript ─┬─ react ── nextjs
 
 test       (apply via overrides on test globs)
 tailwind   (compose with react / nextjs via extends)
-regexp     (compose with any layer via extends)
 html-nest  (compose with any JSX layer via extends)
-storybook  (apply via overrides on story globs)
-playwright (apply via overrides on e2e globs)
 fmt        (oxfmt preset, independent of lint layers)
 ```
 
@@ -153,20 +147,49 @@ fmt        (oxfmt preset, independent of lint layers)
 | `@k8o/oxc-config/backend`    | Node, Cloudflare Workers, Hono                                  |
 | `@k8o/oxc-config/test`       | Vitest test files (use in `overrides`)                          |
 | `@k8o/oxc-config/tailwind`   | Tailwind CSS v4 (composes with React / Next.js)                 |
-| `@k8o/oxc-config/regexp`     | Regex safety / ReDoS (composes with any layer)                  |
 | `@k8o/oxc-config/html-nest`  | HTML nesting validity in JSX (composes with `react` / `nextjs`) |
-| `@k8o/oxc-config/storybook`  | Storybook story files (use in `overrides`)                      |
-| `@k8o/oxc-config/playwright` | Playwright e2e specs (use in `overrides`)                       |
 | `@k8o/oxc-config/fmt`        | oxfmt preset (single quotes, sort imports, …)                   |
 
-Also exported: `TEST_GLOBS`, `STORYBOOK_GLOBS`, `PLAYWRIGHT_GLOBS` — canonical glob arrays for the `overrides` entries so you don't hand-copy (and drift from) the file matrix.
+Also exported: `TEST_GLOBS` — the canonical glob array for the `overrides` entry so you don't hand-copy (and drift from) the file matrix.
+
+### Settings the layers rely on
+
+oxlint does not inherit `env` or `settings` through `extends`, so these belong in your own config:
+
+| Layer      | Setting                           | Why                                                                                           |
+| ---------- | --------------------------------- | --------------------------------------------------------------------------------------------- |
+| `base`     | `env` (`browser`, `node`, …)      | Plain JS only: `no-undef` needs to know the runtime's globals. TypeScript layers turn it off. |
+| `react`    | `settings.react.version`          | Version-dependent React rules.                                                                |
+| `nextjs`   | `settings.next.rootDir`           | Monorepos only: the app's directory, so the plugin does not look at the repo root.            |
+| `tailwind` | `settings.tailwindcss.entryPoint` | Required. Without it the rules that read the design system report a configuration error.      |
+
+In a monorepo, give each package its own config and point these paths at that package.
+
+### Adjusting a layer
+
+Rules in your own config win over the layers in `extends`. Use `rules` for the whole project and `overrides` for part of it:
+
+```ts
+export default defineConfig({
+  extends: [nextjs],
+  // Server code that logs to stdout.
+  rules: { 'no-console': 'off' },
+  overrides: [
+    {
+      // PascalCase filenames for components; everything else stays kebab-case.
+      files: ['src/components/**/*.tsx'],
+      rules: { 'unicorn/filename-case': ['error', { case: 'pascalCase' }] },
+    },
+  ],
+});
+```
 
 ## Design principles
 
 1. **`categories` declared once** — only in `base`. Higher layers add specific rule overrides on top.
 2. **Files are pure deltas.** Each layer lists only rules that differ from the category defaults (an off, a warn, a non-default option, or a cherry-pick). Rules that merely restate a category severity are not repeated — the snapshot suite guards against category drift.
 3. **`nursery` is off.** Leaving it at error silently escalates every new upstream nursery rule to an error on each oxlint minor bump. `base` sets `nursery: 'off'` and cherry-picks the handful worth keeping.
-4. **`plugins` is replaced, not merged**, by oxlint. Each layer lists every opt-in plugin it depends on (oxlint force-enables `eslint`/`typescript`/`oxc`/`unicorn`, so those are not listed).
+4. **`plugins` is replaced, not merged**, by oxlint. `typescript`, `unicorn` and `oxc` are on by default only while no config sets `plugins`, so each layer lists every plugin it depends on. Prefer `extends: [layer]` over spreading a layer into the root config.
 5. **`options.reportUnusedDisableDirectives` is root-only**. Set it on the consumer's config, not on a shared layer.
 6. **`options.typeAware: true` from `typescript` onwards**. Install `oxlint-tsgolint` (or use Vite+) to actually run those rules.
 
@@ -177,14 +200,6 @@ The `typescript` layer and everything above it set `options.typeAware: true`, wh
 - **Standalone oxlint users must install `oxlint-tsgolint`** (it is an optional peer). Vite+ bundles it.
 - It runs a real type check, so it needs a resolvable `tsconfig.json` and is meaningfully slower / more memory-hungry than the syntactic rules.
 - Its version is loosely coupled to oxlint's; when you bump oxlint, bump `oxlint-tsgolint` in lockstep.
-
-## Recipes
-
-- [Next.js App Router](docs/recipes/nextjs-app-router.md)
-- [React library](docs/recipes/react-library.md)
-- [Cloudflare Workers / Hono](docs/recipes/cloudflare-workers.md)
-- [Monorepo](docs/recipes/monorepo.md)
-- [Migrating from Biome](docs/migration-from-biome.md)
 
 ## Versioning
 

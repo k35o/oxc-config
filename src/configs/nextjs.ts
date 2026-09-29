@@ -8,7 +8,7 @@ import { react } from './react.js';
  * In monorepos, set `settings.next.rootDir` on the consumer side.
  *
  * The `nextjs/*` correctness rules are already enabled by the categories; only
- * the ones we downgrade to warn (and the filename-case override) are listed.
+ * the ones we downgrade (and the filename-case override) are listed.
  */
 export const nextjs: OxlintConfig = {
   extends: [react],
@@ -17,10 +17,15 @@ export const nextjs: OxlintConfig = {
     'nextjs/no-img-element': 'warn',
     'nextjs/google-font-display': 'warn',
     'nextjs/google-font-preconnect': 'warn',
-    'nextjs/no-page-custom-font': 'warn',
     'nextjs/no-css-tags': 'warn',
     'nextjs/no-styled-jsx-in-document': 'warn',
     'nextjs/no-before-interactive-script-outside-document': 'warn',
+    'nextjs/next-script-for-ga': 'warn',
+    // Rejects every internal `href`, including ones `<Link>` cannot serve
+    // (`/api/export`, `/rss.xml`).
+    'nextjs/no-html-link-for-pages': 'warn',
+    // Pages Router only, yet it fires in `app/layout.tsx`.
+    'nextjs/no-page-custom-font': 'off',
 
     // Allow Next.js dynamic-segment filenames (`[id].tsx`, `[...slug].tsx`,
     // `[[...slug]].tsx`) to bypass kebab-case enforcement. Route-group and
@@ -28,10 +33,20 @@ export const nextjs: OxlintConfig = {
     // not checked by `filename-case`.
     'unicorn/filename-case': [
       'error',
-      {
-        case: 'kebabCase',
-        ignore: ['^\\[.+\\]', '^\\[\\[.+\\]\\]'],
-      },
+      { case: 'kebabCase', ignore: ['^\\[.+\\]'] },
     ],
   },
+  overrides: [
+    {
+      // Metadata image routes render through `ImageResponse`, where
+      // `next/image` is unavailable.
+      files: [
+        '**/opengraph-image.tsx',
+        '**/twitter-image.tsx',
+        '**/icon.tsx',
+        '**/apple-icon.tsx',
+      ],
+      rules: { 'nextjs/no-img-element': 'off' },
+    },
+  ],
 };

@@ -1,10 +1,5 @@
 import { defineConfig } from 'vite-plus';
 
-// Inline a minimal fmt / lint config here. The full presets live under
-// `src/configs/` but vp's lint/fmt config loader does not transform TS
-// imports, so we cannot reference them from this file. Importing from
-// `dist/` would create a chicken-and-egg in CI (vp pack loads this
-// config before producing dist).
 export default defineConfig({
   fmt: {
     singleQuote: true,
@@ -19,6 +14,7 @@ export default defineConfig({
   lint: {
     // scripts/** と .github/scripts/** は tsconfig 外の tooling 用 .mjs。
     // typeAware lint は project に含まれないファイルで失敗するため除外する。
+    // tests/fixtures/** はプリセットを検証するための入力で、意図的な違反を含む。
     ignorePatterns: [
       'CHANGELOG.md',
       '.changeset',
@@ -26,6 +22,7 @@ export default defineConfig({
       'dist-preview/**',
       'scripts/**',
       '.github/scripts/**',
+      'tests/fixtures/**',
     ],
     options: {
       typeAware: true,
