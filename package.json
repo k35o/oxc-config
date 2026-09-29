@@ -112,7 +112,6 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
-    "@oxlint/plugins": "1.85.0",
     "@types/node": "24.13.6",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
@@ -121,7 +120,7 @@
     "publint": "0.3.24",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
-    "vite-plus": "1.0.0",
+    "vite-plus": "catalog:",
     "vite-plus-inspector": "0.1.1",
     "wrangler": "4.136.1"
   },

@@ -12,19 +12,14 @@
         "oxlint",
         "oxfmt",
         "oxlint-tailwindcss",
-        "oxlint-tsgolint",
-        "@oxlint/plugins"
+        "oxlint-tsgolint"
       ],
       "groupName": "oxc dependencies",
       "labels": ["oxc-update"]
     },
     {
-      "matchPackageNames": ["/^vitest$/", "/@vitest/"],
-      "groupName": "vitest dependencies"
-    },
-    {
-      "matchPackageNames": ["tsdown"],
-      "groupName": "tsdown dependencies"
+      "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
+      "groupName": "vite-plus"
     },
     {
       "matchPackageNames": ["/^pnpm$/"],

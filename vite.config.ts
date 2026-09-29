@@ -1,15 +1,22 @@
 import { defineConfig } from 'vite-plus';
 
+import { TEST_GLOBS } from './src/_shared.ts';
+import { fmt } from './src/configs/fmt.ts';
+import { test } from './src/configs/test.ts';
+import { typescript } from './src/configs/typescript.ts';
+
 export default defineConfig({
   fmt: {
-    singleQuote: true,
-    trailingComma: 'all',
-    printWidth: 80,
-    sortImports: true,
-    sortPackageJson: true,
+    ...fmt,
     // .changeset/（ledger.yaml 等）は pnpm が生成・所有するファイルなので、
-    // こちらの整形規則を当てない
-    ignorePatterns: ['CHANGELOG.md', '.changeset', 'previews/**'],
+    // こちらの整形規則を当てない。tests/fixtures/** は意図的な違反を含む入力で、
+    // 整形すると違反（重複した Tailwind クラスなど）が消えてしまう。
+    ignorePatterns: [
+      'CHANGELOG.md',
+      '.changeset',
+      'previews/**',
+      'tests/fixtures/**',
+    ],
   },
   lint: {
     // scripts/** と .github/scripts/** は tsconfig 外の tooling 用 .mjs。
@@ -24,9 +31,11 @@ export default defineConfig({
       '.github/scripts/**',
       'tests/fixtures/**',
     ],
+    extends: [typescript],
     options: {
-      typeAware: true,
+      reportUnusedDisableDirectives: 'error',
     },
+    overrides: [{ files: [...TEST_GLOBS], ...test }],
   },
   pack: {
     entry: ['src/**/*.ts'],
@@ -41,8 +50,5 @@ export default defineConfig({
   test: {
     include: ['tests/**/*.test.ts'],
     testTimeout: 30_000,
-  },
-  staged: {
-    '*.{js,ts,cjs,mjs,jsx,tsx,json,jsonc}': 'vp check --fix',
   },
 });

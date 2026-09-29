@@ -21,3 +21,11 @@ describe('formatPrice', () => {
     }
   });
 });
+
+describe('toLocaleString', () => {
+  for (const locale of ['en-US', 'ja-JP']) {
+    test(locale, () => {
+      expect((1200).toLocaleString(locale)).toBe('1,200');
+    });
+  }
+});

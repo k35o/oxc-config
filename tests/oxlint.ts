@@ -5,11 +5,11 @@ const repoRoot = resolve(import.meta.dirname, '..');
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
 type Report = {
-  diagnostics: {
+  diagnostics: Array<{
     code: string;
     severity: string;
-    labels: { span: { line: number } }[];
-  }[];
+    labels: Array<{ span: { line: number } }>;
+  }>;
 };
 
 export function runOxlint(fixture: string, args: string[]) {
@@ -20,8 +20,8 @@ export function runOxlint(fixture: string, args: string[]) {
     // NODE_PATH, which makes the standalone oxlint binary resolve vite-plus's
     // config loader and reject our oxlint.config.ts.
     env: {
-      PATH: process.env['PATH'] ?? '',
-      HOME: process.env['HOME'] ?? '',
+      PATH: process.env.PATH ?? '',
+      HOME: process.env.HOME ?? '',
     },
   });
 }

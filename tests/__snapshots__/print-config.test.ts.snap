@@ -2041,6 +2041,15 @@ exports[`print-config snapshots > test 1`] = `
         "vitest/prefer-to-have-been-called-times": "warn",
         "vitest/prefer-to-have-length": "warn",
         "vitest/require-mock-type-parameters": "allow",
+        "vitest/valid-title": [
+          "deny",
+          [
+            {
+              "ignoreTypeOfDescribeName": true,
+              "ignoreTypeOfTestName": true,
+            },
+          ],
+        ],
         "vitest/warn-todo": "warn",
       },
     },
