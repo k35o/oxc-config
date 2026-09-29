@@ -22,11 +22,10 @@ describe('print-config snapshots', () => {
         '-c',
         'oxlint.config.ts',
       ]);
-      if (status !== 0) {
-        throw new Error(
-          `oxlint --print-config failed for "${name}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
-        );
-      }
+      expect(
+        status,
+        `oxlint --print-config failed for "${name}":\nstderr:\n${stderr}\nstdout:\n${stdout}`,
+      ).toBe(0);
       const config: unknown = JSON.parse(stdout);
       expect(config).toMatchSnapshot();
     });
