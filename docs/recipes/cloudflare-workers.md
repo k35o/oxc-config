@@ -32,10 +32,11 @@ and `regexp/no-super-linear-backtracking` catches it.
 ## Env access
 
 `node/no-process-env` is a **warning**, not an error: reading `process.env`
-directly is fine in a small worker but a smell at scale. On Cloudflare Workers
-you usually receive bindings via the `env` argument rather than `process.env`
-anyway, so this rarely fires. Centralize env parsing (e.g. a typed `env.ts`) and
-the warning stays contained.
+directly is fine in a small worker but a smell at scale. Workers populate
+`process.env` under `nodejs_compat`, so the rule applies there too; bindings
+received through the `env` argument or `import { env } from 'cloudflare:workers'`
+are unaffected. Centralize env parsing (e.g. a typed `env.ts`) and the warning
+stays contained.
 
 ## Hono specifics
 

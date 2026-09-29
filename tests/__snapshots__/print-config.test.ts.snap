@@ -375,7 +375,7 @@ exports[`print-config snapshots > backend 1`] = `
     "unicorn/prefer-dom-node-dataset": "deny",
     "unicorn/prefer-dom-node-remove": "deny",
     "unicorn/prefer-dom-node-text-content": "deny",
-    "unicorn/prefer-event-target": "deny",
+    "unicorn/prefer-event-target": "allow",
     "unicorn/prefer-export-from": "deny",
     "unicorn/prefer-import-meta-properties": "deny",
     "unicorn/prefer-includes": "allow",

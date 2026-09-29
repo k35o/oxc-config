@@ -12,6 +12,9 @@ export const backend: OxlintConfig = {
   plugins: [...BACKEND_PLUGINS],
   rules: {
     'no-console': 'off',
+    // Its case is bundle size and cross-platform use; on a server
+    // `node:events` is the native choice.
+    'unicorn/prefer-event-target': 'off',
 
     'node/no-exports-assign': 'error',
     'node/no-new-require': 'error',
