@@ -33,9 +33,9 @@ pnpm add -D @k8o/html-nest          # the `html-nest` layer
 pnpm add -D eslint-plugin-playwright # the `playwright` layer
 ```
 
-> Requires **oxlint ≥ 1.71**. The config enables rules that only exist in recent
-> oxlint, and oxlint fails to build a config that references an unknown rule, so
-> older versions are not supported. Node ≥ 24.13.
+> Requires **oxlint ≥ 1.85** (the version Vite+ 1.0 bundles). oxlint fails to
+> build a config that names an unknown rule — even one set to `off` — so older
+> versions are not supported. Node ≥ 24.13.
 
 ## Quick start
 
