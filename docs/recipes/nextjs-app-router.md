@@ -70,8 +70,8 @@ overrides: [
 
 ## Server vs client
 
-The `nextjs` layer's correctness rules (e.g. `no-html-link-for-pages`,
-`no-sync-scripts`) run everywhere. There is no separate server/client split —
+The `nextjs` layer's correctness rules (e.g. `no-sync-scripts`,
+`no-async-client-component`) run everywhere. There is no separate server/client split —
 Server Components are still React, so `react` and `jsx-a11y` rules apply to them
 too. Route handlers and server actions that log to stdout will trip
 `no-console` (warn); relax it per-file if that is intentional, or apply the

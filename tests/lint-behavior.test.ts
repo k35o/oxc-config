@@ -12,6 +12,12 @@ describe('idiomatic code lints clean', () => {
       [],
     );
   });
+
+  test('next.js metadata image routes using <img>', () => {
+    expect(
+      diagnose('nextjs', 'app/opengraph-image.tsx', 'lint.config.ts'),
+    ).toEqual([]);
+  });
 });
 
 describe('typescript', () => {
@@ -19,6 +25,14 @@ describe('typescript', () => {
     expect(
       diagnose('typescript', 'spread/sample.ts', 'spread.config.ts'),
     ).toEqual(['2 oxc(no-const-enum)']);
+  });
+});
+
+describe('nextjs', () => {
+  test('warns about <img> outside metadata image routes', () => {
+    expect(diagnose('nextjs', 'app/blog/sample.tsx', 'lint.config.ts')).toEqual(
+      ['3 next(no-img-element)'],
+    );
   });
 });
 

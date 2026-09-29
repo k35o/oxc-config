@@ -865,6 +865,22 @@ exports[`print-config snapshots > nextjs 1`] = `
   "options": {
     "typeAware": true,
   },
+  "overrides": [
+    {
+      "env": null,
+      "files": [
+        "**/opengraph-image.tsx",
+        "**/twitter-image.tsx",
+        "**/icon.tsx",
+        "**/apple-icon.tsx",
+      ],
+      "globals": null,
+      "plugins": null,
+      "rules": {
+        "nextjs/no-img-element": "allow",
+      },
+    },
+  ],
   "plugins": [
     "react",
     "unicorn",
@@ -946,7 +962,7 @@ exports[`print-config snapshots > nextjs 1`] = `
     "nextjs/google-font-display": "warn",
     "nextjs/google-font-preconnect": "warn",
     "nextjs/inline-script-id": "deny",
-    "nextjs/next-script-for-ga": "deny",
+    "nextjs/next-script-for-ga": "warn",
     "nextjs/no-assign-module-variable": "deny",
     "nextjs/no-async-client-component": "deny",
     "nextjs/no-before-interactive-script-outside-document": "warn",
@@ -955,9 +971,9 @@ exports[`print-config snapshots > nextjs 1`] = `
     "nextjs/no-duplicate-head": "deny",
     "nextjs/no-head-element": "deny",
     "nextjs/no-head-import-in-document": "deny",
-    "nextjs/no-html-link-for-pages": "deny",
+    "nextjs/no-html-link-for-pages": "warn",
     "nextjs/no-img-element": "warn",
-    "nextjs/no-page-custom-font": "warn",
+    "nextjs/no-page-custom-font": "allow",
     "nextjs/no-script-component-in-head": "deny",
     "nextjs/no-styled-jsx-in-document": "warn",
     "nextjs/no-sync-scripts": "deny",
