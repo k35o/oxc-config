@@ -55,9 +55,9 @@ export const STORYBOOK_GLOBS = [
 ] as const;
 
 /**
- * Playwright e2e-spec globs. Kept distinct from `TEST_GLOBS` (`.e2e.*` / an
- * `e2e/` dir) so unit-test and e2e files do not both match — a `.spec.ts`
- * under `e2e/` gets Playwright rules, one next to source gets Vitest rules.
+ * Playwright e2e-spec globs. `e2e/**` also matches the `.spec.ts` / `.test.ts`
+ * files `TEST_GLOBS` covers, so pass these as `excludeFiles` on the Vitest
+ * override to keep Vitest rules and relaxations out of e2e files.
  */
 export const PLAYWRIGHT_GLOBS = [
   '**/*.e2e.ts',

@@ -8,12 +8,16 @@ import type { OxlintConfig } from 'oxlint';
  * install `eslint-plugin-playwright` as a peer. Rules mirror the plugin's
  * `flat/recommended` config.
  *
- * Keep the globs distinct from `TEST_GLOBS` so Vitest and Playwright rules do
- * not both apply to the same file.
+ * `PLAYWRIGHT_GLOBS` overlaps `TEST_GLOBS` under `e2e/`, so exclude it from the
+ * Vitest override (`excludeFiles: [...PLAYWRIGHT_GLOBS]`).
  */
 export const playwright: OxlintConfig = {
   jsPlugins: ['eslint-plugin-playwright'],
   rules: {
+    // Playwright requires a fixture's first parameter to be an object
+    // destructuring pattern, even an empty one: `async ({}, use) => {}`.
+    'no-empty-pattern': 'off',
+
     'playwright/consistent-spacing-between-blocks': 'warn',
     'playwright/expect-expect': 'warn',
     'playwright/max-nested-describe': 'warn',
@@ -25,12 +29,14 @@ export const playwright: OxlintConfig = {
     'playwright/no-element-handle': 'warn',
     'playwright/no-eval': 'warn',
     'playwright/no-focused-test': 'error',
+    'playwright/no-identical-title': 'warn',
     'playwright/no-force-option': 'warn',
     'playwright/no-nested-step': 'warn',
     'playwright/no-networkidle': 'error',
     'playwright/no-page-pause': 'warn',
     'playwright/no-skipped-test': 'warn',
     'playwright/no-standalone-expect': 'error',
+    'playwright/no-unnecessary-assertions': 'error',
     'playwright/no-unsafe-references': 'error',
     'playwright/no-unused-locators': 'error',
     'playwright/no-useless-await': 'warn',

@@ -1,6 +1,8 @@
+import playwrightPlugin from 'eslint-plugin-playwright';
 import regexpPlugin from 'eslint-plugin-regexp';
 import { describe, expect, test } from 'vite-plus/test';
 
+import { playwright } from '../dist/configs/playwright.mjs';
 import { regexp } from '../dist/configs/regexp.mjs';
 import { storybook } from '../dist/configs/storybook.mjs';
 import { diagnose } from './oxlint.ts';
@@ -33,6 +35,10 @@ describe('jsPlugin layers fire on real violations', () => {
       '4 playwright(no-focused-test)',
     ]);
   });
+
+  test('playwright: fixtures may destructure nothing', () => {
+    expect(diagnose('playwright', 'fixtures.e2e.ts')).toEqual([]);
+  });
 });
 
 // A plugin update can add rules the layer has never decided on. These fail on
@@ -42,6 +48,14 @@ describe('jsPlugin layers keep up with their plugin', () => {
     Object.keys(rules)
       .filter((name) => name.startsWith(`${prefix}/`))
       .toSorted();
+
+  test('playwright covers the plugin’s recommended rules', () => {
+    const { rules } = playwrightPlugin.configs['flat/recommended'];
+
+    expect(rulesOf(playwright.rules ?? {}, 'playwright')).toEqual(
+      rulesOf(rules ?? {}, 'playwright'),
+    );
+  });
 
   test('regexp covers the plugin’s recommended rules', () => {
     const { rules } = regexpPlugin.configs['flat/recommended'];
