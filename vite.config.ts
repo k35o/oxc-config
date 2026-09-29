@@ -1,10 +1,5 @@
 import { defineConfig } from 'vite-plus';
 
-// Inline a minimal fmt / lint config here. The full presets live under
-// `src/configs/` but vp's lint/fmt config loader does not transform TS
-// imports, so we cannot reference them from this file. Importing from
-// `dist/` would create a chicken-and-egg in CI (vp pack loads this
-// config before producing dist).
 export default defineConfig({
   fmt: {
     singleQuote: true,

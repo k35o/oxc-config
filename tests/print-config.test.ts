@@ -7,9 +7,6 @@ import { describe, expect, test } from 'vite-plus/test';
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, '..');
 
-// Resolve the standalone oxlint binary directly. The bin shim in `.bin/oxlint`
-// is provided by vite-plus and only handles `--lsp`, so we go through the
-// `oxlint` package itself to drive the CLI.
 const oxlintBin = resolve(repoRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
 // Only layers whose rules are native oxlint plugins are snapshot-tested here.
