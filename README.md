@@ -104,25 +104,7 @@ export default defineConfig({
 });
 ```
 
-For oxfmt, drop our `fmt` preset into a JS config, or use the generated JSON (below).
-
-### With a plain `.oxlintrc.json` / `.oxfmtrc.json`
-
-`.oxlintrc.json`'s `extends` takes **file paths, not npm specifiers** ([oxc#14413](https://github.com/oxc-project/oxc/issues/14413)), so JSON consumers cannot `import` this package. We ship a generated JSON variant of each root lint layer (and the fmt preset) for exactly this case:
-
-```jsonc
-// .oxlintrc.json
-{
-  "extends": ["./node_modules/@k8o/oxc-config/dist/nextjs.oxlintrc.json"],
-}
-```
-
-```jsonc
-// .oxfmtrc.json — copy the generated preset, or reference the file in a JS config
-// (dist/fmt.oxfmtrc.json)
-```
-
-Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The `test` layer is applied via `overrides`, so JSON consumers copy its rule block into an `overrides` entry by hand.
+For oxfmt, import our `fmt` preset into a JS config.
 
 ## Layers
 

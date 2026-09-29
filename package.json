@@ -74,14 +74,6 @@
       "types": "./dist/configs/fmt.d.mts",
       "default": "./dist/configs/fmt.mjs"
     },
-    "./base.oxlintrc.json": "./dist/base.oxlintrc.json",
-    "./typescript.oxlintrc.json": "./dist/typescript.oxlintrc.json",
-    "./react.oxlintrc.json": "./dist/react.oxlintrc.json",
-    "./nextjs.oxlintrc.json": "./dist/nextjs.oxlintrc.json",
-    "./backend.oxlintrc.json": "./dist/backend.oxlintrc.json",
-    "./tailwind.oxlintrc.json": "./dist/tailwind.oxlintrc.json",
-    "./html-nest.oxlintrc.json": "./dist/html-nest.oxlintrc.json",
-    "./fmt.oxfmtrc.json": "./dist/fmt.oxfmtrc.json",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -89,7 +81,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "vp pack && node scripts/build-json-configs.mjs",
+    "build": "vp pack",
     "test": "vp test",
     "lint": "vp lint",
     "fmt": "vp fmt",

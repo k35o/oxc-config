@@ -8,9 +8,7 @@ import type { OxfmtConfig } from 'oxfmt';
  * them — are set here. oxfmt's own defaults cover the rest (double-quoted JSX,
  * trailing commas, semicolons, `always` arrow parens, …).
  *
- * Apply via Vite+ (`fmt:` field in `vite.config.ts`) or oxfmt directly
- * (`.oxfmtrc.json`-equivalent imported in code / the generated
- * `@k8o/oxc-config/dist/fmt.oxfmtrc.json`).
+ * Apply via the `fmt:` field in `vite.config.ts`.
  *
  * `ignorePatterns` is intentionally omitted: setting it here would be silently
  * clobbered the moment a consumer sets their own, and repo-specific ignores
