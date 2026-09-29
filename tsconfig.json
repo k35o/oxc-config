@@ -29,7 +29,7 @@
   "exclude": [
     "dist",
     "tests/fixtures/**/sample.ts",
-    "tests/fixtures/**/sample.tsx",
+    "tests/fixtures/**/*.tsx",
     "tests/fixtures/**/*.e2e.ts"
   ]
 }

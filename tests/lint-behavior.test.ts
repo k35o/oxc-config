@@ -6,6 +6,12 @@ describe('idiomatic code lints clean', () => {
   test('typescript', () => {
     expect(diagnose('typescript', 'idiomatic/sample.ts')).toEqual([]);
   });
+
+  test('react', () => {
+    expect(diagnose('react', 'idiomatic/sample.tsx', 'lint.config.ts')).toEqual(
+      [],
+    );
+  });
 });
 
 describe('typescript', () => {
@@ -28,6 +34,17 @@ describe('each problem is reported by exactly one rule', () => {
       '29 unicorn(no-instanceof-builtins)',
       '32 unicorn(new-for-builtins)',
       '34 unicorn(escape-case)',
+    ]);
+  });
+
+  test('react', () => {
+    expect(
+      diagnose('react', 'duplicates/sample.tsx', 'lint.config.ts'),
+    ).toEqual([
+      '8 react-hooks(rules-of-hooks)',
+      '12 react-hooks(exhaustive-deps)',
+      '14 react-hooks(exhaustive-deps)',
+      '16 react(no-unstable-nested-components)',
     ]);
   });
 });
