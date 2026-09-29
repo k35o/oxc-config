@@ -202,6 +202,9 @@ importers:
       publint:
         specifier: 0.3.24
         version: 0.3.24
+      tailwindcss:
+        specifier: 4.3.3
+        version: 4.3.3
       typescript:
         specifier: 7.0.2
         version: 7.0.2

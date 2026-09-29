@@ -137,6 +137,7 @@
     "oxlint-tailwindcss": "1.12.0",
     "oxlint-tsgolint": "7.0.2003",
     "publint": "0.3.24",
+    "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite-plus": "1.0.0",
     "vite-plus-inspector": "0.1.1",

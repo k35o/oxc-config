@@ -1,20 +1,23 @@
 import playwrightPlugin from 'eslint-plugin-playwright';
 import regexpPlugin from 'eslint-plugin-regexp';
+import tailwindPlugin from 'oxlint-tailwindcss';
 import { describe, expect, test } from 'vite-plus/test';
 
 import { playwright } from '../dist/configs/playwright.mjs';
 import { regexp } from '../dist/configs/regexp.mjs';
 import { storybook } from '../dist/configs/storybook.mjs';
+import { tailwind } from '../dist/configs/tailwind.mjs';
 import { diagnose } from './oxlint.ts';
 
 // `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
 // to guard the tailwind / regexp / html-nest / playwright layers is to actually
 // lint a file that violates them and assert the diagnostic shows up.
 describe('jsPlugin layers fire on real violations', () => {
-  test('tailwind: no-duplicate-classes', () => {
-    expect(diagnose('tailwind', 'sample.tsx')).toContain(
-      '2 tailwindcss(no-duplicate-classes)',
-    );
+  test('tailwind: duplicate and conflicting classes', () => {
+    expect(diagnose('tailwind', 'sample.tsx')).toEqual([
+      '3 tailwindcss(no-duplicate-classes)',
+      '4 tailwindcss(no-conflicting-classes)',
+    ]);
   });
 
   test('regexp: dupe character class + empty alternative', () => {
@@ -48,6 +51,14 @@ describe('jsPlugin layers keep up with their plugin', () => {
     Object.keys(rules)
       .filter((name) => name.startsWith(`${prefix}/`))
       .toSorted();
+
+  test('tailwind decides every rule the plugin ships', () => {
+    const shipped = Object.keys(tailwindPlugin.rules)
+      .map((name) => `tailwindcss/${name}`)
+      .toSorted();
+
+    expect(rulesOf(tailwind.rules ?? {}, 'tailwindcss')).toEqual(shipped);
+  });
 
   test('playwright covers the plugin’s recommended rules', () => {
     const { rules } = playwrightPlugin.configs['flat/recommended'];
