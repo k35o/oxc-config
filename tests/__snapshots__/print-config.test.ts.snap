@@ -1993,7 +1993,7 @@ exports[`print-config snapshots > test 1`] = `
   },
   "overrides": [
     {
-      "env": {},
+      "env": null,
       "files": [
         "**/*.test.ts",
         "**/*.test.tsx",

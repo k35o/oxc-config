@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vite-plus/test';
 
-import { diagnose } from './oxlint.ts';
+import { diagnose } from './vp-lint.ts';
 
 describe('idiomatic code lints clean', () => {
   test('typescript', () => {
