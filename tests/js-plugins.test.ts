@@ -5,7 +5,6 @@ import { describe, expect, test } from 'vite-plus/test';
 
 import { playwright } from '../dist/configs/playwright.mjs';
 import { regexp } from '../dist/configs/regexp.mjs';
-import { storybook } from '../dist/configs/storybook.mjs';
 import { tailwind } from '../dist/configs/tailwind.mjs';
 import { diagnose } from './oxlint.ts';
 
@@ -74,26 +73,5 @@ describe('jsPlugin layers keep up with their plugin', () => {
     expect(rulesOf(regexp.rules ?? {}, 'regexp')).toEqual(
       rulesOf(rules ?? {}, 'regexp'),
     );
-  });
-});
-
-describe('storybook layer shape', () => {
-  // The storybook plugin imports the `storybook` package at load time, so it
-  // can only be linted inside a real Storybook project. Guard the exported
-  // shape instead: every rule key is a storybook/* rule and the layer relaxes
-  // the two rules that fight story files.
-  test('exports a jsPlugin config with storybook rules', () => {
-    expect(storybook.jsPlugins).toContain('eslint-plugin-storybook');
-    const rules = storybook.rules ?? {};
-    const keys = Object.keys(rules);
-    expect(keys.length).toBeGreaterThan(0);
-    for (const key of keys) {
-      const ok =
-        key.startsWith('storybook/') ||
-        key === 'unicorn/no-anonymous-default-export' ||
-        key === 'react/rules-of-hooks';
-      expect(ok).toBe(true);
-    }
-    expect(rules['unicorn/no-anonymous-default-export']).toBe('off');
   });
 });

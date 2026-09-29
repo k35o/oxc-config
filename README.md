@@ -31,7 +31,6 @@ pnpm add -D oxlint-tailwindcss      # the `tailwind` layer
 pnpm add -D eslint-plugin-regexp    # the `regexp` layer
 pnpm add -D @k8o/html-nest          # the `html-nest` layer
 pnpm add -D eslint-plugin-playwright # the `playwright` layer
-pnpm add -D eslint-plugin-storybook storybook # the `storybook` layer
 ```
 
 > Requires **oxlint ≥ 1.71**. The config enables rules that only exist in recent
@@ -126,7 +125,7 @@ For oxfmt, drop our `fmt` preset into a JS config, or use the generated JSON (be
 // (dist/fmt.oxfmtrc.json)
 ```
 
-Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `regexp`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The override-style layers (`test`, `storybook`, `playwright`) are applied via `overrides`, so JSON consumers copy their rule blocks into an `overrides` entry by hand.
+Available JSON layers: `base`, `typescript`, `react`, `nextjs`, `backend`, `tailwind`, `regexp`, `html-nest` (as `dist/<layer>.oxlintrc.json`), plus `dist/fmt.oxfmtrc.json`. The override-style layers (`test`, `playwright`) are applied via `overrides`, so JSON consumers copy their rule blocks into an `overrides` entry by hand.
 
 ## Layers
 
@@ -140,7 +139,6 @@ test       (apply via overrides on test globs)
 tailwind   (compose with react / nextjs via extends)
 regexp     (compose with any layer via extends)
 html-nest  (compose with any JSX layer via extends)
-storybook  (apply via overrides on story globs)
 playwright (apply via overrides on e2e globs)
 fmt        (oxfmt preset, independent of lint layers)
 ```
@@ -156,11 +154,10 @@ fmt        (oxfmt preset, independent of lint layers)
 | `@k8o/oxc-config/tailwind`   | Tailwind CSS v4 (composes with React / Next.js)                 |
 | `@k8o/oxc-config/regexp`     | Regex safety / ReDoS (composes with any layer)                  |
 | `@k8o/oxc-config/html-nest`  | HTML nesting validity in JSX (composes with `react` / `nextjs`) |
-| `@k8o/oxc-config/storybook`  | Storybook story files (use in `overrides`)                      |
 | `@k8o/oxc-config/playwright` | Playwright e2e specs (use in `overrides`)                       |
 | `@k8o/oxc-config/fmt`        | oxfmt preset (single quotes, sort imports, …)                   |
 
-Also exported: `TEST_GLOBS`, `STORYBOOK_GLOBS`, `PLAYWRIGHT_GLOBS` — canonical glob arrays for the `overrides` entries so you don't hand-copy (and drift from) the file matrix.
+Also exported: `TEST_GLOBS`, `PLAYWRIGHT_GLOBS` — canonical glob arrays for the `overrides` entries so you don't hand-copy (and drift from) the file matrix.
 
 `PLAYWRIGHT_GLOBS` overlaps `TEST_GLOBS` under `e2e/`. When you use both layers, exclude the e2e files from the Vitest override:
 

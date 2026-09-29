@@ -41,20 +41,6 @@ export const TEST_GLOBS = [
 ] as const;
 
 /**
- * Storybook story-file globs, for the `overrides` entry that applies the
- * `storybook` config. `.storybook/main.*` is a separate concern (see the
- * storybook config docs).
- */
-export const STORYBOOK_GLOBS = [
-  '**/*.stories.ts',
-  '**/*.stories.tsx',
-  '**/*.stories.js',
-  '**/*.stories.jsx',
-  '**/*.story.ts',
-  '**/*.story.tsx',
-] as const;
-
-/**
  * Playwright e2e-spec globs. `e2e/**` also matches the `.spec.ts` / `.test.ts`
  * files `TEST_GLOBS` covers, so pass these as `excludeFiles` on the Vitest
  * override to keep Vitest rules and relaxations out of e2e files.
