@@ -1,7 +1,7 @@
 # Recipe: Monorepo
 
-Each package gets its own config that `extends` the layer it needs. Two settings
-usually need to be explicit in a monorepo because auto-detection is per-CWD.
+Each package gets its own config that `extends` the layer it needs, with the
+paths in `settings` pointing at that package.
 
 ## Per-package config
 
@@ -48,9 +48,9 @@ export default defineConfig({
   `pages`/`app` directory relative to this. Without it, the plugin looks at the
   monorepo root and misfires.
 - **`settings.tailwindcss.entryPoint`** — `oxlint-tailwindcss` needs to know
-  which stylesheet defines your theme so it can validate class names. In a single
-  package it auto-detects; across packages it cannot, so set it (a string for one
-  entry, or an array of `{ files, use }` mappings for several).
+  which stylesheet defines your theme so it can validate class names. It is
+  always required (a string for one entry, or an array of `{ files, use }`
+  mappings for several).
 
 ## `reportUnusedDisableDirectives` and `typeAware`
 

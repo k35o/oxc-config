@@ -22,6 +22,7 @@ export default defineConfig({
     },
     settings: {
       react: { version: '19.0.0' },
+      tailwindcss: { entryPoint: './src/app/globals.css' },
     },
     overrides: [{ files: [...TEST_GLOBS], ...test }],
   },
@@ -41,7 +42,10 @@ import { nextjs, tailwind, test, TEST_GLOBS } from '@k8o/oxc-config';
 export default defineConfig({
   extends: [nextjs, tailwind],
   options: { reportUnusedDisableDirectives: 'error' },
-  settings: { react: { version: '19.0.0' } },
+  settings: {
+    react: { version: '19.0.0' },
+    tailwindcss: { entryPoint: './src/app/globals.css' },
+  },
   overrides: [{ files: [...TEST_GLOBS], ...test }],
 });
 ```
@@ -79,6 +83,7 @@ too. Route handlers and server actions that log to stdout will trip
 
 ## Tailwind settings
 
-Single-package apps auto-detect the Tailwind entry point. Only set
-`settings.tailwindcss.entryPoint` explicitly in a monorepo — see the
-[monorepo recipe](./monorepo.md).
+`settings.tailwindcss.entryPoint` is required: `oxlint-tailwindcss` reads your
+theme from that stylesheet, and without it the rules that validate class names
+report a configuration error instead of linting. In a monorepo, point it at each
+package's own stylesheet — see the [monorepo recipe](./monorepo.md).

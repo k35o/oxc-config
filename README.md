@@ -59,6 +59,7 @@ export default defineConfig({
     },
     settings: {
       react: { version: '19.0.0' },
+      tailwindcss: { entryPoint: './src/app/globals.css' },
     },
     overrides: [{ files: [...TEST_GLOBS], ...test }],
   },
@@ -86,7 +87,6 @@ Notes for Vite+ users:
 - Don't install `oxlint`, `oxfmt`, or `oxlint-tsgolint` directly — Vite+ wraps them. JS plugins (`oxlint-tailwindcss`, `eslint-plugin-regexp`, …) stay separate installs.
 - Type-aware rules work out of the box (no separate `oxlint-tsgolint` install needed).
 - `vp check` runs format + lint + tsc together — recommended entry for CI.
-- The `vite.config.ts` loader path that `vp lint` uses is plain Node ESM (no TS transform). If you need to compose presets across files, keep it inline or build the consumer first.
 
 ### With standalone oxlint
 
@@ -102,6 +102,7 @@ export default defineConfig({
   },
   settings: {
     react: { version: '19.0.0' },
+    tailwindcss: { entryPoint: './src/app/globals.css' },
   },
   overrides: [{ files: [...TEST_GLOBS], ...test }],
 });
@@ -161,12 +162,31 @@ fmt        (oxfmt preset, independent of lint layers)
 
 Also exported: `TEST_GLOBS`, `STORYBOOK_GLOBS`, `PLAYWRIGHT_GLOBS` — canonical glob arrays for the `overrides` entries so you don't hand-copy (and drift from) the file matrix.
 
+`PLAYWRIGHT_GLOBS` overlaps `TEST_GLOBS` under `e2e/`. When you use both layers, exclude the e2e files from the Vitest override:
+
+```ts
+overrides: [
+  { files: [...TEST_GLOBS], excludeFiles: [...PLAYWRIGHT_GLOBS], ...test },
+  { files: [...PLAYWRIGHT_GLOBS], ...playwright },
+],
+```
+
+### Settings the layers rely on
+
+oxlint does not inherit `env` or `settings` through `extends`, so these belong in your own config:
+
+| Layer      | Setting                           | Why                                                                                           |
+| ---------- | --------------------------------- | --------------------------------------------------------------------------------------------- |
+| `base`     | `env` (`browser`, `node`, …)      | Plain JS only: `no-undef` needs to know the runtime's globals. TypeScript layers turn it off. |
+| `react`    | `settings.react.version`          | Version-dependent React rules.                                                                |
+| `tailwind` | `settings.tailwindcss.entryPoint` | Required. Without it the rules that read the design system report a configuration error.      |
+
 ## Design principles
 
 1. **`categories` declared once** — only in `base`. Higher layers add specific rule overrides on top.
 2. **Files are pure deltas.** Each layer lists only rules that differ from the category defaults (an off, a warn, a non-default option, or a cherry-pick). Rules that merely restate a category severity are not repeated — the snapshot suite guards against category drift.
 3. **`nursery` is off.** Leaving it at error silently escalates every new upstream nursery rule to an error on each oxlint minor bump. `base` sets `nursery: 'off'` and cherry-picks the handful worth keeping.
-4. **`plugins` is replaced, not merged**, by oxlint. Each layer lists every opt-in plugin it depends on (oxlint force-enables `eslint`/`typescript`/`oxc`/`unicorn`, so those are not listed).
+4. **`plugins` is replaced, not merged**, by oxlint. `typescript`, `unicorn` and `oxc` are on by default only while no config sets `plugins`, so each layer lists every plugin it depends on. Prefer `extends: [layer]` over spreading a layer into the root config.
 5. **`options.reportUnusedDisableDirectives` is root-only**. Set it on the consumer's config, not on a shared layer.
 6. **`options.typeAware: true` from `typescript` onwards**. Install `oxlint-tsgolint` (or use Vite+) to actually run those rules.
 
