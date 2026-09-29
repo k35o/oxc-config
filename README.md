@@ -160,7 +160,29 @@ oxlint does not inherit `env` or `settings` through `extends`, so these belong i
 | ---------- | --------------------------------- | --------------------------------------------------------------------------------------------- |
 | `base`     | `env` (`browser`, `node`, …)      | Plain JS only: `no-undef` needs to know the runtime's globals. TypeScript layers turn it off. |
 | `react`    | `settings.react.version`          | Version-dependent React rules.                                                                |
+| `nextjs`   | `settings.next.rootDir`           | Monorepos only: the app's directory, so the plugin does not look at the repo root.            |
 | `tailwind` | `settings.tailwindcss.entryPoint` | Required. Without it the rules that read the design system report a configuration error.      |
+
+In a monorepo, give each package its own config and point these paths at that package.
+
+### Adjusting a layer
+
+Rules in your own config win over the layers in `extends`. Use `rules` for the whole project and `overrides` for part of it:
+
+```ts
+export default defineConfig({
+  extends: [nextjs],
+  // Server code that logs to stdout.
+  rules: { 'no-console': 'off' },
+  overrides: [
+    {
+      // PascalCase filenames for components; everything else stays kebab-case.
+      files: ['src/components/**/*.tsx'],
+      rules: { 'unicorn/filename-case': ['error', { case: 'pascalCase' }] },
+    },
+  ],
+});
+```
 
 ## Design principles
 
@@ -178,14 +200,6 @@ The `typescript` layer and everything above it set `options.typeAware: true`, wh
 - **Standalone oxlint users must install `oxlint-tsgolint`** (it is an optional peer). Vite+ bundles it.
 - It runs a real type check, so it needs a resolvable `tsconfig.json` and is meaningfully slower / more memory-hungry than the syntactic rules.
 - Its version is loosely coupled to oxlint's; when you bump oxlint, bump `oxlint-tsgolint` in lockstep.
-
-## Recipes
-
-- [Next.js App Router](docs/recipes/nextjs-app-router.md)
-- [React library](docs/recipes/react-library.md)
-- [Cloudflare Workers / Hono](docs/recipes/cloudflare-workers.md)
-- [Monorepo](docs/recipes/monorepo.md)
-- [Migrating from Biome](docs/migration-from-biome.md)
 
 ## Versioning
 
