@@ -12,6 +12,16 @@ minimumReleaseAgeExclude:
   - 'oxlint-tsgolint@7.0.2003'
   - '@oxlint-tsgolint/*'
 
+# vitest は vite に直接依存するため、放っておくと vite-plus とは別に素の vite と
+# rolldown が入る。overrides で vite-plus が同梱するものに寄せる。2 つのバージョンは
+# 必ず一致させるので、並べて置く。
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vite-plus: 1.0.0
+
+overrides:
+  vite: 'catalog:'
+
 strictDepBuilds: true
 
 allowBuilds:
