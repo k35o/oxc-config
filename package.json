@@ -75,10 +75,6 @@
       "types": "./dist/configs/html-nest.d.mts",
       "default": "./dist/configs/html-nest.mjs"
     },
-    "./playwright": {
-      "types": "./dist/configs/playwright.d.mts",
-      "default": "./dist/configs/playwright.mjs"
-    },
     "./fmt": {
       "types": "./dist/configs/fmt.d.mts",
       "default": "./dist/configs/fmt.mjs"
@@ -125,7 +121,6 @@
     "@k8o/html-nest": "0.2.0",
     "@oxlint/plugins": "1.85.0",
     "@types/node": "24.13.4",
-    "eslint-plugin-playwright": "2.12.0",
     "eslint-plugin-regexp": "3.3.0",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
@@ -140,7 +135,6 @@
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
-    "eslint-plugin-playwright": ">=2.12.0",
     "eslint-plugin-regexp": ">=3.0.0",
     "oxfmt": ">=0.70.0",
     "oxlint": ">=1.85.0",
@@ -149,9 +143,6 @@
   },
   "peerDependenciesMeta": {
     "@k8o/html-nest": {
-      "optional": true
-    },
-    "eslint-plugin-playwright": {
       "optional": true
     },
     "eslint-plugin-regexp": {

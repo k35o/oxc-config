@@ -19,7 +19,6 @@ Review every layer against oxlint 1.85: stop reporting the same problem twice, s
 - `nextjs` downgrades `nextjs/next-script-for-ga` and `nextjs/no-html-link-for-pages` to warn, turns off `nextjs/no-page-custom-font`, and allows `<img>` in metadata image routes (`opengraph-image.tsx`, `twitter-image.tsx`, `icon.tsx`, `apple-icon.tsx`).
 - `backend` turns off `unicorn/prefer-event-target`.
 - `test` replaces `vitest/no-importing-vitest-globals` with `vitest/prefer-importing-vitest-globals` and drops `env.vitest`: Vitest's `globals` option is off by default, so test files import `describe` / `test` / `expect`. It also turns off `vitest/require-mock-type-parameters`, `typescript/require-await` and `unicorn/consistent-function-scoping`, downgrades `vitest/warn-todo` and `vitest/no-conditional-in-test` to warn, and removes `vitest/consistent-each-for`, which reports nothing without options.
-- `playwright` turns off core `no-empty-pattern` for `async ({}, use) => {}` fixtures.
 - `tailwind` turns off `tailwindcss/prefer-theme-tokens`, whose fix can change the generated CSS.
 
 **Stricter.**
@@ -33,13 +32,11 @@ Review every layer against oxlint 1.85: stop reporting the same problem twice, s
 - `typescript`: `typescript/prefer-return-this-type`, `typescript/prefer-readonly`, `typescript/prefer-for-of`, `typescript/dot-notation`.
 - `react`: `jsx-a11y/anchor-ambiguous-text` (with Japanese phrases), `react/no-clone-element`, `react/no-react-children`, all at warn.
 - `test`: `vitest/no-unneeded-async-expect-function`, `vitest/no-interpolation-in-snapshots`, `vitest/no-mocks-import` at error; `vitest/prefer-comparison-matcher`, `vitest/prefer-to-have-been-called-times`, `vitest/prefer-called-exactly-once-with`, `vitest/prefer-mock-promise-shorthand`, `vitest/prefer-spy-on`, `vitest/prefer-hooks-in-order`, `vitest/no-alias-methods` at warn.
-- `playwright`: `playwright/no-unnecessary-assertions` (error) and `playwright/no-identical-title` (warn), both from the plugin's recommended set.
 - `tailwind`: `tailwindcss/prefer-scale-token` is listed as off.
 
 **Fixes.**
 
 - Every layer now lists the `oxc` plugin. It was assumed to be always on, but oxlint drops it when the root config sets `plugins`, so spreading a layer silently disabled every `oxc/*` rule.
-- `PLAYWRIGHT_GLOBS` overlaps `TEST_GLOBS` under `e2e/`; the README now shows how to exclude e2e files from the Vitest override.
 - `settings.tailwindcss.entryPoint` is documented as required.
 
 The print-config snapshots also pick up the React Compiler rules oxlint 1.79 added to the enabled categories, which the previous snapshots had missed.

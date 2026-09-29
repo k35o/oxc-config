@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vite-plus/test';
 import { runOxlint } from './oxlint.ts';
 
 // Only layers whose rules are native oxlint plugins are snapshot-tested here.
-// jsPlugin layers (tailwind, regexp, html-nest, playwright) are covered by
+// jsPlugin layers (tailwind, regexp, html-nest) are covered by
 // js-plugins.test because `--print-config` drops their rules (oxc#22117).
 const fixtures = [
   'base',

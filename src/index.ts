@@ -7,7 +7,6 @@ export { test } from './configs/test.js';
 export { tailwind } from './configs/tailwind.js';
 export { regexp } from './configs/regexp.js';
 export { htmlNest } from './configs/html-nest.js';
-export { playwright } from './configs/playwright.js';
 export { fmt } from './configs/fmt.js';
 
-export { TEST_GLOBS, PLAYWRIGHT_GLOBS } from './_shared.js';
+export { TEST_GLOBS } from './_shared.js';

@@ -26,10 +26,5 @@
     "types": ["node"]
   },
   "include": ["src/**/*", "tests/**/*", "vite.config.ts"],
-  "exclude": [
-    "dist",
-    "tests/fixtures/**/sample.ts",
-    "tests/fixtures/**/*.tsx",
-    "tests/fixtures/**/*.e2e.ts"
-  ]
+  "exclude": ["dist", "tests/fixtures/**/sample.ts", "tests/fixtures/**/*.tsx"]
 }

@@ -39,15 +39,3 @@ export const TEST_GLOBS = [
   '**/*.spec.ts',
   '**/*.spec.tsx',
 ] as const;
-
-/**
- * Playwright e2e-spec globs. `e2e/**` also matches the `.spec.ts` / `.test.ts`
- * files `TEST_GLOBS` covers, so pass these as `excludeFiles` on the Vitest
- * override to keep Vitest rules and relaxations out of e2e files.
- */
-export const PLAYWRIGHT_GLOBS = [
-  '**/*.e2e.ts',
-  '**/*.e2e.tsx',
-  'e2e/**/*.ts',
-  'e2e/**/*.tsx',
-] as const;
