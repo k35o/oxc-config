@@ -1,10 +1,11 @@
 /**
  * Plugin sets used across configs.
  *
- * oxlint always enables `eslint` core rules and force-enables the `typescript`
- * and `oxc` plugins, so those never need listing. `unicorn` is on by default
- * too but we keep it explicit since the base layer leans on it heavily. Every
- * other plugin is opt-in and must be listed by the first layer that needs it.
+ * oxlint always runs the `eslint` core rules. `typescript`, `unicorn` and `oxc`
+ * are on by default too, but only while no config sets `plugins`: spreading a
+ * layer into the root config (or listing `plugins` there) replaces the default
+ * set. Every plugin a layer relies on is therefore listed explicitly — `oxc`
+ * included, or `oxc/*` rules silently stop running for those consumers.
  *
  * Oxlint *replaces* (not merges) the `plugins` array when a config sets it, so
  * each layer repeats the opt-in plugins of its parents.
@@ -13,7 +14,7 @@
  * here as a separate entry.
  */
 
-export const BASE_PLUGINS = ['unicorn', 'import', 'promise'] as const;
+export const BASE_PLUGINS = ['unicorn', 'oxc', 'import', 'promise'] as const;
 
 export const TS_PLUGINS = [...BASE_PLUGINS, 'typescript'] as const;
 
