@@ -1,5 +1,86 @@
 # @k8o/oxc-config
 
+## 0.4.0
+
+### Minor Changes
+
+- Stop shipping the JSON variants of the presets (`dist/<layer>.oxlintrc.json`, `dist/fmt.oxfmtrc.json`) and their `exports` entries. They existed for `.oxlintrc.json` consumers, who cannot import a package in `extends`. The presets are consumed from `vite.config.ts`, which imports them directly.
+
+- Remove the `playwright` layer, the `PLAYWRIGHT_GLOBS` export and the `eslint-plugin-playwright` peer dependency.
+
+  The layer mirrored the plugin's recommended set, which has to be re-synced on every plugin release, and its globs overlapped `TEST_GLOBS` so that using both layers needed an `excludeFiles` workaround. Projects that lint Playwright specs can list the plugin in `jsPlugins` and spread its `flat/recommended` rules into an override.
+
+- Remove the `regexp` layer, its JSON variant (`dist/regexp.oxlintrc.json`) and the `eslint-plugin-regexp` peer dependency.
+
+  The layer was a copy of the plugin's recommended set: 60 rules to keep in sync, several of which report the same code as oxlint's own regex rules. Projects that run untrusted input through regular expressions can list the plugin in `jsPlugins` and enable `regexp/no-super-linear-backtracking`, which oxlint has no equivalent for.
+
+- Remove the `storybook` layer, the `STORYBOOK_GLOBS` export and the `eslint-plugin-storybook` peer dependency.
+
+  eslint-plugin-storybook 10.6 only partly understands CSF Next (`preview.meta()` / `meta.story()`). `hierarchy-separator` and `no-redundant-story-name` read the default-export meta object, so they report nothing, and `await-interactions` does not recognise imports from `storybook/test`. What still works is import hygiene and export naming, which does not justify a layer. Projects that want the plugin can list it in `jsPlugins` themselves.
+
+- Review every layer against oxlint 1.85: stop reporting the same problem twice, stop rejecting idiomatic code, and pick up rules worth having.
+
+  **One report per problem.** Where two rules flagged the same code, one is now off.
+
+  - `base`: `no-negated-condition`, `no-new-wrappers`, `unicorn/no-instanceof-array`, `unicorn/no-hex-escape`, `promise/no-return-wrap` (their `unicorn/*` counterparts stay on).
+  - `typescript`: core `require-await`, `no-throw-literal`, `prefer-promise-reject-errors`, `no-implied-eval`, plus `unicorn/prefer-includes`, `unicorn/prefer-array-find`, `unicorn/no-this-assignment`, `unicorn/no-static-only-class` (the type-aware `typescript/*` rules stay on), and the deprecated `typescript/ban-types` / `typescript/prefer-ts-expect-error`.
+  - `react`: the React Compiler rules `react/hooks`, `react/memo-dependencies`, `react/exhaustive-effect-dependencies`, `react/static-components`, `react/no-deriving-state-in-effects` (`rules-of-hooks`, `exhaustive-deps`, `no-unstable-nested-components` and `set-state-in-effect` stay on).
+
+  **Idiomatic code passes.**
+
+  - `base` turns off `no-inline-comments`, `require-unicode-regexp`, `no-underscore-dangle`, `no-promise-executor-return`, `no-await-in-loop`, `no-inner-declarations`, `sort-vars`, `import/no-unassigned-import`, `unicorn/no-array-callback-reference`, `unicorn/explicit-length-check`, `unicorn/prefer-number-coercion`, `unicorn/require-post-message-target-origin`. `eqeqeq` allows `== null`, `prefer-destructuring` only applies to declarations, `unicorn/consistent-function-scoping` ignores arrow functions, and `promise/always-return` ignores the last callback.
+  - `typescript` turns off `no-redeclare` (so `const Status` and `type Status` can share a name), `typescript/strict-void-return` and `typescript/consistent-return`. `typescript/strict-boolean-expressions` allows nullable booleans and strings, and `typescript/switch-exhaustiveness-check` accepts a `default` branch.
+  - `react` turns off `react/no-unknown-property`, `react/no-unescaped-entities`, `react/jsx-no-target-blank`, `react/capitalized-calls` and `jsx-a11y/prefer-tag-over-role`; downgrades `react/hook-use-state`, `react/iframe-missing-sandbox`, `react/no-object-type-as-default-prop`, `jsx-a11y/no-noninteractive-element-interactions` and the React Compiler rules `react/set-state-in-effect`, `react/refs`, `react/incompatible-library`, `react/preserve-manual-memoization` to warn; and gives `jsx-a11y/control-has-associated-label` and `jsx-a11y/no-noninteractive-element-to-interactive-role` the allow-lists eslint-plugin-jsx-a11y recommends. `typescript/no-misused-promises` no longer checks JSX attributes.
+  - `nextjs` downgrades `nextjs/next-script-for-ga` and `nextjs/no-html-link-for-pages` to warn, turns off `nextjs/no-page-custom-font`, and allows `<img>` in metadata image routes (`opengraph-image.tsx`, `twitter-image.tsx`, `icon.tsx`, `apple-icon.tsx`).
+  - `backend` turns off `unicorn/prefer-event-target`.
+  - `test` replaces `vitest/no-importing-vitest-globals` with `vitest/prefer-importing-vitest-globals` and drops `env.vitest`: Vitest's `globals` option is off by default, so test files import `describe` / `test` / `expect`. It also turns off `vitest/require-mock-type-parameters`, `typescript/require-await` and `unicorn/consistent-function-scoping`, downgrades `vitest/warn-todo` and `vitest/no-conditional-in-test` to warn, and removes `vitest/consistent-each-for`, which reports nothing without options.
+  - `tailwind` turns off `tailwindcss/prefer-theme-tokens`, whose fix can change the generated CSS.
+
+  **Stricter.**
+
+  - `test` no longer turns off `typescript/no-floating-promises`: an un-awaited assertion passes without checking anything.
+  - `typescript/restrict-template-expressions` rejects `any` and nullish values.
+
+  **New rules.**
+
+  - `base`: `no-sequences`, `no-regex-spaces`, `no-proto`, `no-useless-computed-key`, `no-return-assign`, `no-lone-blocks`, `default-case-last`, `default-param-last`, `one-var`, `prefer-arrow-callback`, `prefer-regex-literals`, `prefer-exponentiation-operator`, `import/no-named-default`, `oxc/bad-bitwise-operator`, and `unicorn/` `prefer-response-static-json`, `prefer-negative-index`, `prefer-logical-operator-over-ternary`, `prefer-default-parameters`, `prefer-bigint-literals`, `prefer-keyboard-event-key`, `prefer-classlist-toggle`, `prefer-dom-node-text-content`, `consistent-date-clone`, `consistent-existence-index-check`, `no-useless-collection-argument`, `no-useless-error-capture-stack-trace`, `require-array-join-separator`.
+  - `typescript`: `typescript/prefer-return-this-type`, `typescript/prefer-readonly`, `typescript/prefer-for-of`, `typescript/dot-notation`.
+  - `react`: `jsx-a11y/anchor-ambiguous-text` (with Japanese phrases), `react/no-clone-element`, `react/no-react-children`, all at warn.
+  - `test`: `vitest/no-unneeded-async-expect-function`, `vitest/no-interpolation-in-snapshots`, `vitest/no-mocks-import` at error; `vitest/prefer-comparison-matcher`, `vitest/prefer-to-have-been-called-times`, `vitest/prefer-called-exactly-once-with`, `vitest/prefer-mock-promise-shorthand`, `vitest/prefer-spy-on`, `vitest/prefer-hooks-in-order`, `vitest/no-alias-methods` at warn.
+  - `tailwind`: `tailwindcss/prefer-scale-token` is listed as off.
+
+  **Fixes.**
+
+  - Every layer now lists the `oxc` plugin. It was assumed to be always on, but oxlint drops it when the root config sets `plugins`, so spreading a layer silently disabled every `oxc/*` rule.
+  - `settings.tailwindcss.entryPoint` is documented as required.
+
+  The print-config snapshots also pick up the React Compiler rules oxlint 1.79 added to the enabled categories, which the previous snapshots had missed.
+
+- Target Vite+ 1.0 and raise the peer dependency floors to the versions it bundles.
+
+  | Peer                 | Before     | After        |
+  | -------------------- | ---------- | ------------ |
+  | `oxlint`             | `>=1.71.0` | `>=1.85.0`   |
+  | `oxfmt`              | `>=0.43.0` | `>=0.70.0`   |
+  | `oxlint-tsgolint`    | `>=0.23.0` | `>=7.0.2003` |
+  | `oxlint-tailwindcss` | `>=1.3.2`  | `>=1.12.0`   |
+
+  oxlint refuses to load a config that names a rule it does not know, even one set to `off`, so every rule a layer lists pins a minimum version. The presets now name rules introduced in oxlint 1.79 and oxlint-tailwindcss 1.6.
+
+- Depend on Vite+ instead of oxlint and oxfmt.
+
+  - `vite-plus >=1.0.0` is now a peer dependency. The `oxlint`, `oxfmt` and `oxlint-tsgolint` peers are removed.
+  - The published types import `OxlintConfig` from `vite-plus/lint` and `OxfmtConfig` from `vite-plus/fmt`.
+  - The README no longer documents a standalone oxlint setup.
+
+  Vite+ pins the exact oxlint, oxfmt and tsgolint it ships, so the presets are now developed and tested against that one combination instead of a separately managed oxlint.
+
+### Patch Changes
+
+- `test`: `vitest/valid-title` no longer checks the type of a title. The rule cannot see types, so it rejected every title that was not a literal — `test(name, …)` inside a loop, `describe(someFunction, …)` — even though TypeScript already checks the argument. It still reports empty titles, duplicated prefixes and stray whitespace.
+
+- Stop publishing the `docs/` recipes. They repeated the README's quick start once per stack and went stale with every rule change. What was specific to them — the settings a monorepo has to set per package, and how to override a rule for part of a project — is now in the README, which ships with the package.
+
 ## 0.3.0
 
 ### Patch Changes
