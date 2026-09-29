@@ -13,6 +13,10 @@ describe('idiomatic code lints clean', () => {
     );
   });
 
+  test('vitest files that import their globals', () => {
+    expect(diagnose('test', 'idiomatic/sample.spec.ts')).toEqual([]);
+  });
+
   test('next.js metadata image routes using <img>', () => {
     expect(
       diagnose('nextjs', 'app/opengraph-image.tsx', 'lint.config.ts'),
