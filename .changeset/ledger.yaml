@@ -20,3 +20,7 @@
     - rule-review-1-85
     - vite-plus-1-0
     - vite-plus-only
+"@k8o/oxc-config@1.0.0":
+  dir: ""
+  intents:
+    - stable-1-0
