@@ -137,12 +137,13 @@ The `typescript` layer and everything above it set `options.typeAware: true`, wh
 
 ## Versioning
 
-Pre-1.0 (`0.x`): treat any release as potentially breaking.
+Semantic versioning, read the way a lint config has to read it:
 
-Because the categories are enabled wholesale, **your effective rule set is also a function of the oxlint your Vite+ bundles**, not just this package's version — upgrading Vite+ can surface new rules regardless of whether this package changed. To keep upgrades deliberate:
+- **major** — a layer or export is removed, a Vite+ major is dropped, or the Node floor rises.
+- **minor** — a rule is added, removed or re-tuned, including changes that make a layer stricter. A new rule at error can fail your CI, so pin this package and bump it on purpose.
+- **patch** — fixes that do not change which code passes.
 
-- Pin `vite-plus` exactly and bump it on purpose.
-- New rules this package adds ship as `minor`; rule removals or severity bumps are called out in the changelog.
+Because the categories are enabled wholesale, **your effective rule set is also a function of the oxlint your Vite+ bundles**, not just this package's version — upgrading Vite+ can surface new rules regardless of whether this package changed. Pin `vite-plus` too, and bump both on purpose.
 
 ## License
 
