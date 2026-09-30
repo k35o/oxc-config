@@ -12,8 +12,7 @@
       "labels": ["oxc-update"]
     },
     {
-      "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
-      "groupName": "vite-plus",
+      "matchPackageNames": ["vite-plus"],
       "labels": ["oxc-update"]
     },
     {
