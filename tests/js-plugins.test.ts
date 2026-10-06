@@ -12,6 +12,7 @@ describe('jsPlugin layers fire on real violations', () => {
     expect(diagnose('tailwind', 'sample.tsx')).toStrictEqual([
       '3 tailwindcss(no-duplicate-classes)',
       '4 tailwindcss(no-conflicting-classes)',
+      '5 tailwindcss(no-dynamic-classes)',
     ]);
   });
 
