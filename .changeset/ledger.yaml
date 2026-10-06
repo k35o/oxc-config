@@ -24,3 +24,7 @@
   dir: ""
   intents:
     - stable-1-0
+"@k8o/oxc-config@1.1.0":
+  dir: ""
+  intents:
+    - tailwind-1-14-rules
