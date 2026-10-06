@@ -29,3 +29,12 @@ autoInstallPeers: false
 versioning:
   changelog:
     storage: repository
+
+# vite-plus は oxlint / oxfmt / oxlint-tsgolint を process.cwd() 起点の
+# require.resolve で探し、見つからなければ親ディレクトリを登り続ける。
+# .claude/worktrees/ 配下では親チェックアウトの別バージョンを先に拾うため、
+# プロジェクト直下に実体へのリンクを置いて、そこで解決を止める。
+publicHoistPattern:
+  - oxlint
+  - oxfmt
+  - oxlint-tsgolint
