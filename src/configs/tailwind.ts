@@ -15,12 +15,13 @@ export const tailwind: OxlintConfig = {
   jsPlugins: ['oxlint-tailwindcss'],
   rules: {
     // The class-resolution flakiness that had this off was fixed upstream in
-    // 1.3.1/1.3.2 (hence the >=1.3.2 peer floor); warn catches typo'd classes
-    // without failing CI while the fix beds in.
+    // 1.3.1/1.3.2; warn catches typo'd classes without failing CI while the
+    // fix beds in.
     'tailwindcss/no-unknown-classes': 'warn',
     'tailwindcss/no-duplicate-classes': 'error',
     'tailwindcss/no-conflicting-classes': 'error',
     'tailwindcss/no-deprecated-classes': 'error',
+    'tailwindcss/no-dynamic-classes': 'error',
     'tailwindcss/no-unnecessary-whitespace': 'error',
     'tailwindcss/no-dark-without-light': 'warn',
     'tailwindcss/no-contradicting-variants': 'warn',
@@ -46,6 +47,11 @@ export const tailwind: OxlintConfig = {
     'tailwindcss/enforce-consistent-line-wrapping': 'off',
     'tailwindcss/no-restricted-classes': 'off',
     'tailwindcss/no-arbitrary-value': 'off',
+    // Once the theme declares a single color of its own, this reports every
+    // default-palette class (`bg-white`, `text-gray-500`); which palette colors
+    // a project keeps is its `allow` list, not the preset's call.
+    'tailwindcss/no-default-palette': 'off',
+    'tailwindcss/no-borrowed-component-styles': 'off',
     // Suggests `w-50` for `w-[200px]`: equal only at a 16px root font size, and
     // a fixed pixel length is usually chosen on purpose.
     'tailwindcss/prefer-scale-token': 'off',
