@@ -104,14 +104,14 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
-    "@types/node": "24.19.0",
+    "@types/node": "24.19.1",
     "oxlint-tailwindcss": "1.14.0",
-    "publint": "0.3.24",
+    "publint": "0.3.25",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite-plus": "1.0.0",
     "vite-plus-inspector": "0.2.0",
-    "wrangler": "4.145.0"
+    "wrangler": "4.146.0"
   },
   "peerDependencies": {
     "@k8o/html-nest": ">=0.2.0",
