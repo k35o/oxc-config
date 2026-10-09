@@ -191,8 +191,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(@arethetypeswrong/core@0.18.5)(@types/node@24.19.1)(@vitest/ui@5.0.1)(esbuild@0.28.1)(jiti@2.7.0)(publint@0.3.25)(typescript@7.0.2)
       vite-plus-inspector:
-        specifier: 0.2.0
-        version: 0.2.0
+        specifier: 1.0.0
+        version: 1.0.0
       wrangler:
         specifier: 4.147.0
         version: 4.147.0(@types/node@24.19.1)
@@ -1995,8 +1995,8 @@ packages:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  vite-plus-inspector@0.2.0:
-    resolution: {integrity: sha512-u3RvF1at72A1LM3jsHqCGlQ+U/x92XQgRUvJXpo+Z7pCHzwn8V9oWjhMKQfkBIKIZ/2+Bra6LpO6OI7vZHbJHw==}
+  vite-plus-inspector@1.0.0:
+    resolution: {integrity: sha512-kdHZzfDPGJ5Yr4A2EL11k9hh9lC4hxbbnJH2bib/O5XIQjAtTK3LycB4gs6JUCB/a2jMF2UDCX8XptqM0f5YTA==}
     engines: {node: '>=24.13.0'}
     hasBin: true
 
@@ -3439,7 +3439,7 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  vite-plus-inspector@0.2.0:
+  vite-plus-inspector@1.0.0:
     dependencies:
       cac: 7.0.0
       jiti: 2.7.0
