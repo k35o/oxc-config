@@ -176,8 +176,8 @@ importers:
         specifier: 24.19.2
         version: 24.19.2
       oxlint-tailwindcss:
-        specifier: 1.15.1
-        version: 1.15.1
+        specifier: 1.16.0
+        version: 1.16.0
       publint:
         specifier: 0.3.25
         version: 0.3.25
@@ -1805,8 +1805,8 @@ packages:
       vite-plus:
         optional: true
 
-  oxlint-tailwindcss@1.15.1:
-    resolution: {integrity: sha512-/7inkqFkBJ5DsAtUr7/SUTQY6YBHbaOypAVpbYEZTa/fnqpmZycFGbXpJtxvYO2yqqk3hhDJADyoS0CLk3fhHw==}
+  oxlint-tailwindcss@1.16.0:
+    resolution: {integrity: sha512-qwkw3gahMiLOVkZAInULbvnFaFceanEnk+GxpMyNZU4bq2nRmZd3xD4En0EhIakEBiIt15RiGwQ7AuhrllNoNw==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   oxlint-tsgolint@7.0.2003:
@@ -3216,7 +3216,7 @@ snapshots:
       '@oxfmt/binding-win32-x64-msvc': 0.72.0
       vite-plus: 1.1.0(@arethetypeswrong/core@0.18.5)(@types/node@24.19.2)(@vitest/ui@5.0.3)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.25)(typescript@7.0.2)
 
-  oxlint-tailwindcss@1.15.1:
+  oxlint-tailwindcss@1.16.0:
     dependencies:
       '@tailwindcss/node': 4.3.3
       tailwindcss: 4.3.3
