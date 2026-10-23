@@ -4,6 +4,8 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@k8o/*'
   - 'vite-plus-inspector'
+  # Renovate security update: vite-plus@1.3.0
+  - vite-plus@1.3.0
 
 strictDepBuilds: true
 
