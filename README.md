@@ -26,8 +26,8 @@ pnpm add -D @k8o/html-nest        # html-nest
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite-plus';
 import { fmt, nextjs, tailwind, test, TEST_GLOBS } from '@k8o/oxc-config';
+import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
   fmt,
