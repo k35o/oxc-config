@@ -104,7 +104,7 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@k8o/html-nest": "0.2.0",
-    "@types/node": "24.19.2",
+    "@types/node": "26.6.5",
     "oxlint-tailwindcss": "1.16.0",
     "publint": "0.3.25",
     "tailwindcss": "4.3.3",
