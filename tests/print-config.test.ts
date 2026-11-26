@@ -2,9 +2,6 @@ import { describe, expect, test } from 'vite-plus/test';
 
 import { runLint } from './vp-lint.ts';
 
-// Only layers whose rules are native oxlint plugins are snapshot-tested here.
-// jsPlugin layers (tailwind, html-nest) are covered by
-// js-plugins.test because `--print-config` drops their rules (oxc#22117).
 const fixtures = [
   'base',
   'typescript',
@@ -12,6 +9,8 @@ const fixtures = [
   'nextjs',
   'backend',
   'test',
+  'tailwind',
+  'html-nest',
 ] as const;
 
 describe('print-config snapshots', () => {

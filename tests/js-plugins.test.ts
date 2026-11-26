@@ -4,9 +4,6 @@ import { describe, expect, test } from 'vite-plus/test';
 import { tailwind } from '../dist/configs/tailwind.mjs';
 import { diagnose } from './vp-lint.ts';
 
-// `--print-config` silently drops jsPlugins rules (oxc#22117), so the only way
-// to guard the tailwind / html-nest layers is to actually lint a file that
-// violates them and assert the diagnostic shows up.
 describe('jsPlugin layers fire on real violations', () => {
   test('tailwind: duplicate and conflicting classes', () => {
     expect(diagnose('tailwind', 'sample.tsx')).toStrictEqual([
