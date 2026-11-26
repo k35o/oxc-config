@@ -5,8 +5,7 @@ import { base } from './base.js';
 
 /**
  * TypeScript config for pure TS projects (CLIs, libraries, utilities).
- * Type-aware rules are enabled; Vite+ bundles the `oxlint-tsgolint` that runs
- * them.
+ * Type-aware rules are enabled; Vite+ bundles the backend that runs them.
  *
  * Rules listed here are deltas from the inherited `base` config and the
  * category defaults; rules already at the desired severity are not repeated.

@@ -16,7 +16,7 @@ pnpm add -D @k8o/html-nest        # html-nest
 ```
 
 > Requires **Vite+ ≥ 1.0** and Node ≥ 24.13. Vite+ bundles oxlint, oxfmt and
-> `oxlint-tsgolint`; don't install them yourself. oxlint fails to build a config
+> the type-aware backend; don't install them yourself. oxlint fails to build a config
 > that names an unknown rule — even one set to `off` — so an older Vite+, which
 > bundles an older oxlint, is not supported.
 
@@ -127,11 +127,11 @@ export default defineConfig({
 3. **`nursery` is off.** Leaving it at error silently escalates every new upstream nursery rule to an error on each oxlint minor bump. `base` sets `nursery: 'off'` and cherry-picks the handful worth keeping.
 4. **`plugins` is replaced, not merged**, by oxlint. `typescript`, `unicorn` and `oxc` are on by default only while no config sets `plugins`, so each layer lists every plugin it depends on. Prefer `extends: [layer]` over spreading a layer into the root config.
 5. **`options.reportUnusedDisableDirectives` is root-only**. Set it on the consumer's config, not on a shared layer.
-6. **`options.typeAware: true` from `typescript` onwards**, and it carries through `extends`. Vite+ bundles the `oxlint-tsgolint` that runs those rules.
+6. **`options.typeAware: true` from `typescript` onwards**, and it carries through `extends`. Vite+ bundles the backend that runs those rules.
 
 ## Type-aware linting
 
-The `typescript` layer and everything above it set `options.typeAware: true`, which turns on [oxlint-tsgolint](https://github.com/oxc-project/tsgolint) (a `typescript-go` / TS7-based type checker). Caveats worth knowing:
+The `typescript` layer and everything above it set `options.typeAware: true`, which turns on the type-aware backend Vite+ bundles: [tsrs](https://github.com/oxc-project/tsrs) (a Rust port of the TypeScript 7 compiler) from Vite+ 1.7, [oxlint-tsgolint](https://github.com/oxc-project/tsgolint) before that. Caveats worth knowing:
 
 - It runs a real type check, so it needs a resolvable `tsconfig.json` and is meaningfully slower / more memory-hungry than the syntactic rules.
 
