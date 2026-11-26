@@ -2,7 +2,15 @@
 
 exports[`print-config snapshots > backend 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -27,10 +35,19 @@ exports[`print-config snapshots > backend 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
-    "import/consistent-type-specifier-style": "deny",
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level",
+    ],
     "import/default": "allow",
     "import/first": "deny",
     "import/max-dependencies": "allow",
@@ -157,7 +174,12 @@ exports[`print-config snapshots > backend 1`] = `
     "node/no-path-concat": "deny",
     "node/no-process-env": "warn",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -181,19 +203,46 @@ exports[`print-config snapshots > backend 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "allow",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "deny",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -209,23 +258,59 @@ exports[`print-config snapshots > backend 1`] = `
     "sort-vars": "allow",
     "symbol-description": "deny",
     "typescript/adjacent-overload-signatures": "deny",
-    "typescript/array-type": "deny",
+    "typescript/array-type": [
+      "deny",
+      {
+        "default": "array-simple",
+      },
+    ],
     "typescript/await-thenable": "deny",
-    "typescript/ban-ts-comment": "deny",
+    "typescript/ban-ts-comment": [
+      "deny",
+      {
+        "minimumDescriptionLength": 10,
+        "ts-check": false,
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+      },
+    ],
     "typescript/ban-types": "allow",
-    "typescript/consistent-generic-constructors": "deny",
-    "typescript/consistent-indexed-object-style": "deny",
+    "typescript/consistent-generic-constructors": [
+      "deny",
+      "constructor",
+    ],
+    "typescript/consistent-indexed-object-style": [
+      "deny",
+      "record",
+    ],
     "typescript/consistent-return": "allow",
-    "typescript/consistent-type-assertions": "deny",
-    "typescript/consistent-type-definitions": "deny",
+    "typescript/consistent-type-assertions": [
+      "deny",
+      {
+        "assertionStyle": "as",
+      },
+    ],
+    "typescript/consistent-type-definitions": [
+      "deny",
+      "type",
+    ],
     "typescript/consistent-type-exports": "deny",
     "typescript/consistent-type-imports": "deny",
     "typescript/dot-notation": "deny",
-    "typescript/method-signature-style": "deny",
+    "typescript/method-signature-style": [
+      "deny",
+      "property",
+    ],
     "typescript/no-array-delete": "deny",
     "typescript/no-base-to-string": "deny",
     "typescript/no-confusing-non-null-assertion": "deny",
-    "typescript/no-confusing-void-expression": "deny",
+    "typescript/no-confusing-void-expression": [
+      "deny",
+      {
+        "ignoreArrowShorthand": true,
+      },
+    ],
     "typescript/no-deprecated": "warn",
     "typescript/no-duplicate-enum-values": "deny",
     "typescript/no-duplicate-type-constituents": "deny",
@@ -254,7 +339,12 @@ exports[`print-config snapshots > backend 1`] = `
     "typescript/no-require-imports": "deny",
     "typescript/no-this-alias": "deny",
     "typescript/no-unnecessary-boolean-literal-compare": "deny",
-    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-condition": [
+      "deny",
+      {
+        "allowConstantLoopConditions": "only-allowed-literals",
+      },
+    ],
     "typescript/no-unnecessary-parameter-property-assignment": "deny",
     "typescript/no-unnecessary-template-expression": "deny",
     "typescript/no-unnecessary-type-arguments": "deny",
@@ -297,11 +387,31 @@ exports[`print-config snapshots > backend 1`] = `
     "typescript/require-array-sort-compare": "deny",
     "typescript/require-await": "deny",
     "typescript/restrict-plus-operands": "deny",
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/return-await": "deny",
-    "typescript/strict-boolean-expressions": "deny",
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowNullish": false,
+      },
+    ],
+    "typescript/return-await": [
+      "deny",
+      "in-try-catch",
+    ],
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+      },
+    ],
     "typescript/strict-void-return": "allow",
-    "typescript/switch-exhaustiveness-check": "deny",
+    "typescript/switch-exhaustiveness-check": [
+      "deny",
+      {
+        "considerDefaultExhaustiveForUnions": true,
+      },
+    ],
     "typescript/triple-slash-reference": "deny",
     "typescript/unbound-method": "deny",
     "typescript/unified-signatures": "deny",
@@ -310,11 +420,21 @@ exports[`print-config snapshots > backend 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
@@ -452,7 +572,15 @@ exports[`print-config snapshots > backend 1`] = `
 
 exports[`print-config snapshots > base 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -473,7 +601,13 @@ exports[`print-config snapshots > base 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
     "import/default": "deny",
@@ -505,7 +639,15 @@ exports[`print-config snapshots > base 1`] = `
     "no-class-assign": "deny",
     "no-compare-neg-zero": "deny",
     "no-cond-assign": "deny",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+        ],
+      },
+    ],
     "no-const-assign": "deny",
     "no-constant-binary-expression": "deny",
     "no-constant-condition": "deny",
@@ -597,7 +739,12 @@ exports[`print-config snapshots > base 1`] = `
     "no-warning-comments": "allow",
     "no-with": "deny",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -620,19 +767,46 @@ exports[`print-config snapshots > base 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "deny",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "warn",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -719,11 +893,21 @@ exports[`print-config snapshots > base 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
@@ -861,7 +1045,15 @@ exports[`print-config snapshots > base 1`] = `
 
 exports[`print-config snapshots > nextjs 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -904,10 +1096,19 @@ exports[`print-config snapshots > nextjs 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
-    "import/consistent-type-specifier-style": "deny",
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level",
+    ],
     "import/default": "allow",
     "import/first": "deny",
     "import/max-dependencies": "allow",
@@ -923,7 +1124,23 @@ exports[`print-config snapshots > nextjs 1`] = `
     "import/no-self-import": "deny",
     "import/no-unassigned-import": "allow",
     "jsx_a11y/alt-text": "deny",
-    "jsx_a11y/anchor-ambiguous-text": "warn",
+    "jsx_a11y/anchor-ambiguous-text": [
+      "warn",
+      {
+        "words": [
+          "click here",
+          "here",
+          "link",
+          "a link",
+          "learn more",
+          "こちら",
+          "ここ",
+          "詳細",
+          "詳しくはこちら",
+          "もっと見る",
+        ],
+      },
+    ],
     "jsx_a11y/anchor-has-content": "deny",
     "jsx_a11y/anchor-is-valid": "deny",
     "jsx_a11y/aria-activedescendant-has-tabindex": "deny",
@@ -933,7 +1150,35 @@ exports[`print-config snapshots > nextjs 1`] = `
     "jsx_a11y/aria-unsupported-elements": "deny",
     "jsx_a11y/autocomplete-valid": "deny",
     "jsx_a11y/click-events-have-key-events": "warn",
-    "jsx_a11y/control-has-associated-label": "deny",
+    "jsx_a11y/control-has-associated-label": [
+      "deny",
+      {
+        "ignoreElements": [
+          "audio",
+          "canvas",
+          "embed",
+          "input",
+          "textarea",
+          "tr",
+          "video",
+          "td",
+          "th",
+        ],
+        "ignoreRoles": [
+          "grid",
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "row",
+          "tablist",
+          "toolbar",
+          "tree",
+          "treegrid",
+          "separator",
+        ],
+      },
+    ],
     "jsx_a11y/heading-has-content": "deny",
     "jsx_a11y/html-has-lang": "deny",
     "jsx_a11y/iframe-has-title": "deny",
@@ -949,7 +1194,48 @@ exports[`print-config snapshots > nextjs 1`] = `
     "jsx_a11y/no-distracting-elements": "deny",
     "jsx_a11y/no-interactive-element-to-noninteractive-role": "deny",
     "jsx_a11y/no-noninteractive-element-interactions": "warn",
-    "jsx_a11y/no-noninteractive-element-to-interactive-role": "deny",
+    "jsx_a11y/no-noninteractive-element-to-interactive-role": [
+      "deny",
+      {
+        "fieldset": [
+          "radiogroup",
+          "presentation",
+        ],
+        "li": [
+          "menuitem",
+          "menuitemradio",
+          "menuitemcheckbox",
+          "option",
+          "row",
+          "tab",
+          "treeitem",
+        ],
+        "ol": [
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "tablist",
+          "tree",
+          "treegrid",
+        ],
+        "table": [
+          "grid",
+        ],
+        "td": [
+          "gridcell",
+        ],
+        "ul": [
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "tablist",
+          "tree",
+          "treegrid",
+        ],
+      },
+    ],
     "jsx_a11y/no-noninteractive-tabindex": "warn",
     "jsx_a11y/no-redundant-roles": "deny",
     "jsx_a11y/no-static-element-interactions": "warn",
@@ -994,7 +1280,15 @@ exports[`print-config snapshots > nextjs 1`] = `
     "no-class-assign": "deny",
     "no-compare-neg-zero": "deny",
     "no-cond-assign": "deny",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+        ],
+      },
+    ],
     "no-const-assign": "deny",
     "no-constant-binary-expression": "deny",
     "no-constant-condition": "deny",
@@ -1086,7 +1380,12 @@ exports[`print-config snapshots > nextjs 1`] = `
     "no-warning-comments": "allow",
     "no-with": "deny",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -1110,19 +1409,46 @@ exports[`print-config snapshots > nextjs 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "allow",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "warn",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -1141,13 +1467,27 @@ exports[`print-config snapshots > nextjs 1`] = `
     "react/exhaustive-effect-dependencies": "allow",
     "react/forward-ref-uses-ref": "deny",
     "react/globals": "deny",
-    "react/hook-use-state": "warn",
+    "react/hook-use-state": [
+      "warn",
+      {
+        "allowDestructuredState": true,
+      },
+    ],
     "react/hooks": "allow",
     "react/iframe-missing-sandbox": "warn",
     "react/immutability": "deny",
     "react/incompatible-library": "warn",
-    "react/jsx-boolean-value": "deny",
-    "react/jsx-curly-brace-presence": "deny",
+    "react/jsx-boolean-value": [
+      "deny",
+      "never",
+    ],
+    "react/jsx-curly-brace-presence": [
+      "deny",
+      {
+        "children": "never",
+        "props": "never",
+      },
+    ],
     "react/jsx-fragments": "deny",
     "react/jsx-key": "deny",
     "react/jsx-no-comment-textnodes": "deny",
@@ -1202,23 +1542,59 @@ exports[`print-config snapshots > nextjs 1`] = `
     "sort-vars": "allow",
     "symbol-description": "deny",
     "typescript/adjacent-overload-signatures": "deny",
-    "typescript/array-type": "deny",
+    "typescript/array-type": [
+      "deny",
+      {
+        "default": "array-simple",
+      },
+    ],
     "typescript/await-thenable": "deny",
-    "typescript/ban-ts-comment": "deny",
+    "typescript/ban-ts-comment": [
+      "deny",
+      {
+        "minimumDescriptionLength": 10,
+        "ts-check": false,
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+      },
+    ],
     "typescript/ban-types": "allow",
-    "typescript/consistent-generic-constructors": "deny",
-    "typescript/consistent-indexed-object-style": "deny",
+    "typescript/consistent-generic-constructors": [
+      "deny",
+      "constructor",
+    ],
+    "typescript/consistent-indexed-object-style": [
+      "deny",
+      "record",
+    ],
     "typescript/consistent-return": "allow",
-    "typescript/consistent-type-assertions": "deny",
-    "typescript/consistent-type-definitions": "deny",
+    "typescript/consistent-type-assertions": [
+      "deny",
+      {
+        "assertionStyle": "as",
+      },
+    ],
+    "typescript/consistent-type-definitions": [
+      "deny",
+      "type",
+    ],
     "typescript/consistent-type-exports": "deny",
     "typescript/consistent-type-imports": "deny",
     "typescript/dot-notation": "deny",
-    "typescript/method-signature-style": "deny",
+    "typescript/method-signature-style": [
+      "deny",
+      "property",
+    ],
     "typescript/no-array-delete": "deny",
     "typescript/no-base-to-string": "deny",
     "typescript/no-confusing-non-null-assertion": "deny",
-    "typescript/no-confusing-void-expression": "deny",
+    "typescript/no-confusing-void-expression": [
+      "deny",
+      {
+        "ignoreArrowShorthand": true,
+      },
+    ],
     "typescript/no-deprecated": "warn",
     "typescript/no-duplicate-enum-values": "deny",
     "typescript/no-duplicate-type-constituents": "deny",
@@ -1236,7 +1612,14 @@ exports[`print-config snapshots > nextjs 1`] = `
     "typescript/no-invalid-void-type": "deny",
     "typescript/no-meaningless-void-operator": "deny",
     "typescript/no-misused-new": "deny",
-    "typescript/no-misused-promises": "deny",
+    "typescript/no-misused-promises": [
+      "deny",
+      {
+        "checksVoidReturn": {
+          "attributes": false,
+        },
+      },
+    ],
     "typescript/no-misused-spread": "deny",
     "typescript/no-mixed-enums": "deny",
     "typescript/no-namespace": "deny",
@@ -1247,7 +1630,12 @@ exports[`print-config snapshots > nextjs 1`] = `
     "typescript/no-require-imports": "deny",
     "typescript/no-this-alias": "deny",
     "typescript/no-unnecessary-boolean-literal-compare": "deny",
-    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-condition": [
+      "deny",
+      {
+        "allowConstantLoopConditions": "only-allowed-literals",
+      },
+    ],
     "typescript/no-unnecessary-parameter-property-assignment": "deny",
     "typescript/no-unnecessary-template-expression": "deny",
     "typescript/no-unnecessary-type-arguments": "deny",
@@ -1290,11 +1678,31 @@ exports[`print-config snapshots > nextjs 1`] = `
     "typescript/require-array-sort-compare": "deny",
     "typescript/require-await": "deny",
     "typescript/restrict-plus-operands": "deny",
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/return-await": "deny",
-    "typescript/strict-boolean-expressions": "deny",
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowNullish": false,
+      },
+    ],
+    "typescript/return-await": [
+      "deny",
+      "in-try-catch",
+    ],
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+      },
+    ],
     "typescript/strict-void-return": "allow",
-    "typescript/switch-exhaustiveness-check": "deny",
+    "typescript/switch-exhaustiveness-check": [
+      "deny",
+      {
+        "considerDefaultExhaustiveForUnions": true,
+      },
+    ],
     "typescript/triple-slash-reference": "deny",
     "typescript/unbound-method": "deny",
     "typescript/unified-signatures": "deny",
@@ -1303,11 +1711,24 @@ exports[`print-config snapshots > nextjs 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+        "ignore": [
+          "^\\[.+\\]",
+        ],
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
@@ -1445,7 +1866,15 @@ exports[`print-config snapshots > nextjs 1`] = `
 
 exports[`print-config snapshots > react 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -1471,10 +1900,19 @@ exports[`print-config snapshots > react 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
-    "import/consistent-type-specifier-style": "deny",
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level",
+    ],
     "import/default": "allow",
     "import/first": "deny",
     "import/max-dependencies": "allow",
@@ -1490,7 +1928,23 @@ exports[`print-config snapshots > react 1`] = `
     "import/no-self-import": "deny",
     "import/no-unassigned-import": "allow",
     "jsx_a11y/alt-text": "deny",
-    "jsx_a11y/anchor-ambiguous-text": "warn",
+    "jsx_a11y/anchor-ambiguous-text": [
+      "warn",
+      {
+        "words": [
+          "click here",
+          "here",
+          "link",
+          "a link",
+          "learn more",
+          "こちら",
+          "ここ",
+          "詳細",
+          "詳しくはこちら",
+          "もっと見る",
+        ],
+      },
+    ],
     "jsx_a11y/anchor-has-content": "deny",
     "jsx_a11y/anchor-is-valid": "deny",
     "jsx_a11y/aria-activedescendant-has-tabindex": "deny",
@@ -1500,7 +1954,35 @@ exports[`print-config snapshots > react 1`] = `
     "jsx_a11y/aria-unsupported-elements": "deny",
     "jsx_a11y/autocomplete-valid": "deny",
     "jsx_a11y/click-events-have-key-events": "warn",
-    "jsx_a11y/control-has-associated-label": "deny",
+    "jsx_a11y/control-has-associated-label": [
+      "deny",
+      {
+        "ignoreElements": [
+          "audio",
+          "canvas",
+          "embed",
+          "input",
+          "textarea",
+          "tr",
+          "video",
+          "td",
+          "th",
+        ],
+        "ignoreRoles": [
+          "grid",
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "row",
+          "tablist",
+          "toolbar",
+          "tree",
+          "treegrid",
+          "separator",
+        ],
+      },
+    ],
     "jsx_a11y/heading-has-content": "deny",
     "jsx_a11y/html-has-lang": "deny",
     "jsx_a11y/iframe-has-title": "deny",
@@ -1516,7 +1998,48 @@ exports[`print-config snapshots > react 1`] = `
     "jsx_a11y/no-distracting-elements": "deny",
     "jsx_a11y/no-interactive-element-to-noninteractive-role": "deny",
     "jsx_a11y/no-noninteractive-element-interactions": "warn",
-    "jsx_a11y/no-noninteractive-element-to-interactive-role": "deny",
+    "jsx_a11y/no-noninteractive-element-to-interactive-role": [
+      "deny",
+      {
+        "fieldset": [
+          "radiogroup",
+          "presentation",
+        ],
+        "li": [
+          "menuitem",
+          "menuitemradio",
+          "menuitemcheckbox",
+          "option",
+          "row",
+          "tab",
+          "treeitem",
+        ],
+        "ol": [
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "tablist",
+          "tree",
+          "treegrid",
+        ],
+        "table": [
+          "grid",
+        ],
+        "td": [
+          "gridcell",
+        ],
+        "ul": [
+          "listbox",
+          "menu",
+          "menubar",
+          "radiogroup",
+          "tablist",
+          "tree",
+          "treegrid",
+        ],
+      },
+    ],
     "jsx_a11y/no-noninteractive-tabindex": "warn",
     "jsx_a11y/no-redundant-roles": "deny",
     "jsx_a11y/no-static-element-interactions": "warn",
@@ -1540,7 +2063,15 @@ exports[`print-config snapshots > react 1`] = `
     "no-class-assign": "deny",
     "no-compare-neg-zero": "deny",
     "no-cond-assign": "deny",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+        ],
+      },
+    ],
     "no-const-assign": "deny",
     "no-constant-binary-expression": "deny",
     "no-constant-condition": "deny",
@@ -1632,7 +2163,12 @@ exports[`print-config snapshots > react 1`] = `
     "no-warning-comments": "allow",
     "no-with": "deny",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -1656,19 +2192,46 @@ exports[`print-config snapshots > react 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "allow",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "warn",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -1687,13 +2250,27 @@ exports[`print-config snapshots > react 1`] = `
     "react/exhaustive-effect-dependencies": "allow",
     "react/forward-ref-uses-ref": "deny",
     "react/globals": "deny",
-    "react/hook-use-state": "warn",
+    "react/hook-use-state": [
+      "warn",
+      {
+        "allowDestructuredState": true,
+      },
+    ],
     "react/hooks": "allow",
     "react/iframe-missing-sandbox": "warn",
     "react/immutability": "deny",
     "react/incompatible-library": "warn",
-    "react/jsx-boolean-value": "deny",
-    "react/jsx-curly-brace-presence": "deny",
+    "react/jsx-boolean-value": [
+      "deny",
+      "never",
+    ],
+    "react/jsx-curly-brace-presence": [
+      "deny",
+      {
+        "children": "never",
+        "props": "never",
+      },
+    ],
     "react/jsx-fragments": "deny",
     "react/jsx-key": "deny",
     "react/jsx-no-comment-textnodes": "deny",
@@ -1748,23 +2325,59 @@ exports[`print-config snapshots > react 1`] = `
     "sort-vars": "allow",
     "symbol-description": "deny",
     "typescript/adjacent-overload-signatures": "deny",
-    "typescript/array-type": "deny",
+    "typescript/array-type": [
+      "deny",
+      {
+        "default": "array-simple",
+      },
+    ],
     "typescript/await-thenable": "deny",
-    "typescript/ban-ts-comment": "deny",
+    "typescript/ban-ts-comment": [
+      "deny",
+      {
+        "minimumDescriptionLength": 10,
+        "ts-check": false,
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+      },
+    ],
     "typescript/ban-types": "allow",
-    "typescript/consistent-generic-constructors": "deny",
-    "typescript/consistent-indexed-object-style": "deny",
+    "typescript/consistent-generic-constructors": [
+      "deny",
+      "constructor",
+    ],
+    "typescript/consistent-indexed-object-style": [
+      "deny",
+      "record",
+    ],
     "typescript/consistent-return": "allow",
-    "typescript/consistent-type-assertions": "deny",
-    "typescript/consistent-type-definitions": "deny",
+    "typescript/consistent-type-assertions": [
+      "deny",
+      {
+        "assertionStyle": "as",
+      },
+    ],
+    "typescript/consistent-type-definitions": [
+      "deny",
+      "type",
+    ],
     "typescript/consistent-type-exports": "deny",
     "typescript/consistent-type-imports": "deny",
     "typescript/dot-notation": "deny",
-    "typescript/method-signature-style": "deny",
+    "typescript/method-signature-style": [
+      "deny",
+      "property",
+    ],
     "typescript/no-array-delete": "deny",
     "typescript/no-base-to-string": "deny",
     "typescript/no-confusing-non-null-assertion": "deny",
-    "typescript/no-confusing-void-expression": "deny",
+    "typescript/no-confusing-void-expression": [
+      "deny",
+      {
+        "ignoreArrowShorthand": true,
+      },
+    ],
     "typescript/no-deprecated": "warn",
     "typescript/no-duplicate-enum-values": "deny",
     "typescript/no-duplicate-type-constituents": "deny",
@@ -1782,7 +2395,14 @@ exports[`print-config snapshots > react 1`] = `
     "typescript/no-invalid-void-type": "deny",
     "typescript/no-meaningless-void-operator": "deny",
     "typescript/no-misused-new": "deny",
-    "typescript/no-misused-promises": "deny",
+    "typescript/no-misused-promises": [
+      "deny",
+      {
+        "checksVoidReturn": {
+          "attributes": false,
+        },
+      },
+    ],
     "typescript/no-misused-spread": "deny",
     "typescript/no-mixed-enums": "deny",
     "typescript/no-namespace": "deny",
@@ -1793,7 +2413,12 @@ exports[`print-config snapshots > react 1`] = `
     "typescript/no-require-imports": "deny",
     "typescript/no-this-alias": "deny",
     "typescript/no-unnecessary-boolean-literal-compare": "deny",
-    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-condition": [
+      "deny",
+      {
+        "allowConstantLoopConditions": "only-allowed-literals",
+      },
+    ],
     "typescript/no-unnecessary-parameter-property-assignment": "deny",
     "typescript/no-unnecessary-template-expression": "deny",
     "typescript/no-unnecessary-type-arguments": "deny",
@@ -1836,11 +2461,31 @@ exports[`print-config snapshots > react 1`] = `
     "typescript/require-array-sort-compare": "deny",
     "typescript/require-await": "deny",
     "typescript/restrict-plus-operands": "deny",
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/return-await": "deny",
-    "typescript/strict-boolean-expressions": "deny",
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowNullish": false,
+      },
+    ],
+    "typescript/return-await": [
+      "deny",
+      "in-try-catch",
+    ],
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+      },
+    ],
     "typescript/strict-void-return": "allow",
-    "typescript/switch-exhaustiveness-check": "deny",
+    "typescript/switch-exhaustiveness-check": [
+      "deny",
+      {
+        "considerDefaultExhaustiveForUnions": true,
+      },
+    ],
     "typescript/triple-slash-reference": "deny",
     "typescript/unbound-method": "deny",
     "typescript/unified-signatures": "deny",
@@ -1849,11 +2494,21 @@ exports[`print-config snapshots > react 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
@@ -1991,7 +2646,15 @@ exports[`print-config snapshots > react 1`] = `
 
 exports[`print-config snapshots > test 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -2052,12 +2715,10 @@ exports[`print-config snapshots > test 1`] = `
         "vitest/require-mock-type-parameters": "allow",
         "vitest/valid-title": [
           "deny",
-          [
-            {
-              "ignoreTypeOfDescribeName": true,
-              "ignoreTypeOfTestName": true,
-            },
-          ],
+          {
+            "ignoreTypeOfDescribeName": true,
+            "ignoreTypeOfTestName": true,
+          },
         ],
         "vitest/warn-todo": "warn",
       },
@@ -2078,10 +2739,19 @@ exports[`print-config snapshots > test 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
-    "import/consistent-type-specifier-style": "deny",
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level",
+    ],
     "import/default": "allow",
     "import/first": "deny",
     "import/max-dependencies": "allow",
@@ -2111,7 +2781,15 @@ exports[`print-config snapshots > test 1`] = `
     "no-class-assign": "deny",
     "no-compare-neg-zero": "deny",
     "no-cond-assign": "deny",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+        ],
+      },
+    ],
     "no-const-assign": "deny",
     "no-constant-binary-expression": "deny",
     "no-constant-condition": "deny",
@@ -2203,7 +2881,12 @@ exports[`print-config snapshots > test 1`] = `
     "no-warning-comments": "allow",
     "no-with": "deny",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -2227,19 +2910,46 @@ exports[`print-config snapshots > test 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "allow",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "warn",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -2255,23 +2965,59 @@ exports[`print-config snapshots > test 1`] = `
     "sort-vars": "allow",
     "symbol-description": "deny",
     "typescript/adjacent-overload-signatures": "deny",
-    "typescript/array-type": "deny",
+    "typescript/array-type": [
+      "deny",
+      {
+        "default": "array-simple",
+      },
+    ],
     "typescript/await-thenable": "deny",
-    "typescript/ban-ts-comment": "deny",
+    "typescript/ban-ts-comment": [
+      "deny",
+      {
+        "minimumDescriptionLength": 10,
+        "ts-check": false,
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+      },
+    ],
     "typescript/ban-types": "allow",
-    "typescript/consistent-generic-constructors": "deny",
-    "typescript/consistent-indexed-object-style": "deny",
+    "typescript/consistent-generic-constructors": [
+      "deny",
+      "constructor",
+    ],
+    "typescript/consistent-indexed-object-style": [
+      "deny",
+      "record",
+    ],
     "typescript/consistent-return": "allow",
-    "typescript/consistent-type-assertions": "deny",
-    "typescript/consistent-type-definitions": "deny",
+    "typescript/consistent-type-assertions": [
+      "deny",
+      {
+        "assertionStyle": "as",
+      },
+    ],
+    "typescript/consistent-type-definitions": [
+      "deny",
+      "type",
+    ],
     "typescript/consistent-type-exports": "deny",
     "typescript/consistent-type-imports": "deny",
     "typescript/dot-notation": "deny",
-    "typescript/method-signature-style": "deny",
+    "typescript/method-signature-style": [
+      "deny",
+      "property",
+    ],
     "typescript/no-array-delete": "deny",
     "typescript/no-base-to-string": "deny",
     "typescript/no-confusing-non-null-assertion": "deny",
-    "typescript/no-confusing-void-expression": "deny",
+    "typescript/no-confusing-void-expression": [
+      "deny",
+      {
+        "ignoreArrowShorthand": true,
+      },
+    ],
     "typescript/no-deprecated": "warn",
     "typescript/no-duplicate-enum-values": "deny",
     "typescript/no-duplicate-type-constituents": "deny",
@@ -2300,7 +3046,12 @@ exports[`print-config snapshots > test 1`] = `
     "typescript/no-require-imports": "deny",
     "typescript/no-this-alias": "deny",
     "typescript/no-unnecessary-boolean-literal-compare": "deny",
-    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-condition": [
+      "deny",
+      {
+        "allowConstantLoopConditions": "only-allowed-literals",
+      },
+    ],
     "typescript/no-unnecessary-parameter-property-assignment": "deny",
     "typescript/no-unnecessary-template-expression": "deny",
     "typescript/no-unnecessary-type-arguments": "deny",
@@ -2343,11 +3094,31 @@ exports[`print-config snapshots > test 1`] = `
     "typescript/require-array-sort-compare": "deny",
     "typescript/require-await": "deny",
     "typescript/restrict-plus-operands": "deny",
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/return-await": "deny",
-    "typescript/strict-boolean-expressions": "deny",
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowNullish": false,
+      },
+    ],
+    "typescript/return-await": [
+      "deny",
+      "in-try-catch",
+    ],
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+      },
+    ],
     "typescript/strict-void-return": "allow",
-    "typescript/switch-exhaustiveness-check": "deny",
+    "typescript/switch-exhaustiveness-check": [
+      "deny",
+      {
+        "considerDefaultExhaustiveForUnions": true,
+      },
+    ],
     "typescript/triple-slash-reference": "deny",
     "typescript/unbound-method": "deny",
     "typescript/unified-signatures": "deny",
@@ -2356,11 +3127,21 @@ exports[`print-config snapshots > test 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
@@ -2498,7 +3279,15 @@ exports[`print-config snapshots > test 1`] = `
 
 exports[`print-config snapshots > typescript 1`] = `
 {
-  "categories": {},
+  "categories": {
+    "correctness": "deny",
+    "nursery": "allow",
+    "pedantic": "deny",
+    "perf": "deny",
+    "restriction": "allow",
+    "style": "allow",
+    "suspicious": "deny",
+  },
   "env": {
     "builtin": true,
   },
@@ -2522,10 +3311,19 @@ exports[`print-config snapshots > typescript 1`] = `
     "constructor-super": "deny",
     "default-case-last": "deny",
     "default-param-last": "deny",
-    "eqeqeq": "deny",
+    "eqeqeq": [
+      "deny",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
     "for-direction": "deny",
     "getter-return": "deny",
-    "import/consistent-type-specifier-style": "deny",
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level",
+    ],
     "import/default": "allow",
     "import/first": "deny",
     "import/max-dependencies": "allow",
@@ -2555,7 +3353,15 @@ exports[`print-config snapshots > typescript 1`] = `
     "no-class-assign": "deny",
     "no-compare-neg-zero": "deny",
     "no-cond-assign": "deny",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+        ],
+      },
+    ],
     "no-const-assign": "deny",
     "no-constant-binary-expression": "deny",
     "no-constant-condition": "deny",
@@ -2647,7 +3453,12 @@ exports[`print-config snapshots > typescript 1`] = `
     "no-warning-comments": "allow",
     "no-with": "deny",
     "object-shorthand": "deny",
-    "one-var": "deny",
+    "one-var": [
+      "deny",
+      {
+        "initialized": "never",
+      },
+    ],
     "oxc/approx-constant": "deny",
     "oxc/bad-array-method-on-arguments": "deny",
     "oxc/bad-bitwise-operator": "deny",
@@ -2671,19 +3482,46 @@ exports[`print-config snapshots > typescript 1`] = `
     "oxc/number-arg-out-of-range": "deny",
     "oxc/only-used-in-recursion": "deny",
     "oxc/uninvoked-array-callback": "deny",
-    "prefer-arrow-callback": "deny",
+    "prefer-arrow-callback": [
+      "deny",
+      {
+        "allowNamedFunctions": true,
+      },
+    ],
     "prefer-const": "deny",
-    "prefer-destructuring": "deny",
+    "prefer-destructuring": [
+      "deny",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
     "prefer-exponentiation-operator": "deny",
     "prefer-object-has-own": "deny",
     "prefer-object-spread": "deny",
     "prefer-promise-reject-errors": "allow",
-    "prefer-regex-literals": "deny",
+    "prefer-regex-literals": [
+      "deny",
+      {
+        "disallowRedundantWrapping": true,
+      },
+    ],
     "prefer-rest-params": "deny",
     "prefer-spread": "deny",
     "prefer-template": "deny",
     "preserve-caught-error": "deny",
-    "promise/always-return": "deny",
+    "promise/always-return": [
+      "deny",
+      {
+        "ignoreLastCallback": true,
+      },
+    ],
     "promise/no-callback-in-promise": "warn",
     "promise/no-multiple-resolved": "deny",
     "promise/no-nesting": "warn",
@@ -2699,23 +3537,59 @@ exports[`print-config snapshots > typescript 1`] = `
     "sort-vars": "allow",
     "symbol-description": "deny",
     "typescript/adjacent-overload-signatures": "deny",
-    "typescript/array-type": "deny",
+    "typescript/array-type": [
+      "deny",
+      {
+        "default": "array-simple",
+      },
+    ],
     "typescript/await-thenable": "deny",
-    "typescript/ban-ts-comment": "deny",
+    "typescript/ban-ts-comment": [
+      "deny",
+      {
+        "minimumDescriptionLength": 10,
+        "ts-check": false,
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+      },
+    ],
     "typescript/ban-types": "allow",
-    "typescript/consistent-generic-constructors": "deny",
-    "typescript/consistent-indexed-object-style": "deny",
+    "typescript/consistent-generic-constructors": [
+      "deny",
+      "constructor",
+    ],
+    "typescript/consistent-indexed-object-style": [
+      "deny",
+      "record",
+    ],
     "typescript/consistent-return": "allow",
-    "typescript/consistent-type-assertions": "deny",
-    "typescript/consistent-type-definitions": "deny",
+    "typescript/consistent-type-assertions": [
+      "deny",
+      {
+        "assertionStyle": "as",
+      },
+    ],
+    "typescript/consistent-type-definitions": [
+      "deny",
+      "type",
+    ],
     "typescript/consistent-type-exports": "deny",
     "typescript/consistent-type-imports": "deny",
     "typescript/dot-notation": "deny",
-    "typescript/method-signature-style": "deny",
+    "typescript/method-signature-style": [
+      "deny",
+      "property",
+    ],
     "typescript/no-array-delete": "deny",
     "typescript/no-base-to-string": "deny",
     "typescript/no-confusing-non-null-assertion": "deny",
-    "typescript/no-confusing-void-expression": "deny",
+    "typescript/no-confusing-void-expression": [
+      "deny",
+      {
+        "ignoreArrowShorthand": true,
+      },
+    ],
     "typescript/no-deprecated": "warn",
     "typescript/no-duplicate-enum-values": "deny",
     "typescript/no-duplicate-type-constituents": "deny",
@@ -2744,7 +3618,12 @@ exports[`print-config snapshots > typescript 1`] = `
     "typescript/no-require-imports": "deny",
     "typescript/no-this-alias": "deny",
     "typescript/no-unnecessary-boolean-literal-compare": "deny",
-    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-condition": [
+      "deny",
+      {
+        "allowConstantLoopConditions": "only-allowed-literals",
+      },
+    ],
     "typescript/no-unnecessary-parameter-property-assignment": "deny",
     "typescript/no-unnecessary-template-expression": "deny",
     "typescript/no-unnecessary-type-arguments": "deny",
@@ -2787,11 +3666,31 @@ exports[`print-config snapshots > typescript 1`] = `
     "typescript/require-array-sort-compare": "deny",
     "typescript/require-await": "deny",
     "typescript/restrict-plus-operands": "deny",
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/return-await": "deny",
-    "typescript/strict-boolean-expressions": "deny",
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowNullish": false,
+      },
+    ],
+    "typescript/return-await": [
+      "deny",
+      "in-try-catch",
+    ],
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+      },
+    ],
     "typescript/strict-void-return": "allow",
-    "typescript/switch-exhaustiveness-check": "deny",
+    "typescript/switch-exhaustiveness-check": [
+      "deny",
+      {
+        "considerDefaultExhaustiveForUnions": true,
+      },
+    ],
     "typescript/triple-slash-reference": "deny",
     "typescript/unbound-method": "deny",
     "typescript/unified-signatures": "deny",
@@ -2800,11 +3699,21 @@ exports[`print-config snapshots > typescript 1`] = `
     "unicorn/consistent-date-clone": "deny",
     "unicorn/consistent-empty-array-spread": "deny",
     "unicorn/consistent-existence-index-check": "deny",
-    "unicorn/consistent-function-scoping": "deny",
+    "unicorn/consistent-function-scoping": [
+      "deny",
+      {
+        "checkArrowFunctions": false,
+      },
+    ],
     "unicorn/error-message": "deny",
     "unicorn/escape-case": "deny",
     "unicorn/explicit-length-check": "allow",
-    "unicorn/filename-case": "deny",
+    "unicorn/filename-case": [
+      "deny",
+      {
+        "case": "kebabCase",
+      },
+    ],
     "unicorn/new-for-builtins": "deny",
     "unicorn/no-abusive-eslint-disable": "deny",
     "unicorn/no-accessor-recursion": "deny",
