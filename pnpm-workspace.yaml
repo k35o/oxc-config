@@ -25,11 +25,11 @@ versioning:
   changelog:
     storage: repository
 
-# vite-plus は oxlint / oxfmt / oxlint-tsgolint を process.cwd() 起点の
-# require.resolve で探し、見つからなければ親ディレクトリを登り続ける。
+# vite-plus は oxlint / oxfmt を process.cwd() 起点の require.resolve で探し、
+# 見つからなければ親ディレクトリを登り続ける。
 # .claude/worktrees/ 配下では親チェックアウトの別バージョンを先に拾うため、
 # プロジェクト直下に実体へのリンクを置いて、そこで解決を止める。
+# tsrs は vite-plus 自身の場所から先に解決されるので、ここには要らない。
 publicHoistPattern:
   - oxlint
   - oxfmt
-  - oxlint-tsgolint
