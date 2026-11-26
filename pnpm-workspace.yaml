@@ -33,3 +33,8 @@ versioning:
 publicHoistPattern:
   - oxlint
   - oxfmt
+
+# tsrs は仮置きの 0.0.0-bootstrap.0 だけが staged publish で、以降の CI 公開
+# （trusted publishing）がすべて格下げ扱いになる。乗っ取りではなく公開方式の差。
+trustPolicyExclude:
+  - tsrs
